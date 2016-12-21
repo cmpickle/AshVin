@@ -8,6 +8,7 @@
 package com.pickle.ashvin;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.View;
@@ -26,6 +27,7 @@ public class GameOverDialog extends Dialog {
     
     /** The game that invokes this dialog */
     private Game game;
+    private View view;
     
     private TextView tvCurrentScoreVal;
     private TextView tvBestScoreVal;
@@ -36,6 +38,17 @@ public class GameOverDialog extends Dialog {
         this.setContentView(R.layout.gameover);
         this.setCancelable(false);
         
+        tvCurrentScoreVal = (TextView) findViewById(R.id.tv_current_score_value);
+        tvBestScoreVal = (TextView) findViewById(R.id.tv_best_score_value);
+    }
+
+    public GameOverDialog(Game game, View view) {
+        super(game);
+        this.game = game;
+        this.view = view;
+        this.setContentView(R.layout.gameover);
+        this.setCancelable(false);
+
         tvCurrentScoreVal = (TextView) findViewById(R.id.tv_current_score_value);
         tvBestScoreVal = (TextView) findViewById(R.id.tv_best_score_value);
     }
@@ -53,6 +66,7 @@ public class GameOverDialog extends Dialog {
                 
                 dismiss();
                 game.finish();
+                view.invalidate();
             }
         });
 

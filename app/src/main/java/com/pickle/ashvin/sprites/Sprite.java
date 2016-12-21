@@ -174,7 +174,7 @@ public abstract class Sprite {
      * @return
      */
     public boolean isTouchingGround(){
-        return this.y + this.height > this.view.getHeight() - this.view.getHeight() * Frontground.GROUND_HEIGHT;
+        return this.y + this.height > this.view.getHeight() - this.view.getHeight() * Foreground.GROUND_HEIGHT;
     }
     
     /**

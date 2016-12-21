@@ -7,6 +7,7 @@
 
 package com.pickle.ashvin;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -18,6 +19,9 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 public class Game extends FragmentActivity {
+
+    public static final String KEY_EXTRA = "com.pickle.ashvin.KEY_LEVEL";
+
     /** Name of the SharedPreference that saves the medals */
     public static final String coin_save = "coin_save";
     
@@ -29,6 +33,8 @@ public class Game extends FragmentActivity {
 
     /** Counts number of played games */
     private static int gameOverCounter = 1;
+
+    private int level = 0;
     
     /**
      * Will play songs like:
@@ -72,9 +78,14 @@ public class Game extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle b = getIntent().getExtras();
+        level = b.getInt(KEY_EXTRA);
+
         accomplishmentBox = new AccomplishmentBox();
-        view = new GameView(this);
-        gameOverDialog = new GameOverDialog(this);
+        view = null;
+        view = new GameView(this, level);
+        gameOverDialog = new GameOverDialog(this, view);
         handler = new MyHandler(this);
         setContentView(view);
         initMusicPlayer();

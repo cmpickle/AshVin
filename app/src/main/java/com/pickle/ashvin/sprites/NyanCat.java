@@ -23,7 +23,7 @@ public class NyanCat extends PlayableCharacter {
     public static Bitmap globalBitmap;
     
     /** The rainbow tail behind the cat */
-    private Rainbow rainbow;
+    private Fart rainbow;
     
     public NyanCat(GameView view, Game game) {
         super(view, game);
@@ -35,7 +35,7 @@ public class NyanCat extends PlayableCharacter {
         this.height = this.bitmap.getHeight()/2;
         this.y = game.getResources().getDisplayMetrics().heightPixels / 2;
         
-        this.rainbow = new Rainbow(view, game);
+        this.rainbow = new Fart(view, game);
     }
     
     /**
