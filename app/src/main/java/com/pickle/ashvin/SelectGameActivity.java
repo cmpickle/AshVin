@@ -1,11 +1,16 @@
+/**
+ * Select Game Activity
+ *
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
+ */
+
 package com.pickle.ashvin;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-
-/**
- * Created by cmpic_000 on 12/17/2016.
- */
 
 public class SelectGameActivity extends FragmentActivity {
 

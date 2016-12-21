@@ -2,8 +2,10 @@
  * GameView
  * Probably the most important class for the game
  * 
- * @author Lars Harmsen
- * Copyright (c) <2014> <Lars Harmsen - Quchen>
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
  */
 
 package com.pickle.ashvin;
@@ -18,7 +20,7 @@ import com.pickle.ashvin.sprites.Background;
 import com.pickle.ashvin.sprites.Coin;
 import com.pickle.ashvin.sprites.Pickle;
 import com.pickle.ashvin.sprites.Foreground;
-import com.pickle.ashvin.sprites.NyanCat;
+import com.pickle.ashvin.sprites.FartPickle;
 import com.pickle.ashvin.sprites.Obstacle;
 import com.pickle.ashvin.sprites.PauseButton;
 import com.pickle.ashvin.sprites.PlayableCharacter;
@@ -266,7 +268,7 @@ public class GameView extends SurfaceView{
      */
     private void createPowerUp(){
         // Toast
-        if(game.accomplishmentBox.points >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(player instanceof NyanCat)){
+        if(game.accomplishmentBox.points >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(player instanceof FartPickle)){
             // If no powerUp is present and you have more than / equal 42 points
             if(game.accomplishmentBox.points == Toast.POINTS_TO_TOAST){    // First time 100 % chance
                 powerUps.add(new Toast(this, game));
@@ -361,7 +363,7 @@ public class GameView extends SurfaceView{
         game.handler.sendMessage(Message.obtain(game.handler,1,R.string.toast_achievement_toastification, MyHandler.SHOW_TOAST));
         
         PlayableCharacter tmp = this.player;
-        this.player = new NyanCat(this, game);
+        this.player = new FartPickle(this, game);
         this.player.setX(tmp.getX());
         this.player.setY(tmp.getY());
         this.player.setSpeedX(tmp.getSpeedX());

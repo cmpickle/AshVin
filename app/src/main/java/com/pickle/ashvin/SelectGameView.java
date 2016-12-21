@@ -1,3 +1,12 @@
+/**
+ * Select Game View
+ *
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
+ */
+
 package com.pickle.ashvin;
 
 import android.app.Activity;
@@ -7,10 +16,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
-
-/**
- * Created by cmpickle on 12/16/16.
- */
 
 public class SelectGameView extends View {
 
