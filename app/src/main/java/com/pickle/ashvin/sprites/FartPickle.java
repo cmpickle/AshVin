@@ -1,10 +1,10 @@
 /**
- * Nyan Cat character
- * 
- * @author Lars Harmsen
- * Copyright (c) <2014> <Lars Harmsen - Quchen>
- * 
- * Nyan Cat was drawn by Christopher Torres and momo momo remixed the music by daniwell
+ * Fart Pickle Character
+ *
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
  */
 
 package com.pickle.ashvin.sprites;
@@ -17,71 +17,71 @@ import com.pickle.ashvin.Util;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-public class NyanCat extends PlayableCharacter {
+public class FartPickle extends PlayableCharacter {
     
     /** Static bitmap to reduce memory usage */
     public static Bitmap globalBitmap;
     
-    /** The rainbow tail behind the cat */
-    private Fart rainbow;
+    /** The fart tail behind the pickle */
+    private Fart fart;
     
-    public NyanCat(GameView view, Game game) {
+    public FartPickle(GameView view, Game game) {
         super(view, game);
         if(globalBitmap == null){
-            globalBitmap = Util.getScaledBitmapAlpha8(game, R.drawable.nyan_cat);
+            globalBitmap = Util.getScaledBitmapAlpha8(game, R.drawable.fart_pickle);
         }
         this.bitmap = globalBitmap;
         this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight()/2;
         this.y = game.getResources().getDisplayMetrics().heightPixels / 2;
         
-        this.rainbow = new Fart(view, game);
+        this.fart = new Fart(view, game);
     }
     
     /**
      * Moves itself via super.move
-     * and moves the rainbow and manages its frames
+     * and moves the fart and manages its frames
      */
     @Override
     public void move(){
         super.move();
         
-        if(rainbow != null){
-            manageRainbowMovement();            
+        if(fart != null){
+            manageFartMovement();
         }
     }
     
-    private void manageRainbowMovement(){
-        rainbow.y = this.y;        // nyan cat and rainbow bitmap have the same height
-        rainbow.x = this.x - rainbow.width;
-        rainbow.move();
+    private void manageFartMovement(){
+        fart.y = this.y;        // FartPickle and fart bitmap have the same height
+        fart.x = this.x - fart.width;
+        fart.move();
         
-        // manage frames of the rainbow
+        // manage frames of the fart
         if(speedY > getTabSpeed() / 3 && speedY < getMaxSpeed() * 1/3){
-            rainbow.row = 0;
+            fart.row = 0;
         }else if(speedY > 0){
-            rainbow.row = 1;
+            fart.row = 1;
         }else{
-            rainbow.row = 2;
+            fart.row = 2;
         }
     }
 
     /**
      * Draws itself via super.draw
-     * and the rainbow.
+     * and the fart.
      */
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        if(rainbow != null && !isDead){
-            rainbow.draw(canvas);
+        if(fart != null && !isDead){
+            fart.draw(canvas);
         }
     }
 
     /**
      * Calls super.dead,
-     * removes the rainbow tail
-     * and set the bitmapframe to a dead cat -.-
+     * removes the fart tail
+     * and set the bitmapframe to a dead pickle
      */
     @Override
     public void dead() {
@@ -94,7 +94,7 @@ public class NyanCat extends PlayableCharacter {
     @Override
     public void revive() {
         super.revive();
-        manageRainbowMovement();
+        manageFartMovement();
     }
 
 }

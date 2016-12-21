@@ -2,8 +2,10 @@
  * Saves achievements and score in shared preferences.
  * You should use a SQLite DB instead, but I'm too lazy to chance it now.
  * 
- * @author Lars Harmsen
- * Copyright (c) <2014> <Lars Harmsen - Quchen>
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
  */
 
 package com.pickle.ashvin;
