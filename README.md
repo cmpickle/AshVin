@@ -6,7 +6,7 @@ Farting Pickles
 
 
 #### Screenshot
-![Splashscreen Farting Pickles](/graphics/splash_web.png) ![Sceenshot Farting Pickles](/graphics/screenshots/Screenshot_2.png)
+![Splashscreen Farting Pickles](/graphics/screenshots/splash.png) ![Sceenshot Farting Pickles](/graphics/screenshots/Screenshot_2.png)
 
 
 ## How-to play
