@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    @author Cameron Pickle
+    @author Nathan Pickle
+    Copyright (c) <2016> <Cameron Pickle - cmpickle>
+    Copyright (c) <2016> <Nathan Pickle - n8pickle>
+-->
+<resources>
+    <string name="current_score">Puntuación Actuales</string>
+    <string name="best_score">Mejor Puntuación</string>
+    <string name="medaille">Medalla</string>
+    <string name="play_button">Empezar a Jugar</string>
+    <string name="about_button">Sobre</string>
+    <string name="about_back_button">Atras</string>
+    <string name="revive_button">Revivir para</string>
+    <string name="revive_notice">Puntuacion no sera añadida a tabla de clasificacion</string>
+    <string name="coins">Monedas</string>
+    <string name="mute_button">Mudo</string>
+    <string name="developer">Desarolladores: \nCameron Pickle \nNathan Pickle</string>
+    <string name="graphics">Graficos: \nCameron Pickle \nNathan Pickle</string>
+    <string name="source_code">Obtener el codigo de fuente aqui:\nhttps://github.com/cmpickle/AshVin</string>
+    <string name="onscreen_score_text">Puntuación:</string>
+    <string name="onscreen_coin_text">Monedas:</string>
+    <string name="on_back_press">Pulsa el boton de regresar de vuelta para terminar la aplicacion</string>
+    <string name="toast_achievement_50_coins">Logramiento Obtenido: 50 Monedas</string>
+    <string name="toast_achievement_toastification">Logramiento Obtenido: Toastificacion</string>
+    <string name="toast_achievement_bronze">Logramiento Obtenido: Bronce</string>
+    <string name="toast_achievement_silver">Logramiento Obtenido: Plata</string>
+    <string name="toast_achievement_gold">Logramiento Obtenido: Oro</string>
+</resources>

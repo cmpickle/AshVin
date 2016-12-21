@@ -17,7 +17,7 @@ import com.pickle.ashvin.Game.MyHandler;
 import com.pickle.ashvin.sprites.Background;
 import com.pickle.ashvin.sprites.Coin;
 import com.pickle.ashvin.sprites.Pickle;
-import com.pickle.ashvin.sprites.Frontground;
+import com.pickle.ashvin.sprites.Foreground;
 import com.pickle.ashvin.sprites.NyanCat;
 import com.pickle.ashvin.sprites.Obstacle;
 import com.pickle.ashvin.sprites.PauseButton;
@@ -49,7 +49,7 @@ public class GameView extends SurfaceView{
     private Game game;
     private PlayableCharacter player;
     private Background background;
-    private Frontground frontground;
+    private Foreground frontground;
     private List<Obstacle> obstacles = new ArrayList<Obstacle>();
     private List<PowerUp> powerUps = new ArrayList<PowerUp>();
     
@@ -59,18 +59,18 @@ public class GameView extends SurfaceView{
     private Tutorial tutorial;
     private boolean tutorialIsShown = true;
 
-    public GameView(Context context) {
-        super(context);
-        this.game = (Game) context;
-        setFocusable(true);
-
-        holder = getHolder();
-        player = new Pickle(this, game);
-        background = new Background(this, game);
-        frontground = new Frontground(this, game);
-        pauseButton = new PauseButton(this, game);
-        tutorial = new Tutorial(this, game);
-    }
+//    public GameView(Context context) {
+//        super(context);
+//        this.game = (Game) context;
+//        setFocusable(true);
+//
+//        holder = getHolder();
+//        player = new Pickle(this, game);
+//        background = new Background(this, game);
+//        frontground = new Foreground(this, game);
+//        pauseButton = new PauseButton(this, game);
+//        tutorial = new Tutorial(this, game);
+//    }
 
     public GameView(Context context, int level) {
         super(context);
@@ -80,7 +80,7 @@ public class GameView extends SurfaceView{
         holder = getHolder();
         player = new Pickle(this, game);
         background = new Background(this, game, level);
-        frontground = new Frontground(this, game, level);
+        frontground = new Foreground(this, game, level);
         pauseButton = new PauseButton(this, game);
         tutorial = new Tutorial(this, game);
     }

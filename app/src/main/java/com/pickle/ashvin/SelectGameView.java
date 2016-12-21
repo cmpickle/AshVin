@@ -16,12 +16,14 @@ public class SelectGameView extends View {
 
     private static Bitmap splash = null;
     private static Bitmap play = null;
+    private static Bitmap play2 = null;
     private static Bitmap speaker = null;
     private static Bitmap info = null;
     private static Bitmap socket = null;
 
     // Button regions: left, top, right, bottom
     private final static float[] REGION_PLAY = {169/720.0f, 515/1280f, 553/720.0f, 699/1280.0f};
+    private final static float[] REGION_PLAY2 = {169/720.0f, 715/1280f, 553/720.0f, 899/1280.0f};
     private final static float[] REGION_INFO = {585/720.0f, 1141/1280f, 700/720.0f, 1256/1280.0f};
     private final static float[] REGION_SPEAKER = {25/720.0f, 1140/1280f, 140/720.0f, 1255/1280.0f};
     private final static float[] REGION_SOCKET = {233/720.0f, 1149/1280f, 487/720.0f, 1248/1280.0f};
@@ -29,7 +31,9 @@ public class SelectGameView extends View {
     private Rect dstSplash;
     private Rect srcSplash;
     private Rect dstPlay;
+    private Rect dstPlay2;
     private Rect srcPlay;
+    private Rect srcPlay2;
     private Rect dstSpeaker;
     private Rect srcSpeaker;
     private Rect dstInfo;
@@ -37,16 +41,19 @@ public class SelectGameView extends View {
     private Rect dstSocket;
     private Rect srcSocket;
 
-    private MainActivity mainActivity;
+    private SelectGameActivity selectActivity;
 
-    public SelectGameView(MainActivity context) {
+    public SelectGameView(SelectGameActivity context) {
         super(context);
-        this.mainActivity = context;
+        this.selectActivity = context;
         if(splash == null) {
-            splash = Util.getBitmapAlpha8(mainActivity, R.drawable.splash);
+            splash = Util.getBitmapAlpha8(selectActivity, R.drawable.splash);
         }
         if(play == null) {
-            play = Util.getBitmapAlpha8(mainActivity, R.drawable.play_button);
+            play = Util.getBitmapAlpha8(selectActivity, R.drawable.play_button);
+        }
+        if(play2 == null) {
+            play2 = Util.getBitmapAlpha8(selectActivity, R.drawable.play_button);
         }
 
         setWillNotDraw(false);
@@ -56,6 +63,7 @@ public class SelectGameView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(splash, srcSplash, dstSplash, null);
         canvas.drawBitmap(play, srcPlay, dstPlay, null);
+        canvas.drawBitmap(play2, srcPlay2, dstPlay2, null);
     }
 
     @Override
@@ -71,6 +79,10 @@ public class SelectGameView extends View {
                 (int)(getHeight()*REGION_PLAY[1]),
                 (int)(getWidth()*REGION_PLAY[2]),
                 (int)(getHeight()*REGION_PLAY[3]));
+        dstPlay2 = new Rect(    (int)(getWidth()*REGION_PLAY2[0]),
+                (int)(getHeight()*REGION_PLAY2[1]),
+                (int)(getWidth()*REGION_PLAY2[2]),
+                (int)(getHeight()*REGION_PLAY2[3]));
     }
 
     @Override
@@ -80,7 +92,15 @@ public class SelectGameView extends View {
         {
             if((event.getX() > REGION_PLAY[0] * getWidth()) && (event.getX() < REGION_PLAY[2] * getWidth()) && (event.getY() > REGION_PLAY[1] * getHeight()) && (event.getY() < REGION_PLAY[3] * getHeight()))
             {
-                mainActivity.startActivity(new Intent("com.pickle.ashvin.Game"));
+                Intent intent = new Intent("com.pickle.ashvin.Game");
+                intent.putExtra(Game.KEY_EXTRA, 0);
+                selectActivity.startActivity(intent);
+            }
+            if((event.getX() > REGION_PLAY2[0] * getWidth()) && (event.getX() < REGION_PLAY2[2] * getWidth()) && (event.getY() > REGION_PLAY2[1] * getHeight()) && (event.getY() < REGION_PLAY2[3] * getHeight()))
+            {
+                Intent intent = new Intent("com.pickle.ashvin.Game");
+                intent.putExtra(Game.KEY_EXTRA, 1);
+                selectActivity.startActivity(intent);
             }
         }
         return true;

@@ -1,5 +1,5 @@
 /**
- * An obstacle: spider + logHead
+ * An obstacle: laser + logHead
  * 
  * @author Lars Harmsen
  * Copyright (c) <2014> <Lars Harmsen - Quchen>
@@ -15,7 +15,7 @@ import com.pickle.ashvin.R;
 import android.graphics.Canvas;
 
 public class Obstacle extends Sprite{
-    private Lightsaber spider;
+    private Laser laser;
     private WoodLog log;
     
     private static int collideSound = -1;
@@ -26,7 +26,7 @@ public class Obstacle extends Sprite{
 
     public Obstacle(GameView view, Game game) {
         super(view, game);
-        spider = new Lightsaber(view, game);
+        laser = new Laser(view, game);
         log = new WoodLog(view, game);
         
         if(collideSound == -1){
@@ -40,73 +40,73 @@ public class Obstacle extends Sprite{
     }
     
     /**
-     * Creates a spider and a wooden log at the right of the screen.
+     * Creates a laser and a wooden log at the right of the screen.
      * With a certain gap between them.
      * The vertical position is in a certain area random.
      */
     private void initPos(){
         int height = game.getResources().getDisplayMetrics().heightPixels;
-        int gab = height / 4 - view.getSpeedX();
-        if(gab < height / 5){
-            gab = height / 5;
+        int gap = height / 4 - view.getSpeedX();
+        if(gap < height / 5){
+            gap = height / 5;
         }
         int random = (int) (Math.random() * height * 2 / 5);
-        int y1 = (height / 10) + random - spider.height;
-        int y2 = (height / 10) + random + gab;
+        int y1 = (height / 10) + random - laser.height;
+        int y2 = (height / 10) + random + gap;
         
-        spider.init(game.getResources().getDisplayMetrics().widthPixels, y1);
+        laser.init(game.getResources().getDisplayMetrics().widthPixels + 55, y1);
         log.init(game.getResources().getDisplayMetrics().widthPixels, y2);
     }
 
     /**
-     * Draws spider and log.
+     * Draws laser and log.
      */
     @Override
     public void draw(Canvas canvas) {
-        spider.draw(canvas);
+        laser.draw(canvas);
         log.draw(canvas);
     }
 
     /**
-     * Checks whether both, spider and log, are out of range.
+     * Checks whether both, laser and log, are out of range.
      */
     @Override
     public boolean isOutOfRange() {
-        return spider.isOutOfRange() && log.isOutOfRange();
+        return laser.isOutOfRange() && log.isOutOfRange();
     }
 
     /**
-     * Checks whether the spider or the log is colliding with the sprite.
+     * Checks whether the laser or the log is colliding with the sprite.
      */
     @Override
     public boolean isColliding(Sprite sprite) {
-        return spider.isColliding(sprite) || log.isColliding(sprite);
+        return laser.isColliding(sprite) || log.isColliding(sprite);
     }
 
     /**
-     * Moves both, spider and log.
+     * Moves both, laser and log.
      */
     @Override
     public void move() {
-        spider.move();
+        laser.move();
         log.move();
     }
 
     /**
-     * Sets the speed of the spider and the log.
+     * Sets the speed of the laser and the log.
      */
     @Override
     public void setSpeedX(float speedX) {
-        spider.setSpeedX(speedX);
+        laser.setSpeedX(speedX);
         log.setSpeedX(speedX);
     }
     
     /**
-     * Checks whether the spider and the log are passed.
+     * Checks whether the laser and the log are passed.
      */
     @Override
     public boolean isPassed(){
-        return spider.isPassed() && log.isPassed();
+        return laser.isPassed() && log.isPassed();
     }
     
     /**

@@ -1,8 +1,10 @@
 /**
  * Splashscreen with buttons.
  * 
- * @author Lars Harmsen
- * Copyright (c) <2014> <Lars Harmsen - Quchen>
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
  */
 package com.pickle.ashvin;
 
@@ -122,7 +124,8 @@ public class StartscreenView extends View{
                     && (event.getX() < REGION_PLAY[2] * getWidth())
                     && (event.getY() > REGION_PLAY[1] * getHeight())
                     && (event.getY() < REGION_PLAY[3] * getHeight()) ) {
-                mainActivity.startActivity(new Intent("com.pickle.ashvin.Game"));
+//                mainActivity.startActivity(new Intent("com.pickle.ashvin.Game"));
+                mainActivity.startActivity(new Intent("com.pickle.ashvin.SelectGame"));
             } else if(    (event.getX() > REGION_SPEAKER[0] * getWidth())
                     && (event.getX() < REGION_SPEAKER[2] * getWidth())
                     && (event.getY() > REGION_SPEAKER[1] * getHeight())
