@@ -20,6 +20,10 @@ public class MainActivity extends FragmentActivity {
     
     /** Key that saves the medal */
     public static final String medaille_key = "medaille_key";
+
+    public static final String LEVELS_UNLOCKED = "levels_unlocked";
+    public static final String LEVELS_KEY = "levels_key";
+    public static int levelsUnlocked = 0;
     
     public static final float DEFAULT_VOLUME = 0.3f;
     
@@ -31,6 +35,15 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences levels = this.getSharedPreferences(LEVELS_UNLOCKED, 0);
+        if(levels.contains(LEVELS_KEY)) {
+            levelsUnlocked = levels.getInt(LEVELS_KEY, 0);
+        } else {
+            SharedPreferences.Editor editor = levels.edit();
+            editor.putInt(LEVELS_KEY, levelsUnlocked);
+        }
+
         view = new StartscreenView(this);
         setContentView(view);
         setSocket();

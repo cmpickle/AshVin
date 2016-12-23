@@ -126,7 +126,7 @@ public class StartscreenView extends View{
                     && (event.getY() > REGION_PLAY[1] * getHeight())
                     && (event.getY() < REGION_PLAY[3] * getHeight()) ) {
 //                mainActivity.startActivity(new Intent("com.pickle.ashvin.Game"));
-                mainActivity.startActivity(new Intent("com.pickle.ashvin.SelectGame"));
+                mainActivity.startActivity(new Intent("com.pickle.ashvin.SelectLevelActivity"));
             } else if(    (event.getX() > REGION_SPEAKER[0] * getWidth())
                     && (event.getX() < REGION_SPEAKER[2] * getWidth())
                     && (event.getY() > REGION_SPEAKER[1] * getHeight())
