@@ -37,15 +37,7 @@ public class Game extends FragmentActivity {
     private static int gameOverCounter = 1;
 
     private int level = 0;
-    
-    /**
-     * Will play songs like:
-     * nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan
-     * nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan
-     * nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan
-     * nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan
-     * Does someone know the second verse ???
-     */
+
     public static MediaPlayer musicPlayer = null;
     
     /**
@@ -85,7 +77,6 @@ public class Game extends FragmentActivity {
         level = b.getInt(KEY_EXTRA);
 
         accomplishmentBox = new AccomplishmentBox();
-        view = null;
         view = new GameView(this, level);
         gameOverDialog = new GameOverDialog(this, view);
         handler = new MyHandler(this);

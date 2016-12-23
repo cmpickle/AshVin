@@ -9,15 +9,16 @@
 
 package com.pickle.ashvin;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class SelectGameView extends View {
+public class SelectGameView extends RecyclerView {
 
     private static Bitmap splash = null;
     private static Bitmap play = null;
@@ -51,6 +52,7 @@ public class SelectGameView extends View {
     public SelectGameView(SelectGameActivity context) {
         super(context);
         this.selectActivity = context;
+
         if(splash == null) {
             splash = Util.getBitmapAlpha8(selectActivity, R.drawable.splash);
         }
@@ -65,7 +67,7 @@ public class SelectGameView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    public void onDraw(Canvas canvas) {
         canvas.drawBitmap(splash, srcSplash, dstSplash, null);
         canvas.drawBitmap(play, srcPlay, dstPlay, null);
         canvas.drawBitmap(play2, srcPlay2, dstPlay2, null);

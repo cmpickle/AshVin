@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    @author Cameron Pickle
+    @author Nathan Pickle
+    Copyright (c) <2016> <Cameron Pickle - cmpickle>
+    Copyright (c) <2016> <Nathan Pickle - n8pickle>
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:padding="30dp" >
+
+    <TextView
+        android:id="@+id/tv_buy_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:text="@string/buy_level"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tv_level_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_buy_level"
+        android:layout_centerHorizontal="true"
+        android:text="@string/defaultcost"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/b_buy"
+        style="@style/PrettyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_level_cost"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/greybutton"
+        android:text="@string/buy" />
+
+    <Button
+        android:id="@+id/b_cancel"
+        style="@style/PrettyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/b_buy"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/greybutton"
+        android:text="@android:string/cancel" />
+
+</RelativeLayout>

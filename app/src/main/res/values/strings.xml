@@ -31,4 +31,7 @@
     <string name="toast_achievement_bronze">Achievement unlocked: Bronze</string>
     <string name="toast_achievement_silver">Achievement unlocked: Silver</string>
     <string name="toast_achievement_gold">Achievement unlocked: Gold</string>
+    <string name="buy">Buy</string>
+    <string name="buy_level">Do you want to buy the level?</string>
+    <string name="defaultcost">50 coins</string>
 </resources>

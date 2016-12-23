@@ -46,6 +46,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".SelectLevelActivity"
+            android:label="select_level"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.pickle.ashvin.SelectLevelActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         
         <activity
             android:name=".Game"
