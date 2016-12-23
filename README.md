@@ -6,19 +6,14 @@ Farting Pickles
 
 
 #### Screenshot
-![Sceenshot Farting Pickles](/graphics/splash.png) ![Sceenshot Farting Pickles](/graphics/screenshots/Screenshot_2.png)
+![Splashscreen Farting Pickles](/graphics/screenshots/splash.png) ![Sceenshot Farting Pickles](/graphics/screenshots/Screenshot_2.png)
 
 
 ## How-to play
 * Tap screen to increase altitude
-* Tap ad to increase money
 
 ## How-to use the code
 * Read the instruction from [INSTRUCTIONS file](/INSTRUCTIONS.md)
 
-## License 
-* [MIT](http://opensource.org/licenses/MIT), see [LICENSE file](/LICENSE)
-* Nyan Cat was drawn by Christopher Torres and もももも remixed the music by daniwell
-
 ## Version 
-* 3.0
+* 0.5
