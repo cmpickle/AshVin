@@ -17,6 +17,7 @@ import java.util.TimerTask;
 
 import com.pickle.ashvin.Game.MyHandler;
 import com.pickle.ashvin.sprites.Background;
+import com.pickle.ashvin.sprites.Beans;
 import com.pickle.ashvin.sprites.Coin;
 import com.pickle.ashvin.sprites.Pickle;
 import com.pickle.ashvin.sprites.Foreground;
@@ -25,7 +26,6 @@ import com.pickle.ashvin.sprites.Obstacle;
 import com.pickle.ashvin.sprites.PauseButton;
 import com.pickle.ashvin.sprites.PlayableCharacter;
 import com.pickle.ashvin.sprites.PowerUp;
-import com.pickle.ashvin.sprites.Toast;
 import com.pickle.ashvin.sprites.Tutorial;
 
 import android.content.Context;
@@ -267,13 +267,13 @@ public class GameView extends SurfaceView{
      * Creates a toast with a certain chance
      */
     private void createPowerUp(){
-        // Toast
-        if(game.accomplishmentBox.points >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(player instanceof FartPickle)){
+        // Beans
+        if(game.accomplishmentBox.points >= Beans.POINTS_TO_BEANS /*&& powerUps.size() < 1*/ && !(player instanceof FartPickle)){
             // If no powerUp is present and you have more than / equal 42 points
-            if(game.accomplishmentBox.points == Toast.POINTS_TO_TOAST){    // First time 100 % chance
-                powerUps.add(new Toast(this, game));
+            if(game.accomplishmentBox.points == Beans.POINTS_TO_BEANS){    // First time 100 % chance
+                powerUps.add(new Beans(this, game));
             } else if(Math.random()*100 < 33){    // 33% chance
-                powerUps.add(new Toast(this, game));
+                powerUps.add(new Beans(this, game));
             }
         }
         
@@ -358,9 +358,9 @@ public class GameView extends SurfaceView{
     /**
      * Changes the player to Nyan Cat
      */
-    public void changeToNyanCat(){
+    public void changeToFartPickle(){
         game.accomplishmentBox.achievement_toastification = true;
-        game.handler.sendMessage(Message.obtain(game.handler,1,R.string.toast_achievement_toastification, MyHandler.SHOW_TOAST));
+        game.handler.sendMessage(Message.obtain(game.handler,1,R.string.toast_achievement_toastification, MyHandler.SHOW_BEANS));
         
         PlayableCharacter tmp = this.player;
         this.player = new FartPickle(this, game);
@@ -370,7 +370,7 @@ public class GameView extends SurfaceView{
         this.player.setSpeedY(tmp.getSpeedY());
         
         game.musicShouldPlay = true;
-        Game.musicPlayer.start();
+//        Game.musicPlayer.start();
     }
     
     /**

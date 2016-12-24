@@ -16,19 +16,19 @@ import com.pickle.ashvin.Util;
 
 import android.graphics.Bitmap;
 
-public class Toast extends PowerUp {
+public class Beans extends PowerUp {
     
     /**
      * Static bitmap to reduce memory usage.
      */
     public static Bitmap globalBitmap;
     
-    public static final int POINTS_TO_TOAST = 42;
+    public static final int POINTS_TO_BEANS = 1;
 
-    public Toast(GameView view, Game game) {
+    public Beans(GameView view, Game game) {
         super(view, game);
         if(globalBitmap == null){
-            globalBitmap = Util.getScaledBitmapAlpha8(game, R.drawable.toast);
+            globalBitmap = Util.getScaledBitmapAlpha8(game, R.drawable.beans);
         }
         this.bitmap = globalBitmap;
         this.width = this.bitmap.getWidth();
@@ -41,7 +41,7 @@ public class Toast extends PowerUp {
     @Override
     public void onCollision() {
         super.onCollision();
-        view.changeToNyanCat();
+        view.changeToFartPickle();
     }
     
     

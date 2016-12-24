@@ -13,7 +13,7 @@ package com.pickle.ashvin;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-//import android.widget.Toast;
+//import android.widget.Beans;
 
 public class AccomplishmentBox{
     /** Points needed for a gold medal */
