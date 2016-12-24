@@ -23,7 +23,7 @@ public class Beans extends PowerUp {
      */
     public static Bitmap globalBitmap;
     
-    public static final int POINTS_TO_BEANS = 1;
+    public static final int POINTS_TO_BEANS = 42;
 
     public Beans(GameView view, Game game) {
         super(view, game);

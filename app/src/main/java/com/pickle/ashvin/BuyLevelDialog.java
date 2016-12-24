@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class BuyLevelDialog extends Dialog {
-    public static final int PURCHASE_PRICE = 5;
+    public static final int PURCHASE_PRICE = 50;
 
     /** Name of the SharedPreference that saves the score */
     public static final String LEVELS_UNLOCKED = "levels_unlocked";
