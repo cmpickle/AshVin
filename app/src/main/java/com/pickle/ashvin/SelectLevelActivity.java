@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.widget.TextView;
 
 public class SelectLevelActivity extends FragmentActivity {
 
@@ -49,6 +50,11 @@ public class SelectLevelActivity extends FragmentActivity {
     public void onResume() {
         super.onResume();
         selectLevelActivity = this;
+
+        loadCoins();
+
+        TextView tv = (TextView) findViewById(R.id.tv_current_coins);
+        tv.setText("Coins " + coins);
     }
 
     private void loadCoins(){
