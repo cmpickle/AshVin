@@ -21,7 +21,7 @@ public class Obstacle extends Sprite{
     private WoodLog log;
     
     private static int collideSound = -1;
-    private static int passSound = -1;
+//    private static int passSound = -1;
     
     /** Necessary so the onPass method is just called once */
     public boolean isAlreadyPassed = false;
@@ -34,9 +34,9 @@ public class Obstacle extends Sprite{
         if(collideSound == -1){
             collideSound = Game.soundPool.load(game, R.raw.belch, 1);
         }
-        if(passSound == -1){
-            passSound = Game.soundPool.load(game, R.raw.pass, 1);
-        }
+//        if(passSound == -1){
+//            passSound = Game.soundPool.load(game, R.raw.pass, 1);
+//        }
         
         initPos();
     }
@@ -118,7 +118,7 @@ public class Obstacle extends Sprite{
         if(!isAlreadyPassed){
             isAlreadyPassed = true;
             view.getGame().increasePoints();
-            Game.soundPool.play(passSound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
+//            Game.soundPool.play(passSound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
         }
     }
 

@@ -34,4 +34,5 @@
     <string name="buy">Buy</string>
     <string name="buy_level">Do you want to buy the level?</string>
     <string name="defaultcost">50 coins</string>
+    <string name="current_coin">Coins: 0</string>
 </resources>

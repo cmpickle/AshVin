@@ -39,7 +39,7 @@ public class MyFragment extends Fragment {
         ImageButton button = (ImageButton) l.findViewById(R.id.content);
         switch (pos) {
             case 0:
-                button.setImageResource(R.drawable.bg00);
+                button.setImageResource(R.drawable.level00);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -50,11 +50,11 @@ public class MyFragment extends Fragment {
                 });
                 break;
             case 1:
-                button.setImageResource(R.drawable.bg01);
+                button.setImageResource(R.drawable.level01);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(MainActivity.levelsUnlocked-1 >= 0) {
+                        if((MainActivity.levelsUnlocked & 1) == 1) {
                             Intent intent = new Intent("com.pickle.ashvin.Game");
                             intent.putExtra(Game.KEY_EXTRA, 1);
                             startActivity(intent);
