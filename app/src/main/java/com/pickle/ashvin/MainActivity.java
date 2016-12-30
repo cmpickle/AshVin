@@ -12,6 +12,9 @@ package com.pickle.ashvin;
 import android.os.Bundle;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 public class MainActivity extends FragmentActivity {
     
@@ -48,6 +51,34 @@ public class MainActivity extends FragmentActivity {
         setContentView(view);
         setSocket();
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//
+//        unbindDrawables(view);
+//        view = null;
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//
+//        unbindDrawables(view);
+////        view.clearBitmaps();
+//    }
+//
+//    private void unbindDrawables(View view) {
+//        if(view.getBackground() != null) {
+//            view.getBackground().setCallback(null);
+//        }
+//        if(view instanceof ViewGroup && !(view instanceof AdapterView)) {
+//            for(int i = 0; i<((ViewGroup) view).getChildCount(); i++) {
+//                unbindDrawables(((ViewGroup) view).getChildAt(i));
+//
+//                ((ViewGroup) view).removeAllViews();            }
+//        }
+//    }
     
     public void muteToggle() {
         if(volume != 0){

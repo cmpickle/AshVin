@@ -59,8 +59,9 @@ public class MyFragment extends Fragment {
                             intent.putExtra(Game.KEY_EXTRA, 1);
                             startActivity(intent);
                         } else {
-                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.init();
-                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.show();
+                            BuyLevelDialog buyLevelDialog = new BuyLevelDialog(getActivity().getApplicationContext(), getActivity().findViewById(R.id.myviewpager));
+                            buyLevelDialog.init();
+                            buyLevelDialog.show();
                         }
                     }
                 });

@@ -241,4 +241,9 @@ public abstract class Sprite {
         return game.getResources().getDisplayMetrics().heightPixels / 50;
     }
 
+    public void clean() {
+        game = null;
+        view = null;
+        bitmap = null;
+    }
 }

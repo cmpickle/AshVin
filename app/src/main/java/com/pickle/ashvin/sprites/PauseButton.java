@@ -30,4 +30,8 @@ public class PauseButton extends Sprite{
         this.x = this.view.getWidth() - this.width;
         this.y = 0;
     }
+
+    public void clean() {
+        this.bitmap = null;
+    }
 }

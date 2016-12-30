@@ -17,57 +17,45 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 public class Game extends FragmentActivity {
 
     public static final String KEY_EXTRA = "com.pickle.ashvin.KEY_LEVEL";
-
-    /** Name of the SharedPreference that saves the medals */
     public static final String coin_save = "coin_save";
-    
-    /** Key that saves the medal */
     public static final String coin_key = "coin_key";
-    
-    /** Will play things like mooing */
+
     public static SoundPool soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+    public static MediaPlayer musicPlayer = null;
 
-    /** Counts number of played games */
-    private static int gameOverCounter = 1;
-
+    private static int gameOverCounter = 0;
+    public static final int GAMES_PER_AD = 3;
+    private InterstitialAd interstitial;
     private int level = 0;
 
-    public static MediaPlayer musicPlayer = null;
-    
-    /**
-     * Whether the music should play or not
-     */
     public boolean musicShouldPlay = false;
-    
+
     /** Time interval (ms) you have to press the backbutton twice in to exit */
     private static final long DOUBLE_BACK_TIME = 1000;
-    
-    /** Saves the time of the last backbutton press*/
     private long backPressed;
     
     /** To do UI things from different threads */
     public MyHandler handler;
-    
-    /** Hold all accomplishments */
+
     AccomplishmentBox accomplishmentBox;
-    
-    /** The view that handles all kind of stuff */
     GameView view;
-    
-    /** The amount of collected coins */
-    int coins;
-    
-    /** This will increase the revive price */
-    public int numberOfRevive = 1;
-    
-    /** The dialog displayed when the game is over*/
     GameOverDialog gameOverDialog;
-    
+
+    int coins;
+    public int numberOfRevive = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,13 +70,44 @@ public class Game extends FragmentActivity {
         setContentView(view);
         initMusicPlayer();
         loadCoins();
+        if(gameOverCounter % GAMES_PER_AD == 0) {
+            setupAd();
+        }
     }
-    
 
-    /**
-     * Initializes the player with the nyan cat song
-     * and sets the position to 0.
-     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        SoundPool soundPool = null;
+        MediaPlayer musicPlayer = null;
+        gameOverDialog = null;
+        handler = null;
+        accomplishmentBox = null;
+
+        unbindDrawables(view);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        unbindDrawables(view);
+        view.cleanView();
+    }
+
+    private void unbindDrawables(View view) {
+        if(view.getBackground() != null) {
+            view.getBackground().setCallback(null);
+        }
+        if(view instanceof ViewGroup && !(view instanceof AdapterView)) {
+            for(int i = 0; i<((ViewGroup) view).getChildCount(); i++) {
+                unbindDrawables(((ViewGroup) view).getChildAt(i));
+
+                ((ViewGroup) view).removeAllViews();            }
+        }
+    }
+
     public void initMusicPlayer(){
         if(musicPlayer == null){
             // to avoid unnecessary reinitialisation
@@ -147,8 +166,12 @@ public class Game extends FragmentActivity {
      * Sends the handler the command to show the GameOverDialog.
      * Because it needs an UI thread.
      */
-    public void gameOver(){
+    public void gameOver() {
+        if (gameOverCounter % GAMES_PER_AD == 0) {
+            handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_AD));
+        } else {
             handler.sendMessage(Message.obtain(handler, MyHandler.GAME_OVER_DIALOG));
+        }
     }
     
     public void increaseCoin(){
@@ -195,6 +218,7 @@ public class Game extends FragmentActivity {
     static class MyHandler extends Handler{
         public static final int GAME_OVER_DIALOG = 0;
         public static final int SHOW_BEANS = 1;
+        public static final int SHOW_AD = 2;
         
         private Game game;
         
@@ -211,6 +235,21 @@ public class Game extends FragmentActivity {
                 case SHOW_BEANS:
                     Toast.makeText(game, msg.arg1, Toast.LENGTH_SHORT).show();
                     break;
+                case SHOW_AD:
+                    showAd();
+                    break;
+            }
+        }
+
+        private void showAd() {
+            if(game.interstitial == null) {
+                showGameOverDialog();
+            } else {
+                if(game.interstitial.isLoaded()) {
+                    game.interstitial.show();
+                } else {
+                    showGameOverDialog();
+                }
             }
         }
         
@@ -221,4 +260,17 @@ public class Game extends FragmentActivity {
         }
     }
 
+    private void setupAd() {
+        interstitial = new InterstitialAd(this);
+        interstitial.setAdUnitId(getResources().getString(R.string.ad_unit_id));
+        AdRequest adRequest = new AdRequest.Builder().build();
+        interstitial.loadAd(adRequest);
+        interstitial.setAdListener(new MyAdListener());
+    }
+
+    private class MyAdListener extends AdListener {
+        public void onAdClosed() {
+            handler.sendMessage(Message.obtain(handler, MyHandler.GAME_OVER_DIALOG));
+        }
+    }
 }

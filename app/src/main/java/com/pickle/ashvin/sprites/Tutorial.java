@@ -38,4 +38,7 @@ public class Tutorial extends Sprite {
         this.y = view.getHeight() / 2 - this.height / 2;
     }
 
+    public void clean() {
+        this.bitmap = null;
+    }
 }
