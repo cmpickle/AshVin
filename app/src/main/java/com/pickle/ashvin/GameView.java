@@ -51,7 +51,7 @@ public class GameView extends SurfaceView{
     private Game game;
     private PlayableCharacter player;
     private Background background;
-    private Foreground frontground;
+    private Foreground foreground;
     private List<Obstacle> obstacles = new ArrayList<Obstacle>();
     private List<PowerUp> powerUps = new ArrayList<PowerUp>();
     
@@ -69,7 +69,7 @@ public class GameView extends SurfaceView{
 //        holder = getHolder();
 //        player = new Pickle(this, game);
 //        background = new Background(this, game);
-//        frontground = new Foreground(this, game);
+//        foreground = new Foreground(this, game);
 //        pauseButton = new PauseButton(this, game);
 //        tutorial = new Tutorial(this, game);
 //    }
@@ -82,7 +82,7 @@ public class GameView extends SurfaceView{
         holder = getHolder();
         player = new Pickle(this, game);
         background = new Background(this, game, level);
-        frontground = new Foreground(this, game, level);
+        foreground = new Foreground(this, game, level);
         pauseButton = new PauseButton(this, game);
         tutorial = new Tutorial(this, game);
     }
@@ -224,7 +224,7 @@ public class GameView extends SurfaceView{
         if(drawPlayer){
             player.draw(canvas);
         }
-        frontground.draw(canvas);
+        foreground.draw(canvas);
         pauseButton.draw(canvas);
         
         // Score Text
@@ -347,8 +347,8 @@ public class GameView extends SurfaceView{
         background.setSpeedX(-getSpeedX()/2);
         background.move();
         
-        frontground.setSpeedX(-getSpeedX()*4/3);
-        frontground.move();
+        foreground.setSpeedX(-getSpeedX()*4/3);
+        foreground.move();
         
         pauseButton.move();
         
@@ -370,7 +370,7 @@ public class GameView extends SurfaceView{
         this.player.setSpeedY(tmp.getSpeedY());
         
         game.musicShouldPlay = true;
-//        Game.musicPlayer.start();
+        Game.musicPlayer.start();
     }
     
     /**
@@ -449,4 +449,34 @@ public class GameView extends SurfaceView{
         return this.game;
     }
 
+    public void cleanView() {
+        timer = null;
+        timerTask = null;
+
+        holder = null;
+
+        game = null;
+        player.clean();
+        player = null;
+        Background.globalBitmap.recycle();
+        background.clean();
+        background = null;
+        Foreground.globalBitmap.recycle();
+        foreground.clean();
+        foreground = null;
+        for(Obstacle o: obstacles) {
+            o.clean();
+        }
+        obstacles = null;
+        for(PowerUp p: powerUps) {
+            p.clean();
+        }
+        powerUps = null;
+
+        pauseButton.clean();
+        pauseButton = null;
+
+        tutorial.clean();
+        tutorial = null;
+    }
 }

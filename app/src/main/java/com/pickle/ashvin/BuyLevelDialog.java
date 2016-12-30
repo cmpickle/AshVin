@@ -1,6 +1,7 @@
 package com.pickle.ashvin;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
@@ -28,9 +29,9 @@ public class BuyLevelDialog extends Dialog {
         tvLevelCost = (TextView) findViewById(R.id.tv_level_cost);
     }
 
-    public BuyLevelDialog(SelectLevelActivity selectLevelActivity, View view) {
+    public BuyLevelDialog(Context selectLevelActivity, View view) {
         super(selectLevelActivity);
-        this.selectLevelActivity = selectLevelActivity;
+        this.selectLevelActivity = (SelectLevelActivity) selectLevelActivity;
         this.view = view;
         this.setContentView(R.layout.buy_level);
         this.setCancelable(false);

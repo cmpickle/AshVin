@@ -142,4 +142,11 @@ public class StartscreenView extends View{
         return true;
     }
 
+    public void clearBitmaps() {
+        splash.recycle();
+        play.recycle();
+        speaker.recycle();
+        info.recycle();
+        socket.recycle();
+    }
 }
