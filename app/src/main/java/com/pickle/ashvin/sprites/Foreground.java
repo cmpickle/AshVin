@@ -50,7 +50,7 @@ public class Foreground extends Background {
                 resId = R.drawable.fg000;
                 break;
             case 3:
-                resId = R.drawable.fg03;
+                resId = R.drawable.fg01;
                 break;
         }
 
