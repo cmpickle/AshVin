@@ -1,14 +1,12 @@
 /**
- * A spider with web
- * 
- * BTW Spiders have 8 eyes.
- * 
+ * A knife
+ *
  * @author Cameron Pickle
  * @author Nathan Pickle
  * Copyright (c) <2016> <Cameron Pickle - cmpickle>
  * Copyright (c) <2016> <Nathan Pickle - n8pickle>
  */
-package com.pickle.ashvin.sprites;
+package com.pickle.ashvin.sprites.Obstacle;
 
 import com.pickle.ashvin.Game;
 import com.pickle.ashvin.GameView;
@@ -17,21 +15,21 @@ import com.pickle.ashvin.Util;
 
 import android.graphics.Bitmap;
 
-public class Laser extends Sprite {
-    
+public class Knife extends ObstacleSprite {
+
     /**
      * Static bitmap to reduce memory usage.
      */
     public static Bitmap globalBitmap;
 
-    public Laser(GameView view, Game game) {
+    public Knife(GameView view, Game game) {
         super(view, game);
-        globalBitmap = Util.getScaledBitmapAlpha8(game, R.drawable.laser);
+        globalBitmap = Util.getScaledBitmapAlpha8(game, R.drawable.knife);
         this.bitmap = globalBitmap;
-        this.width = this.bitmap.getWidth();
+        this.width = this.bitmap.getWidth()-(int)(this.bitmap.getWidth()*.9);
         this.height = this.bitmap.getHeight();
     }
-    
+
     /**
      * Sets the position
      * @param x
@@ -41,5 +39,4 @@ public class Laser extends Sprite {
         this.x = x;
         this.y = y;
     }
-
 }
