@@ -230,7 +230,9 @@ public abstract class Sprite {
     public int getWidth() {
         return width;
     }
-    
+
+    public int getHeight() {return height; }
+
     /**
      * Gives a value that will be tolerated when touching a sprite.
      * Because my images have some whitespace to the edge.

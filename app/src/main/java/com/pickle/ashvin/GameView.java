@@ -22,7 +22,7 @@ import com.pickle.ashvin.sprites.Coin;
 import com.pickle.ashvin.sprites.Pickle;
 import com.pickle.ashvin.sprites.Foreground;
 import com.pickle.ashvin.sprites.FartPickle;
-import com.pickle.ashvin.sprites.Obstacle;
+import com.pickle.ashvin.sprites.Obstacle.Obstacle;
 import com.pickle.ashvin.sprites.PauseButton;
 import com.pickle.ashvin.sprites.PlayableCharacter;
 import com.pickle.ashvin.sprites.PowerUp;
@@ -49,6 +49,7 @@ public class GameView extends SurfaceView{
     private SurfaceHolder holder;
     
     private Game game;
+    private int level;
     private PlayableCharacter player;
     private Background background;
     private Foreground foreground;
@@ -77,6 +78,7 @@ public class GameView extends SurfaceView{
     public GameView(Context context, int level) {
         super(context);
         this.game = (Game) context;
+        this.level = level;
         setFocusable(true);
 
         holder = getHolder();
@@ -328,7 +330,7 @@ public class GameView extends SurfaceView{
      */
     private void createObstacle(){
         if(obstacles.size() < 1){
-            obstacles.add(new Obstacle(this, game));
+            obstacles.add(new Obstacle(this, game, level));
         }
     }
     
@@ -356,7 +358,7 @@ public class GameView extends SurfaceView{
     }
     
     /**
-     * Changes the player to Nyan Cat
+     * Changes the player to Farting Pickle
      */
     public void changeToFartPickle(){
         game.accomplishmentBox.achievement_toastification = true;

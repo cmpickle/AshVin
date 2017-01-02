@@ -59,13 +59,49 @@ public class MyFragment extends Fragment {
                             intent.putExtra(Game.KEY_EXTRA, 1);
                             startActivity(intent);
                         } else {
-                            BuyLevelDialog buyLevelDialog = new BuyLevelDialog(getActivity().getApplicationContext(), getActivity().findViewById(R.id.myviewpager));
-                            buyLevelDialog.init();
-                            buyLevelDialog.show();
+                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.init(0);
+                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.show();
+//                            BuyLevelDialog buyLevelDialog = new BuyLevelDialog(getActivity().getApplicationContext(), getActivity().findViewById(R.id.myviewpager));
+//                            buyLevelDialog.init();
+//                            buyLevelDialog.show();
                         }
                     }
                 });
                 break;
+            case 2:
+                button.setImageResource(R.drawable.level02);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if((MainActivity.levelsUnlocked & 2) == 2) {
+                            Intent intent = new Intent("com.pickle.ashvin.Game");
+                            intent.putExtra(Game.KEY_EXTRA, 2);
+                            startActivity(intent);
+                        } else {
+                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.init(1);
+                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.show();
+//                            BuyLevelDialog buyLevelDialog = new BuyLevelDialog(getActivity().getApplicationContext(), getActivity().findViewById(R.id.myviewpager));
+//                            buyLevelDialog.init();
+//                            buyLevelDialog.show();
+                        }
+                    }
+                });
+                break;
+            case 3:
+                button.setImageResource(R.drawable.level03);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if((MainActivity.levelsUnlocked & 4) == 4) {
+                            Intent intent = new Intent("com.pickle.ashvin.Game");
+                            intent.putExtra(Game.KEY_EXTRA, 3);
+                            startActivity(intent);
+                        } else {
+                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.init(2);
+                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.show();
+                        }
+                    }
+                });
         }
 
         MyLinearLayout root = (MyLinearLayout) l.findViewById(R.id.root);

@@ -42,6 +42,12 @@ public class Background extends Sprite {
             case 1:
                 resId = R.drawable.bg01;
                 break;
+            case 2:
+                resId = R.drawable.bg02;
+                break;
+            case 3:
+                resId = R.drawable.bg03;
+                break;
         }
 
         globalBitmap = Util.getDownScaledBitmapAlpha8(game, resId);

@@ -46,6 +46,12 @@ public class Foreground extends Background {
             case 1:
                 resId = R.drawable.fg01;
                 break;
+            case 2:
+                resId = R.drawable.fg000;
+                break;
+            case 3:
+                resId = R.drawable.fg03;
+                break;
         }
 
         globalBitmap = Util.getDownScaledBitmapAlpha8(game, resId);
