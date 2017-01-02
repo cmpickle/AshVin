@@ -1,13 +1,12 @@
 /**
- * A shopped wodden log
+ * A laser
  * 
  * @author Cameron Pickle
  * @author Nathan Pickle
  * Copyright (c) <2016> <Cameron Pickle - cmpickle>
  * Copyright (c) <2016> <Nathan Pickle - n8pickle>
  */
-
-package com.pickle.ashvin.sprites;
+package com.pickle.ashvin.sprites.Obstacle;
 
 import com.pickle.ashvin.Game;
 import com.pickle.ashvin.GameView;
@@ -16,18 +15,16 @@ import com.pickle.ashvin.Util;
 
 import android.graphics.Bitmap;
 
-public class WoodLog extends Sprite {
-
+public class Laser extends ObstacleSprite {
+    
     /**
      * Static bitmap to reduce memory usage.
      */
     public static Bitmap globalBitmap;
 
-    public WoodLog(GameView view, Game game) {
+    public Laser(GameView view, Game game) {
         super(view, game);
-        if(globalBitmap == null){
-            globalBitmap = Util.getScaledBitmapAlpha8(game, R.drawable.log_full);
-        }
+        globalBitmap = Util.getScaledBitmapAlpha8(game, R.drawable.laser);
         this.bitmap = globalBitmap;
         this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight();

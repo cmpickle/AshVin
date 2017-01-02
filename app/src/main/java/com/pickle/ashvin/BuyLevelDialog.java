@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class BuyLevelDialog extends Dialog {
-    public static final int PURCHASE_PRICE = 50;
+    public static final int PURCHASE_PRICE = 1;
 
     /** Name of the SharedPreference that saves the score */
     public static final String LEVELS_UNLOCKED = "levels_unlocked";
@@ -39,7 +39,7 @@ public class BuyLevelDialog extends Dialog {
         tvLevelCost = (TextView) findViewById(R.id.tv_level_cost);
     }
 
-    public void init(){
+    public void init(final int level){
         Button cancelButton = (Button) findViewById(R.id.b_cancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +55,7 @@ public class BuyLevelDialog extends Dialog {
             public void onClick(View v) {
                 dismiss();
                 selectLevelActivity.coins -= PURCHASE_PRICE;
-                manageLevels(1);
+                manageLevels(level);
                 saveCoins();
             }
         });
@@ -68,11 +68,13 @@ public class BuyLevelDialog extends Dialog {
     }
 
     private void manageLevels(int level){
+        int levelCode = 1;
+        levelCode = levelCode << level;
         SharedPreferences level_save = selectLevelActivity.getSharedPreferences(MainActivity.LEVELS_UNLOCKED, 0);
 
         SharedPreferences.Editor editor = level_save.edit();
 
-        editor.putInt(MainActivity.LEVELS_KEY, level);
+        editor.putInt(MainActivity.LEVELS_KEY, (level_save.getInt(MainActivity.LEVELS_UNLOCKED, 0) + levelCode));
 
         editor.commit();
         MainActivity.levelsUnlocked = level_save.getInt(MainActivity.LEVELS_KEY, 0);
