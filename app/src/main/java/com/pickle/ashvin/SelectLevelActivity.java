@@ -17,7 +17,7 @@ public class SelectLevelActivity extends FragmentActivity {
     public static final String coin_key = "coin_key";
     int coins;
 
-    public final static int LEVELS = 2;
+    public final static int LEVELS = 3;
 
     public final static int LOOPS = 1000;
     public final static int FIRST_LEVEL = LEVELS * LOOPS /2;
@@ -25,8 +25,8 @@ public class SelectLevelActivity extends FragmentActivity {
     public MyPagerAdapter adapter;
     public ViewPager pager;
 
-//    BuyLevelDialog buyLevelDialog;
-//    public static SelectLevelActivity selectLevelActivity;
+    BuyLevelDialog buyLevelDialog;
+    public static SelectLevelActivity selectLevelActivity;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +44,7 @@ public class SelectLevelActivity extends FragmentActivity {
 
         pager.setPageMargin(-200);
 
-//        buyLevelDialog = new BuyLevelDialog(this, findViewById(R.id.myviewpager));
+        buyLevelDialog = new BuyLevelDialog(this, findViewById(R.id.myviewpager));
 
         loadCoins();
     }
@@ -52,7 +52,7 @@ public class SelectLevelActivity extends FragmentActivity {
     @Override
     public void onResume() {
         super.onResume();
-//        selectLevelActivity = this;
+        selectLevelActivity = this;
 
         loadCoins();
 
