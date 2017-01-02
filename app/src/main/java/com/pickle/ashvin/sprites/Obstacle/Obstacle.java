@@ -44,6 +44,10 @@ public class Obstacle extends Sprite {
                 obstacleTop = new Knife(view, game);
                 obstacleBottom = new PickleJars(view, game);
                 break;
+            case 3:
+                obstacleTop = new Sun(view, game);
+                obstacleBottom = new SurfBoard(view, game);
+                break;
         }
         
         if(collideSound == -1){
@@ -81,6 +85,9 @@ public class Obstacle extends Sprite {
                 break;
             case 2:
                 spacing = 25;
+                break;
+            case 3:
+                spacing = 0;
                 break;
         }
         
