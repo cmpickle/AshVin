@@ -17,7 +17,7 @@ public class SelectLevelActivity extends FragmentActivity {
     public static final String coin_key = "coin_key";
     int coins;
 
-    public final static int LEVELS = 3;
+    public final static int LEVELS = 4;
 
     public final static int LOOPS = 1000;
     public final static int FIRST_LEVEL = LEVELS * LOOPS /2;
