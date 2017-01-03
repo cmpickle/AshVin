@@ -87,15 +87,16 @@ public class Game extends FragmentActivity {
         accomplishmentBox = null;
 
         unbindDrawables(view);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        unbindDrawables(view);
         view.cleanView();
     }
+
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//
+//        unbindDrawables(view);
+//        view.cleanView();
+//    }
 
     private void unbindDrawables(View view) {
         if(view.getBackground() != null) {
@@ -194,6 +195,7 @@ public class Game extends FragmentActivity {
         if(accomplishmentBox.points >= AccomplishmentBox.BRONZE_POINTS){
             if(!accomplishmentBox.achievement_bronze){
                 accomplishmentBox.achievement_bronze = true;
+                //TODO: add shared preference for achievments
                 handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_BEANS, R.string.toast_achievement_bronze, MyHandler.SHOW_BEANS));
             }
             

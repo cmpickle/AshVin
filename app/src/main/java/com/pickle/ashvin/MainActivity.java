@@ -22,18 +22,19 @@ public class MainActivity extends FragmentActivity {
     
     /** Name of the SharedPreference that saves the medals */
     public static final String medaille_save = "medaille_save";
-    
     /** Key that saves the medal */
     public static final String medaille_key = "medaille_key";
+
+    /**Key that saves mute preference*/
+    public static final String MUTE_PREFERENCE = "mute_preference";
+    public static final String MUTE_KEY = "mute_key";
+    public static final float DEFAULT_VOLUME = 0.3f;
+    /** Volume for sound and music */
+    public static float volume = DEFAULT_VOLUME;
 
     public static final String LEVELS_UNLOCKED = "levels_unlocked";
     public static final String LEVELS_KEY = "levels_key";
     public static int levelsUnlocked = 0;
-    
-    public static final float DEFAULT_VOLUME = 0.3f;
-    
-    /** Volume for sound and music */
-    public static float volume = DEFAULT_VOLUME;
     
     private StartscreenView view;
 
@@ -50,6 +51,11 @@ public class MainActivity extends FragmentActivity {
         }
 
         view = new StartscreenView(this);
+
+        SharedPreferences mute = this.getSharedPreferences(MUTE_PREFERENCE, 0);
+        if(mute.getBoolean(MUTE_KEY, false)) {
+            muteToggle();
+        }
         setContentView(view);
         setSocket();
     }
@@ -83,15 +89,22 @@ public class MainActivity extends FragmentActivity {
 //    }
     
     public void muteToggle() {
+        SharedPreferences mute = this.getSharedPreferences(MUTE_PREFERENCE, 0);
+        SharedPreferences.Editor editor = mute.edit();
+
         if(volume != 0){
             volume = 0;
             view.setSpeaker(false);
             MuteAudio();
+            editor.putBoolean(MUTE_KEY, true);
         }else{
             volume = DEFAULT_VOLUME;
             view.setSpeaker(true);
             UnMuteAudio();
+            editor.putBoolean(MUTE_KEY, false);
         }
+        editor.apply();
+
         view.invalidate();
     }
     
