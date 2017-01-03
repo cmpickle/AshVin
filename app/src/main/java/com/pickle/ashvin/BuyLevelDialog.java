@@ -74,7 +74,7 @@ public class BuyLevelDialog extends Dialog {
 
         SharedPreferences.Editor editor = level_save.edit();
 
-        editor.putInt(MainActivity.LEVELS_KEY, (level_save.getInt(MainActivity.LEVELS_UNLOCKED, 0) + levelCode));
+        editor.putInt(MainActivity.LEVELS_KEY, (level_save.getInt(MainActivity.LEVELS_KEY, 0) + levelCode));
 
         editor.commit();
         MainActivity.levelsUnlocked = level_save.getInt(MainActivity.LEVELS_KEY, 0);
