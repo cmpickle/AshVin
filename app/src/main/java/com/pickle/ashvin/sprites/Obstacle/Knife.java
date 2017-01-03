@@ -26,7 +26,7 @@ public class Knife extends ObstacleSprite {
         super(view, game);
         globalBitmap = Util.getScaledBitmapAlpha8(game, R.drawable.knife);
         this.bitmap = globalBitmap;
-        this.width = this.bitmap.getWidth()-(int)(this.bitmap.getWidth()*.9);
+        this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight();
     }
 
