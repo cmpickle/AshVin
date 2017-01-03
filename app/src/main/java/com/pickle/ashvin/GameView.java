@@ -314,7 +314,7 @@ public class GameView extends SurfaceView{
             }
         }
         for(int i=0; i<powerUps.size(); i++){
-            if(this.powerUps.get(i).isColliding(player)){
+            if(this.powerUps.get(i).isColliding(player, player.getPath())){
                 this.powerUps.get(i).onCollision();
                 this.powerUps.remove(i);
                 i--;

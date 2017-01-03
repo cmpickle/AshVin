@@ -14,6 +14,7 @@ import com.pickle.ashvin.R;
 import com.pickle.ashvin.Util;
 
 import android.graphics.Bitmap;
+import android.graphics.Path;
 
 public class Knife extends ObstacleSprite {
 
@@ -28,6 +29,11 @@ public class Knife extends ObstacleSprite {
         this.bitmap = globalBitmap;
         this.width = this.bitmap.getWidth()-(int)(this.bitmap.getWidth()*.9);
         this.height = this.bitmap.getHeight();
+        path = new Path();
+        path.lineTo((float) 0, (float) 0);
+        path.lineTo((float) this.width, 0);
+        path.lineTo((float) this.width, (float) this.height);
+        path.arcTo(null, (float) 90, (float) 180);
     }
 
     /**
