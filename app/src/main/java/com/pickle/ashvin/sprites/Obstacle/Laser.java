@@ -14,6 +14,7 @@ import com.pickle.ashvin.R;
 import com.pickle.ashvin.Util;
 
 import android.graphics.Bitmap;
+import android.graphics.Path;
 
 public class Laser extends ObstacleSprite {
     
@@ -28,6 +29,7 @@ public class Laser extends ObstacleSprite {
         this.bitmap = globalBitmap;
         this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight();
+        path = new Path();
     }
     
     /**

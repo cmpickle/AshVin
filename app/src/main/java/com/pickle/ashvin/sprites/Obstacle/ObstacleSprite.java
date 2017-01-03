@@ -1,5 +1,7 @@
 package com.pickle.ashvin.sprites.Obstacle;
 
+import android.graphics.Path;
+
 import com.pickle.ashvin.Game;
 import com.pickle.ashvin.GameView;
 import com.pickle.ashvin.sprites.Sprite;
@@ -9,6 +11,7 @@ import com.pickle.ashvin.sprites.Sprite;
  */
 
 public abstract class ObstacleSprite extends Sprite {
+
     public ObstacleSprite(GameView view, Game game) {
         super(view, game);
     }
