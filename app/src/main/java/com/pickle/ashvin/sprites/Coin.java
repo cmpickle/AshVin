@@ -16,6 +16,7 @@ import com.pickle.ashvin.R;
 import com.pickle.ashvin.Util;
 
 import android.graphics.Bitmap;
+import android.graphics.Region;
 
 public class Coin extends PowerUp {
     /**
@@ -30,6 +31,7 @@ public class Coin extends PowerUp {
             globalBitmap = Util.getScaledBitmapAlpha8(game, R.drawable.coin);
         }
         this.bitmap = globalBitmap;
+        this.region = new Region(x,y, x+bitmap.getWidth(), y+bitmap.getHeight());
         this.width = this.bitmap.getWidth()/(colNr = 12);
         this.height = this.bitmap.getHeight();
         this.frameTime = 1;
@@ -56,5 +58,6 @@ public class Coin extends PowerUp {
     public void move() {
         changeToNextFrame();
         super.move();
+        this.region.set(x,y, x+bitmap.getWidth(), y+bitmap.getHeight());
     }
 }

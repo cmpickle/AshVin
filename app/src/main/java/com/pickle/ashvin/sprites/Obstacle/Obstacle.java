@@ -16,6 +16,7 @@ import com.pickle.ashvin.R;
 import com.pickle.ashvin.sprites.Sprite;
 
 import android.graphics.Canvas;
+import android.graphics.Region;
 
 public class Obstacle extends Sprite {
     private ObstacleSprite obstacleTop;
@@ -117,8 +118,8 @@ public class Obstacle extends Sprite {
      * Checks whether the obstacleTop or the obstacleBottom is colliding with the sprite.
      */
     @Override
-    public boolean isColliding(Sprite sprite) {
-        return obstacleTop.isColliding(sprite) || obstacleBottom.isColliding(sprite);
+    public boolean isColliding(Region region) {
+        return obstacleTop.isColliding(region) || obstacleBottom.isColliding(region);
     }
 
     /**

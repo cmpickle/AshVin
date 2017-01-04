@@ -16,6 +16,7 @@ import com.pickle.ashvin.Util;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Region;
 
 public class FartPickle extends PlayableCharacter {
     
@@ -31,6 +32,7 @@ public class FartPickle extends PlayableCharacter {
             globalBitmap = Util.getScaledBitmapAlpha8(game, R.drawable.fart_pickle);
         }
         this.bitmap = globalBitmap;
+        this.region = new Region(0, 0, bitmap.getWidth(), bitmap.getHeight());
         this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight()/2;
         this.y = game.getResources().getDisplayMetrics().heightPixels / 2;

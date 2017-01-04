@@ -17,6 +17,9 @@ import com.pickle.ashvin.Util;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Region;
 
 import java.util.Random;
 
@@ -42,6 +45,7 @@ public class Pickle extends PlayableCharacter {
         this.bitmap = globalBitmap;
         this.width = this.bitmap.getWidth()/(colNr = 8);    // The image has 8 frames in a row
         this.height = this.bitmap.getHeight()/4;            // and 4 in a column
+        this.region = new Region(x, y, x+width, y+height);
         this.frameTime = 3;        // the frame will change every 3 runs
         this.y = game.getResources().getDisplayMetrics().heightPixels / 2;    // Startposition in in the middle of the screen
         
@@ -86,6 +90,9 @@ public class Pickle extends PlayableCharacter {
                 row = 2;
             }
         }
+
+        if(bitmap != null)
+            this.region.set(x, y, x+width, y+height);
         
         if(this.accessory != null){
             this.accessory.moveTo(this.x, this.y);
@@ -98,6 +105,7 @@ public class Pickle extends PlayableCharacter {
         if(this.accessory != null && !isDead){
             this.accessory.draw(canvas);
         }
+//        canvas.drawRect(region.getBounds(), new Paint());
     }
 
     /**
@@ -126,5 +134,4 @@ public class Pickle extends PlayableCharacter {
             this.accessory.setBitmap(Util.getScaledBitmapAlpha8(game, R.drawable.accessory_sunglasses));
         }
     }
-    
 }
