@@ -31,7 +31,7 @@ public class Game extends FragmentActivity {
     public static final String KEY_EXTRA = "com.pickle.ashvin.KEY_LEVEL";
     public static final String coin_save = "coin_save";
     public static final String coin_key = "coin_key";
-    public static final boolean PAID_VERSION = true;
+    public static final boolean PAID_VERSION = false;
 
     public static SoundPool soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
     public static MediaPlayer musicPlayer = null;
@@ -87,15 +87,16 @@ public class Game extends FragmentActivity {
         accomplishmentBox = null;
 
         unbindDrawables(view);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        unbindDrawables(view);
         view.cleanView();
     }
+
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//
+//        unbindDrawables(view);
+//        view.cleanView();
+//    }
 
     private void unbindDrawables(View view) {
         if(view.getBackground() != null) {
@@ -194,6 +195,7 @@ public class Game extends FragmentActivity {
         if(accomplishmentBox.points >= AccomplishmentBox.BRONZE_POINTS){
             if(!accomplishmentBox.achievement_bronze){
                 accomplishmentBox.achievement_bronze = true;
+                //TODO: add shared preference for achievments
                 handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_BEANS, R.string.toast_achievement_bronze, MyHandler.SHOW_BEANS));
             }
             
@@ -264,7 +266,7 @@ public class Game extends FragmentActivity {
     private void setupAd() {
         interstitial = new InterstitialAd(this);
         interstitial.setAdUnitId(getResources().getString(R.string.ad_unit_id));
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("D7125D1B856F1556CBD9932A7F86FC5C").build();
         interstitial.loadAd(adRequest);
         interstitial.setAdListener(new MyAdListener());
     }

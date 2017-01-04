@@ -125,7 +125,6 @@ public class StartscreenView extends View{
                     && (event.getX() < REGION_PLAY[2] * getWidth())
                     && (event.getY() > REGION_PLAY[1] * getHeight())
                     && (event.getY() < REGION_PLAY[3] * getHeight()) ) {
-//                mainActivity.startActivity(new Intent("com.pickle.ashvin.Game"));
                 mainActivity.startActivity(new Intent("com.pickle.ashvin.SelectLevelActivity"));
             } else if(    (event.getX() > REGION_SPEAKER[0] * getWidth())
                     && (event.getX() < REGION_SPEAKER[2] * getWidth())
@@ -142,11 +141,11 @@ public class StartscreenView extends View{
         return true;
     }
 
-    public void clearBitmaps() {
-        splash.recycle();
-        play.recycle();
-        speaker.recycle();
-        info.recycle();
-        socket.recycle();
-    }
+//    public void clearBitmaps() {
+//        splash.recycle();
+//        play.recycle();
+//        speaker.recycle();
+//        info.recycle();
+//        socket.recycle();
+//    }
 }

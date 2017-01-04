@@ -9,6 +9,8 @@
 
 package com.pickle.ashvin;
 
+import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
@@ -20,18 +22,19 @@ public class MainActivity extends FragmentActivity {
     
     /** Name of the SharedPreference that saves the medals */
     public static final String medaille_save = "medaille_save";
-    
     /** Key that saves the medal */
     public static final String medaille_key = "medaille_key";
+
+    /**Key that saves mute preference*/
+    public static final String MUTE_PREFERENCE = "mute_preference";
+    public static final String MUTE_KEY = "mute_key";
+    public static final float DEFAULT_VOLUME = 0.3f;
+    /** Volume for sound and music */
+    public static float volume = DEFAULT_VOLUME;
 
     public static final String LEVELS_UNLOCKED = "levels_unlocked";
     public static final String LEVELS_KEY = "levels_key";
     public static int levelsUnlocked = 0;
-    
-    public static final float DEFAULT_VOLUME = 0.3f;
-    
-    /** Volume for sound and music */
-    public static float volume = DEFAULT_VOLUME;
     
     private StartscreenView view;
 
@@ -48,6 +51,11 @@ public class MainActivity extends FragmentActivity {
         }
 
         view = new StartscreenView(this);
+
+        SharedPreferences mute = this.getSharedPreferences(MUTE_PREFERENCE, 0);
+        if(mute.getBoolean(MUTE_KEY, false)) {
+            muteToggle();
+        }
         setContentView(view);
         setSocket();
     }
@@ -81,13 +89,22 @@ public class MainActivity extends FragmentActivity {
 //    }
     
     public void muteToggle() {
+        SharedPreferences mute = this.getSharedPreferences(MUTE_PREFERENCE, 0);
+        SharedPreferences.Editor editor = mute.edit();
+
         if(volume != 0){
             volume = 0;
             view.setSpeaker(false);
+            MuteAudio();
+            editor.putBoolean(MUTE_KEY, true);
         }else{
             volume = DEFAULT_VOLUME;
             view.setSpeaker(true);
+            UnMuteAudio();
+            editor.putBoolean(MUTE_KEY, false);
         }
+        editor.apply();
+
         view.invalidate();
     }
     
@@ -107,5 +124,39 @@ public class MainActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         setSocket();
+    }
+
+    public void MuteAudio(){
+        AudioManager mAlramMAnager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
+//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_ALARM, AudioManager.ADJUST_MUTE, 0);
+            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, 0);
+//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
+//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, 0);
+        } else {
+//            mAlramMAnager.setStreamMute(AudioManager.STREAM_NOTIFICATION, true);
+//            mAlramMAnager.setStreamMute(AudioManager.STREAM_ALARM, true);
+            mAlramMAnager.setStreamMute(AudioManager.STREAM_MUSIC, true);
+//            mAlramMAnager.setStreamMute(AudioManager.STREAM_RING, true);
+//            mAlramMAnager.setStreamMute(AudioManager.STREAM_SYSTEM, true);
+        }
+    }
+
+    public void UnMuteAudio(){
+        AudioManager mAlramMAnager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, 0);
+//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_ALARM, AudioManager.ADJUST_UNMUTE, 0);
+            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE,0);
+//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
+//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, 0);
+        } else {
+//            mAlramMAnager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
+//            mAlramMAnager.setStreamMute(AudioManager.STREAM_ALARM, false);
+            mAlramMAnager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+//            mAlramMAnager.setStreamMute(AudioManager.STREAM_RING, false);
+//            mAlramMAnager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+        }
     }
 }

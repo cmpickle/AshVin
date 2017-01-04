@@ -75,24 +75,25 @@ public class Obstacle extends Sprite {
         int y1 = (height / 10) + random - obstacleTop.getHeight();
         int y2 = (height / 10) + random + gap;
 
-        int spacing = 0;
+        int spacingTop = 0;
+        int spacingBottom = 0;
         switch (level) {
             case 0:
-                spacing = 55;
+                spacingTop = 55;
                 break;
             case 1:
-                spacing = 12;
+                spacingTop = 12;
                 break;
             case 2:
-                spacing = 25;
+                spacingBottom = 80;
                 break;
             case 3:
-                spacing = 0;
+                spacingBottom = 175;
                 break;
         }
         
-        obstacleTop.init(game.getResources().getDisplayMetrics().widthPixels + spacing, y1);
-        obstacleBottom.init(game.getResources().getDisplayMetrics().widthPixels, y2);
+        obstacleTop.init(game.getResources().getDisplayMetrics().widthPixels + spacingTop, y1);
+        obstacleBottom.init(game.getResources().getDisplayMetrics().widthPixels + spacingBottom, y2);
     }
 
     /**
