@@ -10,6 +10,7 @@ package com.pickle.ashvin.sprites.Obstacle;
 
 import android.graphics.Bitmap;
 import android.graphics.Path;
+import android.graphics.Region;
 
 import com.pickle.ashvin.Game;
 import com.pickle.ashvin.GameView;
@@ -28,7 +29,7 @@ public class PickleJars extends ObstacleSprite {
         this.bitmap = globalBitmap;
         this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight();
-        path = new Path();
+        this.region = new Region(x+width/2-10, y, (x+width/2)+10, y+height);
     }
 
     /**

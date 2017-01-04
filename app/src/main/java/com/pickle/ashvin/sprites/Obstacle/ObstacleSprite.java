@@ -17,4 +17,10 @@ public abstract class ObstacleSprite extends Sprite {
     }
 
     abstract void init(int x, int y);
+
+    @Override
+    public void move() {
+        super.move();
+        region.set(x+width/2-10, y, (x+width/2)+10, y+height);
+    }
 }

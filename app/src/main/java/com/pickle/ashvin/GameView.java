@@ -308,13 +308,13 @@ public class GameView extends SurfaceView{
      */
     private void checkCollision(){
         for(Obstacle o : obstacles){
-            if(o.isColliding(player)){
+            if(o.isColliding(player.getRegion())){
                 o.onCollision();
                 gameOver();
             }
         }
         for(int i=0; i<powerUps.size(); i++){
-            if(this.powerUps.get(i).isColliding(player, player.getPath())){
+            if(this.powerUps.get(i).isColliding(player.getRegion())){
                 this.powerUps.get(i).onCollision();
                 this.powerUps.remove(i);
                 i--;

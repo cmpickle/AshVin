@@ -16,9 +16,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.graphics.Region;
 
 public abstract class Sprite {
-    protected Path path;
+    protected Region region = new Region();
 
     /** The bitmaps that holds the frames that should be drawn */
     protected Bitmap bitmap;
@@ -114,11 +115,8 @@ public abstract class Sprite {
      * @param sprite
      * @return
      */
-    public boolean isColliding(Sprite sprite, Path path){
-        if(path + getCollisionTolerance() < sprite.x + sprite.width
-                && path.x + path.width > sprite.x + getCollisionTolerance()
-                && path.y + getCollisionTolerance() < sprite.y + sprite.height
-                && path.y + path.height > sprite.y + getCollisionTolerance() ){
+    public boolean isColliding(Region region){
+        if(this.region.op(region, Region.Op.INTERSECT)){
              return true;
         } else {
             return false;
@@ -243,7 +241,7 @@ public abstract class Sprite {
 
     public int getHeight() {return height; }
 
-    public Path getPath() { return path;}
+    public Region getRegion() {return region; }
 
     /**
      * Gives a value that will be tolerated when touching a sprite.
