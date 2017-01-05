@@ -13,12 +13,13 @@
   <string name="about_button">Sobre</string>
   <string name="about_back_button">Atras</string>
   <string name="revive_button">Revivir para</string>
-  <string name="revive_notice">Puntuacion no sera añadida a tabla de clasificacion</string>
+  <string name="revive_notice">Puntuacion no será añadida a tabla de clasificacion</string>
   <string name="coins">Monedas</string>
   <string name="mute_button">Mudo</string>
+  <string name="dedicated">Dedicado a Asher y Gavin Pickle</string>
   <string name="developer">Desarolladores: \nCameron Pickle \nNathan Pickle</string>
-  <string name="graphics">Graficos: \nCameron Pickle \nNathan Pickle</string>
-  <string name="source_code">Obtener el codigo de fuente aqui:\nhttps://github.com/cmpickle/AshVin</string>
+  <string name="graphics">Graficos: \nCameron Pickle \nNathan Pickle \nCallie Pickle</string>
+  <string name="source_code">Obtener el codigo de fuente aquĺ:\nhttps://github.com/cmpickle/AshVin</string>
   <string name="onscreen_score_text">Puntuación:</string>
   <string name="onscreen_coin_text">Monedas:</string>
   <string name="on_back_press">Pulsa el boton de regresar de vuelta para terminar la aplicacion</string>
@@ -27,4 +28,8 @@
   <string name="toast_achievement_bronze">Logramiento Obtenido: Bronce</string>
   <string name="toast_achievement_silver">Logramiento Obtenido: Plata</string>
   <string name="toast_achievement_gold">Logramiento Obtenido: Oro</string>
+  <string name="buy">Comprar</string>
+  <string name="buy_level">Quieres comprar el nivel?</string>
+  <string name="defaultcost">50 modedas</string>
+  <string name="current_coin">Monedas: 0</string>
 </resources>

@@ -20,6 +20,7 @@
   <string name="coins">coins</string>
   <string name="medaille_image" translatable="false">Medaillenimage</string>
   <string name="mute_button">Mutes the sound</string>
+  <string name="dedicated">Dedicated to Asher and Gavin Pickle</string>
   <string name="developer">Developers: \nCameron Pickle \nNathan Pickle</string>
   <string name="graphics">Graphics: \nCameron Pickle \nNathan Pickle \nCallie Pickle</string>
   <string name="source_code">Get the source code here:\nhttps://github.com/cmpickle/AshVin</string>
