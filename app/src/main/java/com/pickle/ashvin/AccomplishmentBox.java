@@ -1,6 +1,6 @@
 /**
  * Saves achievements and score in shared preferences.
- * You should use a SQLite DB instead, but I'm too lazy to chance it now.
+ * You should use a SQLite DB instead
  * 
  * @author Cameron Pickle
  * @author Nathan Pickle
@@ -15,6 +15,11 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 
 public class AccomplishmentBox{
+    //TODO: Create a high score/statistics activity
+    //TODO: Create a per level high score
+    //TODO: Create a total distance traveled statistic
+    //TODO: Create a per level distance traveled statistic
+
     /** Points needed for a gold medal */
     public static final int GOLD_POINTS = 100;
     
