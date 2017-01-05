@@ -31,7 +31,7 @@ public class Game extends FragmentActivity {
     public static final String KEY_EXTRA = "com.pickle.ashvin.KEY_LEVEL";
     public static final String coin_save = "coin_save";
     public static final String coin_key = "coin_key";
-    public static final boolean PAID_VERSION = false;
+    public static final boolean PAID_VERSION = true;
 
     public static SoundPool soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
     public static MediaPlayer musicPlayer = null;
@@ -197,7 +197,6 @@ public class Game extends FragmentActivity {
         if(accomplishmentBox.points >= AccomplishmentBox.BRONZE_POINTS){
             if(!records.achievement_bronze){
                 accomplishmentBox.achievement_bronze = true;
-                //TODO: fix achievements showing when they shouldn't
                 handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_BEANS, R.string.toast_achievement_bronze, MyHandler.SHOW_BEANS));
             }
             
