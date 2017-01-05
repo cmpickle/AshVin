@@ -189,24 +189,26 @@ public class Game extends FragmentActivity {
      */
     public void increasePoints(){
         accomplishmentBox.points++;
+
+        AccomplishmentBox records = AccomplishmentBox.getLocal(this);
         
         this.view.getPlayer().upgradeBitmap(accomplishmentBox.points);
         
         if(accomplishmentBox.points >= AccomplishmentBox.BRONZE_POINTS){
-            if(!accomplishmentBox.achievement_bronze){
+            if(!records.achievement_bronze){
                 accomplishmentBox.achievement_bronze = true;
-                //TODO: add shared preference for achievments
+                //TODO: fix achievements showing when they shouldn't
                 handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_BEANS, R.string.toast_achievement_bronze, MyHandler.SHOW_BEANS));
             }
             
             if(accomplishmentBox.points >= AccomplishmentBox.SILVER_POINTS){
-                if(!accomplishmentBox.achievement_silver){
+                if(!records.achievement_silver){
                     accomplishmentBox.achievement_silver = true;
                     handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_BEANS, R.string.toast_achievement_silver, MyHandler.SHOW_BEANS));
                 }
                 
                 if(accomplishmentBox.points >= AccomplishmentBox.GOLD_POINTS){
-                    if(!accomplishmentBox.achievement_gold){
+                    if(!records.achievement_gold){
                         accomplishmentBox.achievement_gold = true;
                         handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_BEANS, R.string.toast_achievement_gold, MyHandler.SHOW_BEANS));
                     }

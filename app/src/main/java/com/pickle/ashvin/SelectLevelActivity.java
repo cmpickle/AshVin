@@ -1,13 +1,18 @@
+/**
+ * An activity to select the level
+ *
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
+ */
+
 package com.pickle.ashvin;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 public class SelectLevelActivity extends FragmentActivity {
@@ -22,7 +27,7 @@ public class SelectLevelActivity extends FragmentActivity {
     public final static int LOOPS = 1000;
     public final static int FIRST_LEVEL = LEVELS * LOOPS /2;
 
-    public MyPagerAdapter adapter;
+    public LevelPagerAdapter adapter;
     public ViewPager pager;
 
     BuyLevelDialog buyLevelDialog;
@@ -34,7 +39,7 @@ public class SelectLevelActivity extends FragmentActivity {
 
         pager = (ViewPager) findViewById(R.id.myviewpager);
 
-        adapter = new MyPagerAdapter(this, this.getSupportFragmentManager());
+        adapter = new LevelPagerAdapter(this, this.getSupportFragmentManager());
         pager.setAdapter(adapter);
         pager.setPageTransformer(false, adapter);
 
@@ -57,7 +62,7 @@ public class SelectLevelActivity extends FragmentActivity {
         loadCoins();
 
         TextView tv = (TextView) findViewById(R.id.tv_current_coins);
-        tv.setText("Coins " + coins);
+        tv.setText(this.getResources().getString(R.string.current_coin) + " " + coins);
     }
 
 //    @Override
@@ -91,11 +96,5 @@ public class SelectLevelActivity extends FragmentActivity {
     private void loadCoins(){
         SharedPreferences saves = this.getSharedPreferences(coin_save, 0);
         this.coins = saves.getInt(coin_key, 0);
-    }
-
-    public void startLevel(int level) {
-        Intent intent = new Intent("com.pickle.ashvin.Game");
-        intent.putExtra(Game.KEY_EXTRA, level);
-        getApplicationContext().startActivity(intent);
     }
 }

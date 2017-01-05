@@ -1,5 +1,7 @@
 /**
- * A yummy toast
+ * A can of beans
+ *
+ * Beans, beans the magical fruit the more you eat the more you toot!
  * 
  * @author Cameron Pickle
  * @author Nathan Pickle
@@ -15,6 +17,7 @@ import com.pickle.ashvin.R;
 import com.pickle.ashvin.Util;
 
 import android.graphics.Bitmap;
+import android.graphics.Region;
 
 public class Beans extends PowerUp {
     
@@ -33,6 +36,7 @@ public class Beans extends PowerUp {
         this.bitmap = globalBitmap;
         this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight();
+        this.region = new Region(x, y, x+width, y+height);
     }
 
     /**
@@ -43,6 +47,10 @@ public class Beans extends PowerUp {
         super.onCollision();
         view.changeToFartPickle();
     }
-    
-    
+
+    @Override
+    public void move() {
+        super.move();
+        this.region.set(x,y, x+bitmap.getWidth(), y+bitmap.getHeight());
+    }
 }

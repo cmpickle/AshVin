@@ -1,3 +1,12 @@
+/**
+ * Custom Linear Layout
+ *
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
+ */
+
 package com.pickle.ashvin;
 
 import android.content.Context;
@@ -5,18 +14,14 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-/**
- * Created by cmpic_000 on 12/21/2016.
- */
+public class LevelLinearLayout extends LinearLayout {
+    private float scale = LevelPagerAdapter.BIG_SCALE;
 
-public class MyLinearLayout extends LinearLayout {
-    private float scale = MyPagerAdapter.BIG_SCALE;
-
-    public MyLinearLayout(Context context, AttributeSet attrs) {
+    public LevelLinearLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MyLinearLayout(Context context) {
+    public LevelLinearLayout(Context context) {
         super(context);
     }
 

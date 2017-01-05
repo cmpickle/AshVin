@@ -1,5 +1,5 @@
 /**
- * A shopped wodden log
+ * A wooden log
  * 
  * @author Cameron Pickle
  * @author Nathan Pickle

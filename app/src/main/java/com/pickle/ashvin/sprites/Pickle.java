@@ -1,5 +1,5 @@
 /**
- * The fart that is controlled by the player
+ * The pickle that is controlled by the player
  * 
  * @author Cameron Pickle
  * @author Nathan Pickle
@@ -31,11 +31,13 @@ public class Pickle extends PlayableCharacter {
     /** Static bitmap to reduce memory usage. */
     public static Bitmap globalBitmap;
 
-    /** The moo sound */
+    /** The fart sound */
     private static int[] sound = {-1,0,0,0};
     
     /** sunglasses, hats and stuff */
     private Accessory accessory;
+
+    private int collisionTollerance = getCollisionTolerance()/2;
 
     public Pickle(GameView view, Game game) {
         super(view, game);
@@ -45,7 +47,7 @@ public class Pickle extends PlayableCharacter {
         this.bitmap = globalBitmap;
         this.width = this.bitmap.getWidth()/(colNr = 8);    // The image has 8 frames in a row
         this.height = this.bitmap.getHeight()/4;            // and 4 in a column
-        this.region = new Region(x, y, x+width, y+height);
+        this.region = new Region(x+collisionTollerance, y+collisionTollerance, x+width-collisionTollerance, y+height-collisionTollerance);
         this.frameTime = 3;        // the frame will change every 3 runs
         this.y = game.getResources().getDisplayMetrics().heightPixels / 2;    // Startposition in in the middle of the screen
         
@@ -92,7 +94,7 @@ public class Pickle extends PlayableCharacter {
         }
 
         if(bitmap != null)
-            this.region.set(x, y, x+width, y+height);
+            this.region.set(x+collisionTollerance, y+collisionTollerance, x+width-collisionTollerance, y+height-collisionTollerance);
         
         if(this.accessory != null){
             this.accessory.moveTo(this.x, this.y);
@@ -105,7 +107,6 @@ public class Pickle extends PlayableCharacter {
         if(this.accessory != null && !isDead){
             this.accessory.draw(canvas);
         }
-//        canvas.drawRect(region.getBounds(), new Paint());
     }
 
     /**

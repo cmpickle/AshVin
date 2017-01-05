@@ -1,3 +1,14 @@
+/**
+ * A surfboard
+ *
+ * Drawn by dancercal
+ *
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
+ */
+
 package com.pickle.ashvin.sprites.Obstacle;
 
 import android.graphics.Bitmap;
@@ -8,10 +19,6 @@ import com.pickle.ashvin.Game;
 import com.pickle.ashvin.GameView;
 import com.pickle.ashvin.R;
 import com.pickle.ashvin.Util;
-
-/**
- * Created by cmpic_000 on 1/2/2017.
- */
 
 public class SurfBoard extends ObstacleSprite {
 
