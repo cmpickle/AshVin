@@ -21,15 +21,6 @@ public class Background extends Sprite {
 
     /** Static bitmap to reduce memory usage */
     public static Bitmap globalBitmap;
-    
-//    public Background(GameView view, Game game) {
-//        super(view, game);
-//
-//        if(globalBitmap == null){
-//            globalBitmap = Util.getDownScaledBitmapAlpha8(game, R.drawable.bg01);
-//        }
-//        this.bitmap = globalBitmap;
-//    }
 
     public Background(GameView view, Game game, int level) {
         super(view, game);

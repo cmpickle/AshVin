@@ -6,12 +6,11 @@
  * Copyright (c) <2016> <Cameron Pickle - cmpickle>
  * Copyright (c) <2016> <Nathan Pickle - n8pickle>
  */
+
 package com.pickle.ashvin.sprites.Obstacle;
 
 import android.graphics.Bitmap;
-import android.graphics.Path;
 import android.graphics.Region;
-
 import com.pickle.ashvin.Game;
 import com.pickle.ashvin.GameView;
 import com.pickle.ashvin.R;

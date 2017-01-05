@@ -1,3 +1,12 @@
+/**
+ * The dialog that appears to buy a level
+ *
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
+ */
+
 package com.pickle.ashvin;
 
 import android.app.Dialog;
@@ -11,23 +20,11 @@ import android.widget.TextView;
 public class BuyLevelDialog extends Dialog {
     public static final int PURCHASE_PRICE = 50;
 
-    /** Name of the SharedPreference that saves the score */
-    public static final String LEVELS_UNLOCKED = "levels_unlocked";
-
     /** The game that invokes this dialog */
     private SelectLevelActivity selectLevelActivity;
     private View view;
 
     private TextView tvLevelCost;
-
-    public BuyLevelDialog(SelectLevelActivity selectLevelActivity) {
-        super(selectLevelActivity);
-        this.selectLevelActivity = selectLevelActivity;
-        this.setContentView(R.layout.buy_level);
-        this.setCancelable(false);
-
-        tvLevelCost = (TextView) findViewById(R.id.tv_level_cost);
-    }
 
     public BuyLevelDialog(Context selectLevelActivity, View view) {
         super(selectLevelActivity);

@@ -1,14 +1,19 @@
+/**
+ * An abstract class that manages obstacle sprites.
+ *
+ * This class makes sure that an obstacle sprite's region moves with it and can appropriately
+ * collide with the player
+ *
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
+ */
+
 package com.pickle.ashvin.sprites.Obstacle;
-
-import android.graphics.Path;
-
 import com.pickle.ashvin.Game;
 import com.pickle.ashvin.GameView;
 import com.pickle.ashvin.sprites.Sprite;
-
-/**
- * Created by cmpic_000 on 12/31/2016.
- */
 
 public abstract class ObstacleSprite extends Sprite {
 

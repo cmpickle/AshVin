@@ -1,5 +1,5 @@
 /**
- * Fart tail for the nyan cat
+ * Fart tail for the pickle
  * 
  * @author Cameron Pickle
  * @author Nathan Pickle

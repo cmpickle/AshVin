@@ -248,9 +248,9 @@ public abstract class Sprite {
      * Because my images have some whitespace to the edge.
      * @return
      */
-    private int getCollisionTolerance(){
+    protected int getCollisionTolerance(){
         // 25 @ 720x1280 px
-        return game.getResources().getDisplayMetrics().heightPixels / 50;
+        return game.getResources().getDisplayMetrics().heightPixels / 45;
     }
 
     public void clean() {

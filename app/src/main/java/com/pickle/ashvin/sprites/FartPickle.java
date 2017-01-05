@@ -25,6 +25,8 @@ public class FartPickle extends PlayableCharacter {
     
     /** The fart tail behind the pickle */
     private Fart fart;
+
+    private int collisionTollerance = getCollisionTolerance()/2;
     
     public FartPickle(GameView view, Game game) {
         super(view, game);
@@ -32,9 +34,9 @@ public class FartPickle extends PlayableCharacter {
             globalBitmap = Util.getScaledBitmapAlpha8(game, R.drawable.fart_pickle);
         }
         this.bitmap = globalBitmap;
-        this.region = new Region(0, 0, bitmap.getWidth(), bitmap.getHeight());
         this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight()/2;
+        this.region = new Region(x+collisionTollerance, y+collisionTollerance, x+width-collisionTollerance, y+height-collisionTollerance);
         this.y = game.getResources().getDisplayMetrics().heightPixels / 2;
         
         this.fart = new Fart(view, game);
@@ -51,6 +53,8 @@ public class FartPickle extends PlayableCharacter {
         if(fart != null){
             manageFartMovement();
         }
+
+        this.region.set(x+collisionTollerance, y+collisionTollerance, x+width-collisionTollerance, y+height-collisionTollerance);
     }
     
     private void manageFartMovement(){

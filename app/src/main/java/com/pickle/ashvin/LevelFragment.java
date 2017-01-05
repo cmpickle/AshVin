@@ -1,27 +1,31 @@
+/**
+ * A fragment for storing levels
+ *
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
+ */
+
 package com.pickle.ashvin;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class MyFragment extends Fragment {
+public class LevelFragment extends Fragment {
 
     public static Fragment newInstance(SelectLevelActivity context, int pos, float  scale) {
         Bundle b = new Bundle();
         b.putInt("pos", pos);
         b.putFloat("scale", scale);
-        return Fragment.instantiate(context, MyFragment.class.getName(), b);
+        return Fragment.instantiate(context, LevelFragment.class.getName(), b);
     }
 
     @Override
@@ -34,7 +38,7 @@ public class MyFragment extends Fragment {
 
         int pos = this.getArguments().getInt("pos");
         TextView tv = (TextView) l.findViewById(R.id.text);
-        tv.setText("Level " + (pos+1));
+        tv.setText(this.getResources().getString(R.string.level) + " " + (pos+1));
 
         ImageButton button = (ImageButton) l.findViewById(R.id.content);
         switch (pos) {
@@ -80,9 +84,6 @@ public class MyFragment extends Fragment {
                         } else {
                             SelectLevelActivity.selectLevelActivity.buyLevelDialog.init(1);
                             SelectLevelActivity.selectLevelActivity.buyLevelDialog.show();
-//                            BuyLevelDialog buyLevelDialog = new BuyLevelDialog(getActivity().getApplicationContext(), getActivity().findViewById(R.id.myviewpager));
-//                            buyLevelDialog.init();
-//                            buyLevelDialog.show();
                         }
                     }
                 });
@@ -104,7 +105,7 @@ public class MyFragment extends Fragment {
                 });
         }
 
-        MyLinearLayout root = (MyLinearLayout) l.findViewById(R.id.root);
+        LevelLinearLayout root = (LevelLinearLayout) l.findViewById(R.id.root);
         float scale = this.getArguments().getFloat("scale");
         root.setScaleBoth(scale);
 

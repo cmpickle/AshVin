@@ -62,19 +62,6 @@ public class GameView extends SurfaceView{
     private Tutorial tutorial;
     private boolean tutorialIsShown = true;
 
-//    public GameView(Context context) {
-//        super(context);
-//        this.game = (Game) context;
-//        setFocusable(true);
-//
-//        holder = getHolder();
-//        player = new Pickle(this, game);
-//        background = new Background(this, game);
-//        foreground = new Foreground(this, game);
-//        pauseButton = new PauseButton(this, game);
-//        tutorial = new Tutorial(this, game);
-//    }
-
     public GameView(Context context, int level) {
         super(context);
         this.game = (Game) context;
@@ -361,8 +348,8 @@ public class GameView extends SurfaceView{
      * Changes the player to Farting Pickle
      */
     public void changeToFartPickle(){
-        game.accomplishmentBox.achievement_toastification = true;
-        game.handler.sendMessage(Message.obtain(game.handler,1,R.string.toast_achievement_toastification, MyHandler.SHOW_BEANS));
+        game.accomplishmentBox.achievement_superfart = true;
+        game.handler.sendMessage(Message.obtain(game.handler,1,R.string.toast_achievement_superfarter, MyHandler.SHOW_BEANS));
         
         PlayableCharacter tmp = this.player;
         this.player = new FartPickle(this, game);

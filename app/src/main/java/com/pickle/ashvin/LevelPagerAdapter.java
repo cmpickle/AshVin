@@ -1,3 +1,12 @@
+/**
+ * A page adapter for displaying levels
+ *
+ * @author Cameron Pickle
+ * @author Nathan Pickle
+ * Copyright (c) <2016> <Cameron Pickle - cmpickle>
+ * Copyright (c) <2016> <Nathan Pickle - n8pickle>
+ */
+
 package com.pickle.ashvin;
 
 import android.support.v4.app.Fragment;
@@ -10,18 +19,18 @@ import android.view.View;
  * Created by cmpic_000 on 12/21/2016.
  */
 
-public class MyPagerAdapter extends FragmentPagerAdapter implements ViewPager.PageTransformer {
+public class LevelPagerAdapter extends FragmentPagerAdapter implements ViewPager.PageTransformer {
     public final static float BIG_SCALE = 1.0f;
     public final static float SMALL_SCALE = 0.7f;
     public final static float DIFF_SCALE = BIG_SCALE - SMALL_SCALE;
 
-    private MyLinearLayout cur = null;
-    private MyLinearLayout next = null;
+    private LevelLinearLayout cur = null;
+    private LevelLinearLayout next = null;
     private SelectLevelActivity context;
     private FragmentManager fm;
     private float scale;
 
-    public MyPagerAdapter(SelectLevelActivity context, FragmentManager fm) {
+    public LevelPagerAdapter(SelectLevelActivity context, FragmentManager fm) {
         super(fm);
         this.fm = fm;
         this.context = context;
@@ -35,7 +44,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter implements ViewPager.Pa
             scale = SMALL_SCALE;
 
         position = position % SelectLevelActivity.LEVELS;
-        return MyFragment.newInstance(context, position, scale);
+        return LevelFragment.newInstance(context, position, scale);
     }
 
     @Override
@@ -45,7 +54,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter implements ViewPager.Pa
 
     @Override
     public void transformPage(View page, float position) {
-        MyLinearLayout myLinearLayout = (MyLinearLayout) page.findViewById(R.id.root);
+        LevelLinearLayout levelLinearLayout = (LevelLinearLayout) page.findViewById(R.id.root);
         float scale = BIG_SCALE;
         if(position > 0) {
             scale = scale - position * DIFF_SCALE;
@@ -54,6 +63,6 @@ public class MyPagerAdapter extends FragmentPagerAdapter implements ViewPager.Pa
         }
         if(scale < 0)
             scale = 0;
-        myLinearLayout.setScaleBoth(scale);
+        levelLinearLayout.setScaleBoth(scale);
     }
 }

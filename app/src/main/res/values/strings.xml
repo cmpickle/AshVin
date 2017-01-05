@@ -28,12 +28,13 @@
   <string name="onscreen_coin_text">Coins:</string>
   <string name="on_back_press">Press backbutton again to exit</string>
   <string name="toast_achievement_50_coins">Achievement unlocked: 50 coins</string>
-  <string name="toast_achievement_toastification">Achievement unlocked: Toastification</string>
+  <string name="toast_achievement_superfarter">Achievement unlocked: Superfarter</string>
   <string name="toast_achievement_bronze">Achievement unlocked: Bronze</string>
   <string name="toast_achievement_silver">Achievement unlocked: Silver</string>
   <string name="toast_achievement_gold">Achievement unlocked: Gold</string>
   <string name="buy">Buy</string>
   <string name="buy_level">Do you want to buy the level?</string>
   <string name="defaultcost">50 coins</string>
-  <string name="current_coin">Coins: 0</string>
+  <string name="current_coin">Coins: </string>
+  <string name="level">Level</string>
 </resources>

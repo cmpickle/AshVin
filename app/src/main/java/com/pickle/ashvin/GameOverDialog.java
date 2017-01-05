@@ -34,16 +34,6 @@ public class GameOverDialog extends Dialog {
     private TextView tvCurrentScoreVal;
     private TextView tvBestScoreVal;
 
-    public GameOverDialog(Game game) {
-        super(game);
-        this.game = game;
-        this.setContentView(R.layout.gameover);
-        this.setCancelable(false);
-        
-        tvCurrentScoreVal = (TextView) findViewById(R.id.tv_current_score_value);
-        tvBestScoreVal = (TextView) findViewById(R.id.tv_best_score_value);
-    }
-
     public GameOverDialog(Game game, View view) {
         super(game);
         this.game = game;
@@ -63,7 +53,6 @@ public class GameOverDialog extends Dialog {
                 saveCoins();
                 if(game.numberOfRevive <= 1){
                     game.accomplishmentBox.saveLocal(game);
-                    AccomplishmentBox.savesAreOffline(game);
                 }
                 
                 dismiss();
@@ -131,9 +120,9 @@ public class GameOverDialog extends Dialog {
                 editor.putInt(MainActivity.medaille_key, 1);
             }
         }else{
-            ((ImageView)findViewById(R.id.medaille)).setVisibility(View.INVISIBLE);
+            (findViewById(R.id.medaille)).setVisibility(View.INVISIBLE);
         }
-        editor.commit();
+        editor.apply();
     }
     
     private void saveCoins(){

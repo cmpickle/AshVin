@@ -1,5 +1,7 @@
 /**
- * An obstacle: obstacleTop + logHead
+ * An obstacle pair: obstacleTop + obstacleBottom
+ *
+ * determines the obstacles that are used on the current level and manages them
  * 
  * @author Cameron Pickle
  * @author Nathan Pickle
@@ -24,7 +26,6 @@ public class Obstacle extends Sprite {
     private int level;
     
     private static int collideSound = -1;
-//    private static int passSound = -1;
     
     /** Necessary so the onPass method is just called once */
     public boolean isAlreadyPassed = false;
@@ -54,9 +55,6 @@ public class Obstacle extends Sprite {
         if(collideSound == -1){
             collideSound = Game.soundPool.load(game, R.raw.belch, 1);
         }
-//        if(passSound == -1){
-//            passSound = Game.soundPool.load(game, R.raw.pass, 1);
-//        }
         
         initPos();
     }
@@ -155,10 +153,12 @@ public class Obstacle extends Sprite {
         if(!isAlreadyPassed){
             isAlreadyPassed = true;
             view.getGame().increasePoints();
-//            Game.soundPool.play(passSound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
         }
     }
 
+    /**
+     * Determines what happens on collision and plays characters collision sound
+     */
     @Override
     public void onCollision() {
         super.onCollision();
