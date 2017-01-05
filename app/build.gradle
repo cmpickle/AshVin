@@ -32,9 +32,11 @@ android {
     }
     productFlavors {
         freeWithAds {
+            applicationId "com.pickle.ashvin"
             signingConfig signingConfigs.config
         }
         paid {
+            applicationId "com.pickle.ashvinpaid"
             minSdkVersion 15
             signingConfig signingConfigs.paidConfig
             targetSdkVersion 25
