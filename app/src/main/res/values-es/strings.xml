@@ -19,7 +19,6 @@
   <string name="dedicated">Dedicado a Asher y Gavin Pickle</string>
   <string name="developer">Desarolladores: \nCameron Pickle \nNathan Pickle</string>
   <string name="graphics">Graficos: \nCameron Pickle \nNathan Pickle \nCallie Pickle</string>
-  <string name="source_code">Obtener el codigo de fuente aquĺ:\nhttps://github.com/cmpickle/AshVin</string>
   <string name="onscreen_score_text">Puntos:</string>
   <string name="onscreen_coin_text">Monedas:</string>
   <string name="on_back_press">Pulsa el boton de regresar de vuelta para terminar la aplicacion</string>
