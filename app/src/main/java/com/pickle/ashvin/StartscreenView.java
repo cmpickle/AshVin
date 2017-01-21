@@ -157,10 +157,10 @@ public class StartscreenView extends View{
                     && (event.getX() < REGION_INFO[2] * getWidth())
                     && (event.getY() > REGION_INFO[1] * getHeight())
                     && (event.getY() < REGION_INFO[3] * getHeight()) ) {
-                SharedPreferences coin_save = mainActivity.getSharedPreferences(Game.coin_save, 0);
-                coin_save.getInt(Game.coin_key, 0);
+                SharedPreferences coin_save = mainActivity.getSharedPreferences(Game.COIN_SAVE, 0);
+                coin_save.getInt(Game.COIN_KEY, 0);
                 SharedPreferences.Editor editor = coin_save.edit();
-                editor.putInt(Game.coin_key, 50);
+                editor.putInt(Game.COIN_KEY, 50);
                 editor.commit();
                 Toast.makeText(mainActivity, "coins added", Toast.LENGTH_SHORT).show();
             }

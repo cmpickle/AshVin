@@ -18,8 +18,8 @@ import android.widget.TextView;
 public class SelectLevelActivity extends FragmentActivity {
 
     /** Name of the SharedPreference that saves the medals */
-    public static final String coin_save = "coin_save";
-    public static final String coin_key = "coin_key";
+    public static final String coin_save = "COIN_SAVE";
+    public static final String coin_key = "COIN_KEY";
     int coins;
 
     public final static int LEVELS = 4;
@@ -47,7 +47,7 @@ public class SelectLevelActivity extends FragmentActivity {
 
         pager.setOffscreenPageLimit(3);
 
-        pager.setPageMargin(-200);
+        pager.setPageMargin(-300);
 
         buyLevelDialog = new BuyLevelDialog(this, findViewById(R.id.myviewpager));
 
