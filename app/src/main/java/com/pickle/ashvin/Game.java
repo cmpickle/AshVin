@@ -270,7 +270,12 @@ public class Game extends FragmentActivity {
     private void setupAd() {
         interstitial = new InterstitialAd(this);
         interstitial.setAdUnitId(getResources().getString(R.string.ad_unit_id));
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("D7125D1B856F1556CBD9932A7F86FC5C").build();
+        AdRequest.Builder adRequestBuilder = new AdRequest.Builder();
+        //Cameron's Device ID
+        adRequestBuilder.addTestDevice("AB86373C2F012DC6CFCA112F9E25C0C7");
+        //Nathan's Device ID
+        adRequestBuilder.addTestDevice("D7125D1B856F1556CBD9932A7F86FC5C");
+        AdRequest adRequest = adRequestBuilder.build();
         interstitial.loadAd(adRequest);
         interstitial.setAdListener(new MyAdListener());
     }
