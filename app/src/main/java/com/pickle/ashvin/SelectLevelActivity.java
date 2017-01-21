@@ -31,7 +31,7 @@ public class SelectLevelActivity extends FragmentActivity {
     public ViewPager pager;
 
     BuyLevelDialog buyLevelDialog;
-    public static SelectLevelActivity selectLevelActivity;
+//    public static SelectLevelActivity selectLevelActivity;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +57,7 @@ public class SelectLevelActivity extends FragmentActivity {
     @Override
     public void onResume() {
         super.onResume();
-        selectLevelActivity = this;
+//        selectLevelActivity = this;
 
         loadCoins();
 

@@ -9,6 +9,7 @@
 
 package com.pickle.ashvin;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,8 @@ public class LevelFragment extends Fragment {
         switch (pos) {
             case 0:
                 button.setImageResource(R.drawable.level00);
+                button.setAdjustViewBounds(true);
+                button.getScaleType();
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -55,6 +58,8 @@ public class LevelFragment extends Fragment {
                 break;
             case 1:
                 button.setImageResource(R.drawable.level01);
+                button.setAdjustViewBounds(true);
+                button.getScaleType();
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -63,17 +68,18 @@ public class LevelFragment extends Fragment {
                             intent.putExtra(Game.KEY_EXTRA, 1);
                             startActivity(intent);
                         } else {
-                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.init(0);
-                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.show();
-//                            BuyLevelDialog buyLevelDialog = new BuyLevelDialog(getActivity().getApplicationContext(), getActivity().findViewById(R.id.myviewpager));
-//                            buyLevelDialog.init();
-//                            buyLevelDialog.show();
+                            Activity activity = getActivity();
+                            SelectLevelActivity selectLevelActivity  = (SelectLevelActivity) activity;
+                            selectLevelActivity.buyLevelDialog.init(0);
+                            selectLevelActivity.buyLevelDialog.show();
                         }
                     }
                 });
                 break;
             case 2:
                 button.setImageResource(R.drawable.level02);
+                button.setAdjustViewBounds(true);
+                button.getScaleType();
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -82,14 +88,18 @@ public class LevelFragment extends Fragment {
                             intent.putExtra(Game.KEY_EXTRA, 2);
                             startActivity(intent);
                         } else {
-                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.init(1);
-                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.show();
+                            Activity activity = getActivity();
+                            SelectLevelActivity selectLevelActivity  = (SelectLevelActivity) activity;
+                            selectLevelActivity.buyLevelDialog.init(1);
+                            selectLevelActivity.buyLevelDialog.show();
                         }
                     }
                 });
                 break;
             case 3:
                 button.setImageResource(R.drawable.level03);
+                button.setAdjustViewBounds(true);
+                button.getScaleType();
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -98,8 +108,10 @@ public class LevelFragment extends Fragment {
                             intent.putExtra(Game.KEY_EXTRA, 3);
                             startActivity(intent);
                         } else {
-                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.init(2);
-                            SelectLevelActivity.selectLevelActivity.buyLevelDialog.show();
+                            Activity activity = getActivity();
+                            SelectLevelActivity selectLevelActivity  = (SelectLevelActivity) activity;
+                            selectLevelActivity.buyLevelDialog.init(2);
+                            selectLevelActivity.buyLevelDialog.show();
                         }
                     }
                 });

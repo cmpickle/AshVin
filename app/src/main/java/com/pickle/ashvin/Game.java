@@ -32,6 +32,7 @@ public class Game extends FragmentActivity {
     public static final String coin_save = "coin_save";
     public static final String coin_key = "coin_key";
     public static final boolean PAID_VERSION = false;
+    public static final boolean DEV_MODE = false;
 
     public static SoundPool soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
     public static MediaPlayer musicPlayer = null;
@@ -178,6 +179,8 @@ public class Game extends FragmentActivity {
     
     public void increaseCoin(){
         this.coins++;
+        if(Game.DEV_MODE)
+            this.coins+=100;
         if(coins >= 50 && !accomplishmentBox.achievement_50_coins){
             accomplishmentBox.achievement_50_coins = true;
             handler.sendMessage(Message.obtain(handler,1,R.string.toast_achievement_50_coins, MyHandler.SHOW_BEANS));
