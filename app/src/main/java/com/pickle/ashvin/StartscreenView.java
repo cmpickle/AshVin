@@ -10,25 +10,29 @@
 package com.pickle.ashvin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 public class StartscreenView extends View{
-    
+
     private static Bitmap splash = null;
     private static Bitmap play = null;
     private static Bitmap speaker = null;
     private static Bitmap info = null;
     private static Bitmap socket = null;
+    private static Bitmap coin = null;
     
     // Button regions: left, top, right, bottom
     private final static float[] REGION_PLAY = {169/720.0f, 515/1280f, 553/720.0f, 699/1280.0f};
     private final static float[] REGION_INFO = {585/720.0f, 1141/1280f, 700/720.0f, 1256/1280.0f};
     private final static float[] REGION_SPEAKER = {25/720.0f, 1140/1280f, 140/720.0f, 1255/1280.0f};
     private final static float[] REGION_SOCKET = {233/720.0f, 1149/1280f, 487/720.0f, 1248/1280.0f};
+    private final static float[] REGION_COIN = {670/720.0f, 0/1280f, 720/720.0f, 50/1280.0f};
     
     private Rect dstSplash;
     private Rect srcSplash;
@@ -40,6 +44,8 @@ public class StartscreenView extends View{
     private Rect srcInfo;
     private Rect dstSocket;
     private Rect srcSocket;
+    private Rect srcCoin;
+    private Rect dstCoin;
 
     private MainActivity mainActivity;
 
@@ -62,6 +68,9 @@ public class StartscreenView extends View{
         srcInfo = new Rect(0, 0, info.getWidth(), info.getHeight());
         if(socket == null) {
             socket = Util.getBitmapAlpha8(mainActivity, R.drawable.socket);
+        }
+        if(coin == null && Game.DEV_MODE) {
+            coin = Util.getBitmapAlpha8(mainActivity, R.drawable.coin);
         }
         
         setWillNotDraw(false);
@@ -88,6 +97,8 @@ public class StartscreenView extends View{
         canvas.drawBitmap(speaker, srcSpeaker, dstSpeaker, null);
         canvas.drawBitmap(info, srcInfo, dstInfo, null);
         canvas.drawBitmap(socket, srcSocket, dstSocket, null);
+        if(Game.DEV_MODE)
+            canvas.drawBitmap(coin, srcCoin, dstCoin, null);
     }
     
     @Override
@@ -115,6 +126,12 @@ public class StartscreenView extends View{
                                 (int)(getHeight()*REGION_SOCKET[1]),
                                 (int)(getWidth()*REGION_SOCKET[2]),
                                 (int)(getHeight()*REGION_SOCKET[3]));
+        if(Game.DEV_MODE) {
+            dstCoin = new Rect( (int)(getWidth()*REGION_COIN[0]),
+                                (int)(getHeight()*REGION_COIN[1]),
+                                (int)(getWidth()*REGION_COIN[2]),
+                                (int)(getHeight()*REGION_COIN[3]));
+        }
     }
 
     @Override
@@ -136,6 +153,16 @@ public class StartscreenView extends View{
                     && (event.getY() > REGION_INFO[1] * getHeight())
                     && (event.getY() < REGION_INFO[3] * getHeight()) ) {
                 mainActivity.startActivity(new Intent("com.pickle.ashvin.About"));
+            } else if(    Game.DEV_MODE && (event.getX() > REGION_INFO[0] * getWidth())
+                    && (event.getX() < REGION_INFO[2] * getWidth())
+                    && (event.getY() > REGION_INFO[1] * getHeight())
+                    && (event.getY() < REGION_INFO[3] * getHeight()) ) {
+                SharedPreferences coin_save = mainActivity.getSharedPreferences(Game.coin_save, 0);
+                coin_save.getInt(Game.coin_key, 0);
+                SharedPreferences.Editor editor = coin_save.edit();
+                editor.putInt(Game.coin_key, 50);
+                editor.commit();
+                Toast.makeText(mainActivity, "coins added", Toast.LENGTH_SHORT).show();
             }
         }
         return true;
