@@ -10,7 +10,6 @@
 package com.pickle.ashvin;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.View;
@@ -126,10 +125,10 @@ public class GameOverDialog extends Dialog {
     }
     
     private void saveCoins(){
-        SharedPreferences coin_save = game.getSharedPreferences(Game.coin_save, 0);
-        coin_save.getInt(Game.coin_key, 0);
+        SharedPreferences coin_save = game.getSharedPreferences(Game.COIN_SAVE, 0);
+        coin_save.getInt(Game.COIN_KEY, 0);
         SharedPreferences.Editor editor = coin_save.edit();
-        editor.putInt(Game.coin_key, game.coins);
+        editor.putInt(Game.COIN_KEY, game.coins);
         editor.commit();
     }
     

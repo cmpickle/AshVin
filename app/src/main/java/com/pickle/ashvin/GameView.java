@@ -349,7 +349,7 @@ public class GameView extends SurfaceView{
      */
     public void changeToFartPickle(){
         game.accomplishmentBox.achievement_superfart = true;
-        game.handler.sendMessage(Message.obtain(game.handler,1,R.string.toast_achievement_superfarter, MyHandler.SHOW_BEANS));
+        game.handler.sendMessage(Message.obtain(game.handler,1,R.string.toast_achievement_superfarter, MyHandler.SHOW_TOAST));
         
         PlayableCharacter tmp = this.player;
         this.player = new FartPickle(this, game);

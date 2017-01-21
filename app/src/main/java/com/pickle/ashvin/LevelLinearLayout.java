@@ -35,6 +35,7 @@ public class LevelLinearLayout extends LinearLayout {
         int w = this.getWidth();
         int h = this.getHeight();
         canvas.scale(scale, scale, w/2, h/2);
+        //canvas.translate(30f, 0f);
 
         super.onDraw(canvas);
     }

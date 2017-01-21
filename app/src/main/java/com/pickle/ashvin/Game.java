@@ -29,10 +29,10 @@ import com.google.android.gms.ads.InterstitialAd;
 public class Game extends FragmentActivity {
 
     public static final String KEY_EXTRA = "com.pickle.ashvin.KEY_LEVEL";
-    public static final String coin_save = "coin_save";
-    public static final String coin_key = "coin_key";
+    public static final String COIN_SAVE = "COIN_SAVE";
+    public static final String COIN_KEY = "COIN_KEY";
     public static final boolean PAID_VERSION = false;
-    public static final boolean DEV_MODE = false;
+    public static final boolean DEV_MODE = true;
 
     public static SoundPool soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
     public static MediaPlayer musicPlayer = null;
@@ -122,8 +122,8 @@ public class Game extends FragmentActivity {
     }
     
     private void loadCoins(){
-        SharedPreferences saves = this.getSharedPreferences(coin_save, 0);
-        this.coins = saves.getInt(coin_key, 0);
+        SharedPreferences saves = this.getSharedPreferences(COIN_SAVE, 0);
+        this.coins = saves.getInt(COIN_KEY, 0);
     }
 
     /**
@@ -183,7 +183,7 @@ public class Game extends FragmentActivity {
             this.coins+=100;
         if(coins >= 50 && !accomplishmentBox.achievement_50_coins){
             accomplishmentBox.achievement_50_coins = true;
-            handler.sendMessage(Message.obtain(handler,1,R.string.toast_achievement_50_coins, MyHandler.SHOW_BEANS));
+            handler.sendMessage(Message.obtain(handler,1,R.string.toast_achievement_50_coins, MyHandler.SHOW_TOAST));
         }
     }
 
@@ -200,19 +200,19 @@ public class Game extends FragmentActivity {
         if(accomplishmentBox.points >= AccomplishmentBox.BRONZE_POINTS){
             if(!records.achievement_bronze){
                 accomplishmentBox.achievement_bronze = true;
-                handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_BEANS, R.string.toast_achievement_bronze, MyHandler.SHOW_BEANS));
+                handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_bronze, MyHandler.SHOW_TOAST));
             }
             
             if(accomplishmentBox.points >= AccomplishmentBox.SILVER_POINTS){
                 if(!records.achievement_silver){
                     accomplishmentBox.achievement_silver = true;
-                    handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_BEANS, R.string.toast_achievement_silver, MyHandler.SHOW_BEANS));
+                    handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_silver, MyHandler.SHOW_TOAST));
                 }
                 
                 if(accomplishmentBox.points >= AccomplishmentBox.GOLD_POINTS){
                     if(!records.achievement_gold){
                         accomplishmentBox.achievement_gold = true;
-                        handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_BEANS, R.string.toast_achievement_gold, MyHandler.SHOW_BEANS));
+                        handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_gold, MyHandler.SHOW_TOAST));
                     }
                 }
             }
@@ -224,7 +224,7 @@ public class Game extends FragmentActivity {
      */
     static class MyHandler extends Handler{
         public static final int GAME_OVER_DIALOG = 0;
-        public static final int SHOW_BEANS = 1;
+        public static final int SHOW_TOAST = 1;
         public static final int SHOW_AD = 2;
         
         private Game game;
@@ -239,7 +239,7 @@ public class Game extends FragmentActivity {
                 case GAME_OVER_DIALOG:
                     showGameOverDialog();
                     break;
-                case SHOW_BEANS:
+                case SHOW_TOAST:
                     Toast.makeText(game, msg.arg1, Toast.LENGTH_SHORT).show();
                     break;
                 case SHOW_AD:

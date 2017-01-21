@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class BuyLevelDialog extends Dialog {
@@ -78,10 +77,10 @@ public class BuyLevelDialog extends Dialog {
     }
 
     private void saveCoins(){
-        SharedPreferences coin_save = selectLevelActivity.getSharedPreferences(Game.coin_save, 0);
-        coin_save.getInt(Game.coin_key, 0);
+        SharedPreferences coin_save = selectLevelActivity.getSharedPreferences(Game.COIN_SAVE, 0);
+        coin_save.getInt(Game.COIN_KEY, 0);
         SharedPreferences.Editor editor = coin_save.edit();
-        editor.putInt(Game.coin_key, selectLevelActivity.coins);
+        editor.putInt(Game.COIN_KEY, selectLevelActivity.coins);
         editor.commit();
     }
 }
