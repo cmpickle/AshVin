@@ -44,10 +44,17 @@ android {
     }
 }
 
+repositories {
+    maven {url "https://clojars.org/repo/"}
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/stetho-1.4.2.jar')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.1.0'
     compile 'com.google.android.gms:play-services-ads:9.4.0'
+    debugCompile 'com.facebook.stetho:stetho:1.4.2'
+    debugCompile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
 }

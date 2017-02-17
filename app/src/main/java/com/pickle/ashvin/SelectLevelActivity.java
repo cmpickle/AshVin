@@ -31,7 +31,6 @@ public class SelectLevelActivity extends FragmentActivity {
     public ViewPager pager;
 
     BuyLevelDialog buyLevelDialog;
-//    public static SelectLevelActivity selectLevelActivity;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +56,6 @@ public class SelectLevelActivity extends FragmentActivity {
     @Override
     public void onResume() {
         super.onResume();
-//        selectLevelActivity = this;
 
         loadCoins();
 
@@ -65,33 +63,15 @@ public class SelectLevelActivity extends FragmentActivity {
         tv.setText(this.getResources().getString(R.string.current_coin) + " " + coins);
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//
-//        unbindDrawables(findViewById(R.id.myviewpager));
-//        unbindDrawables(findViewById(R.id.tv_current_coins));
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//
-//        unbindDrawables(findViewById(R.id.myviewpager));
-//        unbindDrawables(findViewById(R.id.tv_current_coins));
-//    }
-//
-//    private void unbindDrawables(View view) {
-//        if(view.getBackground() != null) {
-//            view.getBackground().setCallback(null);
-//        }
-//        if(view instanceof ViewGroup && !(view instanceof AdapterView)) {
-//            for(int i = 0; i<((ViewGroup) view).getChildCount(); i++) {
-//                unbindDrawables(((ViewGroup) view).getChildAt(i));
-//
-//                ((ViewGroup) view).removeAllViews();            }
-//        }
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        adapter = null;
+        pager.removeAllViews();
+        pager = null;
+        buyLevelDialog = null;
+    }
 
     private void loadCoins(){
         SharedPreferences saves = this.getSharedPreferences(coin_save, 0);

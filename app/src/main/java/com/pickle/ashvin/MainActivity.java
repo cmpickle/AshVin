@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
+import com.facebook.stetho.*;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -42,12 +43,15 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Stetho.initializeWithDefaults(this);
+
         SharedPreferences levels = this.getSharedPreferences(LEVELS_UNLOCKED, 0);
         if(levels.contains(LEVELS_KEY)) {
             levelsUnlocked = levels.getInt(LEVELS_KEY, 0);
         } else {
             SharedPreferences.Editor editor = levels.edit();
             editor.putInt(LEVELS_KEY, levelsUnlocked);
+            editor.apply();
         }
 
         view = new StartscreenView(this);
@@ -60,33 +64,12 @@ public class MainActivity extends FragmentActivity {
         setSocket();
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//
-//        unbindDrawables(view);
-//        view = null;
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//
-//        unbindDrawables(view);
-////        view.clearBitmaps();
-//    }
-//
-//    private void unbindDrawables(View view) {
-//        if(view.getBackground() != null) {
-//            view.getBackground().setCallback(null);
-//        }
-//        if(view instanceof ViewGroup && !(view instanceof AdapterView)) {
-//            for(int i = 0; i<((ViewGroup) view).getChildCount(); i++) {
-//                unbindDrawables(((ViewGroup) view).getChildAt(i));
-//
-//                ((ViewGroup) view).removeAllViews();            }
-//        }
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        view = null;
+    }
     
     public void muteToggle() {
         SharedPreferences mute = this.getSharedPreferences(MUTE_PREFERENCE, 0);
@@ -129,34 +112,18 @@ public class MainActivity extends FragmentActivity {
     public void MuteAudio(){
         AudioManager mAlramMAnager = (AudioManager) this.getSystemService(AUDIO_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
-//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_ALARM, AudioManager.ADJUST_MUTE, 0);
             mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, 0);
-//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
-//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, 0);
         } else {
-//            mAlramMAnager.setStreamMute(AudioManager.STREAM_NOTIFICATION, true);
-//            mAlramMAnager.setStreamMute(AudioManager.STREAM_ALARM, true);
             mAlramMAnager.setStreamMute(AudioManager.STREAM_MUSIC, true);
-//            mAlramMAnager.setStreamMute(AudioManager.STREAM_RING, true);
-//            mAlramMAnager.setStreamMute(AudioManager.STREAM_SYSTEM, true);
         }
     }
 
     public void UnMuteAudio(){
         AudioManager mAlramMAnager = (AudioManager) this.getSystemService(AUDIO_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, 0);
-//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_ALARM, AudioManager.ADJUST_UNMUTE, 0);
             mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE,0);
-//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
-//            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, 0);
         } else {
-//            mAlramMAnager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
-//            mAlramMAnager.setStreamMute(AudioManager.STREAM_ALARM, false);
             mAlramMAnager.setStreamMute(AudioManager.STREAM_MUSIC, false);
-//            mAlramMAnager.setStreamMute(AudioManager.STREAM_RING, false);
-//            mAlramMAnager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
         }
     }
 }
