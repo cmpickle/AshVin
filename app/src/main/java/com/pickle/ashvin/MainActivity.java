@@ -48,10 +48,6 @@ public class MainActivity extends FragmentActivity {
         SharedPreferences levels = this.getSharedPreferences(LEVELS_UNLOCKED, 0);
         if(levels.contains(LEVELS_KEY)) {
             levelsUnlocked = levels.getInt(LEVELS_KEY, 0);
-        } else {
-            SharedPreferences.Editor editor = levels.edit();
-            editor.putInt(LEVELS_KEY, levelsUnlocked);
-            editor.apply();
         }
 
         view = new StartscreenView(this);
@@ -68,6 +64,7 @@ public class MainActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+        setContentView(null);
         view = null;
     }
     

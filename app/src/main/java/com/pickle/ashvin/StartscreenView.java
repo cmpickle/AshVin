@@ -55,6 +55,7 @@ public class StartscreenView extends View{
         if(splash == null) {
             splash = Util.getBitmapAlpha8(mainActivity, R.drawable.splash);
         }
+        srcSplash = new Rect(0, 0, splash.getWidth(), splash.getHeight());
         if(play == null) {
             play = Util.getBitmapAlpha8(mainActivity, R.drawable.play_button);
         }
@@ -72,6 +73,7 @@ public class StartscreenView extends View{
         if(coin == null && Game.DEV_MODE) {
             coin = Util.getBitmapAlpha8(mainActivity, R.drawable.coin);
         }
+        srcCoin = new Rect(0,0, coin.getWidth()/12, coin.getHeight());
         
         setWillNotDraw(false);
         setSpeaker(true);
@@ -153,26 +155,17 @@ public class StartscreenView extends View{
                     && (event.getY() > REGION_INFO[1] * getHeight())
                     && (event.getY() < REGION_INFO[3] * getHeight()) ) {
                 mainActivity.startActivity(new Intent("com.pickle.ashvin.About"));
-            } else if(    Game.DEV_MODE && (event.getX() > REGION_INFO[0] * getWidth())
-                    && (event.getX() < REGION_INFO[2] * getWidth())
-                    && (event.getY() > REGION_INFO[1] * getHeight())
-                    && (event.getY() < REGION_INFO[3] * getHeight()) ) {
+            } else if(    Game.DEV_MODE && (event.getX() > REGION_COIN[0] * getWidth())
+                    && (event.getX() < REGION_COIN[2] * getWidth())
+                    && (event.getY() > REGION_COIN[1] * getHeight())
+                    && (event.getY() < REGION_COIN[3] * getHeight()) ) {
                 SharedPreferences coin_save = mainActivity.getSharedPreferences(Game.COIN_SAVE, 0);
-                coin_save.getInt(Game.COIN_KEY, 0);
                 SharedPreferences.Editor editor = coin_save.edit();
-                editor.putInt(Game.COIN_KEY, 50);
+                editor.putInt(Game.COIN_KEY, 50 + coin_save.getInt(Game.COIN_KEY, 0));
                 editor.commit();
                 Toast.makeText(mainActivity, "coins added", Toast.LENGTH_SHORT).show();
             }
         }
         return true;
     }
-
-//    public void clearBitmaps() {
-//        splash.recycle();
-//        play.recycle();
-//        speaker.recycle();
-//        info.recycle();
-//        socket.recycle();
-//    }
 }

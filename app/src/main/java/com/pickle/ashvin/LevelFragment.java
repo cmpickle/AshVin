@@ -20,7 +20,17 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LevelFragment extends Fragment {
+
+    @BindView(R.id.content)
+    ImageButton button;
+    @BindView(R.id.text)
+    TextView tv;
+    @BindView(R.id.root)
+    LevelLinearLayout root;
 
     public static Fragment newInstance(SelectLevelActivity context, int pos, float  scale) {
         Bundle b = new Bundle();
@@ -35,13 +45,12 @@ public class LevelFragment extends Fragment {
             return null;
         }
 
-        LinearLayout l = (LinearLayout) inflater.inflate(R.layout.mf, container, false);
+        LinearLayout l = (LinearLayout) inflater.inflate(R.layout.level_fragment, container, false);
+        ButterKnife.bind(this, l);
 
         int pos = this.getArguments().getInt("pos");
-        TextView tv = (TextView) l.findViewById(R.id.text);
         tv.setText(this.getResources().getString(R.string.level) + " " + (pos+1));
 
-        ImageButton button = (ImageButton) l.findViewById(R.id.content);
         switch (pos) {
             case 0:
                 button.setImageResource(R.drawable.level00);
@@ -117,7 +126,6 @@ public class LevelFragment extends Fragment {
                 });
         }
 
-        LevelLinearLayout root = (LevelLinearLayout) l.findViewById(R.id.root);
         float scale = this.getArguments().getFloat("scale");
         root.setScaleBoth(scale);
 
