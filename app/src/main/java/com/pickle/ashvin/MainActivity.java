@@ -15,26 +15,23 @@ import android.os.Bundle;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
 import com.facebook.stetho.*;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 public class MainActivity extends FragmentActivity {
     
     /** Name of the SharedPreference that saves the medals */
-    public static final String medaille_save = "medaille_save";
+    public static final String MEDAILLE_SAVE = "MEDAILLE_SAVE";
     /** Key that saves the medal */
-    public static final String medaille_key = "medaille_key";
+    public static final String MEDAILLE_KEY = "MEDAILLE_KEY";
 
     /**Key that saves mute preference*/
-    public static final String MUTE_PREFERENCE = "mute_preference";
-    public static final String MUTE_KEY = "mute_key";
+    public static final String MUTE_SAVE = "MUTE_SAVE";
+    public static final String MUTE_KEY = "MUTE_KEY";
     public static final float DEFAULT_VOLUME = 0.3f;
     /** Volume for sound and music */
     public static float volume = DEFAULT_VOLUME;
 
-    public static final String LEVELS_UNLOCKED = "levels_unlocked";
-    public static final String LEVELS_KEY = "levels_key";
+    public static final String LEVELS_SAVE = "LEVELS_SAVE";
+    public static final String LEVELS_KEY = "LEVELS_KEY";
     public static int levelsUnlocked = 0;
     
     private StartscreenView view;
@@ -45,14 +42,14 @@ public class MainActivity extends FragmentActivity {
 
         Stetho.initializeWithDefaults(this);
 
-        SharedPreferences levels = this.getSharedPreferences(LEVELS_UNLOCKED, 0);
+        SharedPreferences levels = this.getSharedPreferences(LEVELS_SAVE, 0);
         if(levels.contains(LEVELS_KEY)) {
             levelsUnlocked = levels.getInt(LEVELS_KEY, 0);
         }
 
         view = new StartscreenView(this);
 
-        SharedPreferences mute = this.getSharedPreferences(MUTE_PREFERENCE, 0);
+        SharedPreferences mute = this.getSharedPreferences(MUTE_SAVE, 0);
         if(mute.getBoolean(MUTE_KEY, false)) {
             muteToggle();
         }
@@ -65,11 +62,10 @@ public class MainActivity extends FragmentActivity {
         super.onDestroy();
 
         setContentView(null);
-        view = null;
     }
     
     public void muteToggle() {
-        SharedPreferences mute = this.getSharedPreferences(MUTE_PREFERENCE, 0);
+        SharedPreferences mute = this.getSharedPreferences(MUTE_SAVE, 0);
         SharedPreferences.Editor editor = mute.edit();
 
         if(volume != 0){
@@ -92,8 +88,8 @@ public class MainActivity extends FragmentActivity {
      * Fills the socket with the medals that have already been collected.
      */
     private void setSocket(){
-        SharedPreferences saves = this.getSharedPreferences(medaille_save, 0);
-        view.setSocket(saves.getInt(medaille_key, 0));
+        SharedPreferences saves = this.getSharedPreferences(MEDAILLE_SAVE, 0);
+        view.setSocket(saves.getInt(MEDAILLE_KEY, 0));
         view.invalidate();
     }
 

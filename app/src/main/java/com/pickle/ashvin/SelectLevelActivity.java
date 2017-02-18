@@ -18,8 +18,8 @@ import android.widget.TextView;
 public class SelectLevelActivity extends FragmentActivity {
 
     /** Name of the SharedPreference that saves the medals */
-    public static final String coin_save = "COIN_SAVE";
-    public static final String coin_key = "COIN_KEY";
+    public static final String COIN_SAVE = "COIN_SAVE";
+    public static final String COIN_KEY = "COIN_KEY";
     int coins;
 
     public final static int LEVELS = 4;
@@ -74,7 +74,7 @@ public class SelectLevelActivity extends FragmentActivity {
     }
 
     private void loadCoins(){
-        SharedPreferences saves = this.getSharedPreferences(coin_save, 0);
-        this.coins = saves.getInt(coin_key, 0);
+        SharedPreferences saves = this.getSharedPreferences(COIN_SAVE, 0);
+        this.coins = saves.getInt(COIN_KEY, 0);
     }
 }
