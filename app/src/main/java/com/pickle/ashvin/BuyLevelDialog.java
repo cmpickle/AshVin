@@ -66,7 +66,7 @@ public class BuyLevelDialog extends Dialog {
     private void manageLevels(int level){
         int levelCode = 1;
         levelCode = levelCode << level;
-        SharedPreferences level_save = selectLevelActivity.getSharedPreferences(MainActivity.LEVELS_UNLOCKED, 0);
+        SharedPreferences level_save = selectLevelActivity.getSharedPreferences(MainActivity.LEVELS_SAVE, 0);
 
         SharedPreferences.Editor editor = level_save.edit();
 

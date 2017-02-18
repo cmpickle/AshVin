@@ -29,14 +29,14 @@ public class AccomplishmentBox{
     /** Points needed for a bronze medal */
     public static final int BRONZE_POINTS = 10;
     
-    public static final String SAVE_NAME = "ACCOMPLISHMENTS";
+    public static final String ACCOMPLISHMENTS_SAVE = "ACCOMPLISHMENTS_SAVE";
     
-    public static final String KEY_POINTS = "points";
-    public static final String ACHIEVEMENT_KEY_50_COINS = "achievement_survive_5_minutes";
-    public static final String ACHIEVEMENT_KEY_SUPERFART = "achievement_superfart";
-    public static final String ACHIEVEMENT_KEY_BRONZE = "achievement_bronze";
-    public static final String ACHIEVEMENT_KEY_SILVER = "achievement_silver";
-    public static final String ACHIEVEMENT_KEY_GOLD = "achievement_gold";
+    public static final String KEY_POINTS = "POINTS_KEY";
+    public static final String ACHIEVEMENT_KEY_50_COINS = "ACHIEVEMENT_SURVIVE_5_MINUTES_KEY";
+    public static final String ACHIEVEMENT_KEY_SUPERFART = "ACHIEVEMENT_SUPERFART_KEY";
+    public static final String ACHIEVEMENT_KEY_BRONZE = "ACHIEVEMENT_BRONZE_KEY";
+    public static final String ACHIEVEMENT_KEY_SILVER = "ACHIEVEMENT_SILVER_KEY";
+    public static final String ACHIEVEMENT_KEY_GOLD = "ACHIEVEMENT_GOLD_KEY";
     
     int points;
     boolean achievement_50_coins;
@@ -54,7 +54,7 @@ public class AccomplishmentBox{
      * @param activity activity that is needed for shared preferences
      */
     public void saveLocal(Activity activity){
-        SharedPreferences saves = activity.getSharedPreferences(SAVE_NAME, 0);
+        SharedPreferences saves = activity.getSharedPreferences(ACCOMPLISHMENTS_SAVE, 0);
         SharedPreferences.Editor editor = saves.edit();
         
         if(points > saves.getInt(KEY_POINTS, 0)){
@@ -86,7 +86,7 @@ public class AccomplishmentBox{
      */
     public static AccomplishmentBox getLocal(Activity activity){
         AccomplishmentBox box = new AccomplishmentBox();
-        SharedPreferences saves = activity.getSharedPreferences(SAVE_NAME, 0);
+        SharedPreferences saves = activity.getSharedPreferences(ACCOMPLISHMENTS_SAVE, 0);
         
         box.points = saves.getInt(KEY_POINTS, 0);
         box.achievement_50_coins = saves.getBoolean(ACHIEVEMENT_KEY_50_COINS, false);

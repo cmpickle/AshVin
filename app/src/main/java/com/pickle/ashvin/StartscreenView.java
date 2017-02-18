@@ -79,7 +79,18 @@ public class StartscreenView extends View{
         setSpeaker(true);
         setSocket(0);
     }
-    
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        splash = null;
+        play = null;
+        speaker = null;
+        info = null;
+        socket = null;
+        coin = null;
+    }
+
     public void setSpeaker(boolean on) {
         if(on) {
             srcSpeaker = new Rect(0, 0, speaker.getWidth(), speaker.getHeight()/2);
