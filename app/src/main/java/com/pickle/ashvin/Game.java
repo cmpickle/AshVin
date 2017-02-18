@@ -91,14 +91,6 @@ public class Game extends FragmentActivity {
         view.cleanView();
     }
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//
-//        unbindDrawables(view);
-//        view.cleanView();
-//    }
-
     private void unbindDrawables(View view) {
         if(view.getBackground() != null) {
             view.getBackground().setCallback(null);

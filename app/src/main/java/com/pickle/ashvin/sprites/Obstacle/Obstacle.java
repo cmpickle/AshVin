@@ -35,7 +35,7 @@ public class Obstacle extends Sprite {
         this.level = level;
         switch (level) {
             case 0:
-                obstacleTop = new Laser(view, game);
+                obstacleTop = new Chainsaw(view, game);
                 obstacleBottom = new WoodLog(view, game);
                 break;
             case 1:
@@ -78,7 +78,7 @@ public class Obstacle extends Sprite {
         int spacingBottom = 0;
         switch (level) {
             case 0:
-                spacingTop = 55;
+                spacingBottom = 170;
                 break;
             case 1:
                 spacingTop = 12;
