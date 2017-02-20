@@ -13,8 +13,10 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.content.SharedPreferences;
+import android.support.v4.*;
+import android.support.v4.BuildConfig;
 import android.support.v4.app.FragmentActivity;
-import com.facebook.stetho.*;
+import com.facebook.stetho.Stetho;
 
 public class MainActivity extends FragmentActivity {
     
@@ -40,7 +42,8 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Stetho.initializeWithDefaults(this);
+        if(BuildConfig.DEBUG)
+            Stetho.initializeWithDefaults(this);
 
         SharedPreferences levels = this.getSharedPreferences(LEVELS_SAVE, 0);
         if(levels.contains(LEVELS_KEY)) {
