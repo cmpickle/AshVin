@@ -73,7 +73,8 @@ public class StartscreenView extends View{
         if(coin == null && Game.DEV_MODE) {
             coin = Util.getBitmapAlpha8(mainActivity, R.drawable.coin);
         }
-        srcCoin = new Rect(0,0, coin.getWidth()/12, coin.getHeight());
+        if(Game.DEV_MODE)
+            srcCoin = new Rect(0,0, coin.getWidth()/12, coin.getHeight());
         
         setWillNotDraw(false);
         setSpeaker(true);
