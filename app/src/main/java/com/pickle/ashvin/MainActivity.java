@@ -17,6 +17,8 @@ import android.support.v4.*;
 import android.support.v4.BuildConfig;
 import android.support.v4.app.FragmentActivity;
 import com.facebook.stetho.Stetho;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
 
 public class MainActivity extends FragmentActivity {
     
