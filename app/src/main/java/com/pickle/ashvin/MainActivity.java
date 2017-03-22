@@ -14,10 +14,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
+
+import com.crashlytics.android.Crashlytics;
 import com.facebook.stetho.Stetho;
 import com.pickle.ashvin.db.Score;
 import com.pickle.ashvin.db.Score_Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends FragmentActivity {
     
@@ -28,23 +32,19 @@ public class MainActivity extends FragmentActivity {
     /** Volume for sound and music */
     public static float volume = DEFAULT_VOLUME;
 
-    public static final String LEVELS_SAVE = "LEVELS_SAVE";
-    public static final String LEVELS_KEY = "LEVELS_KEY";
     public static int levelsUnlocked = 0;
-    
+
     private StartscreenView view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Fabric.with(this, new Crashlytics());
         if(BuildConfig.DEBUG)
             Stetho.initializeWithDefaults(this);
 
-//        SharedPreferences levels = this.getSharedPreferences(LEVELS_SAVE, 0);
-//        if(levels.contains(LEVELS_KEY)) {
-        levelsUnlocked = SQLite.select().from(Score.class).where(Score_Table.name.eq("levels")).querySingle().getValue();//levels.getInt(LEVELS_KEY, 0);
-//        }
+        levelsUnlocked = SQLite.select().from(Score.class).where(Score_Table.name.eq("levels")).querySingle().getValue();
 
         view = new StartscreenView(this);
 
