@@ -41,10 +41,10 @@ public class MainActivity extends FragmentActivity {
         if(BuildConfig.DEBUG)
             Stetho.initializeWithDefaults(this);
 
-        SharedPreferences levels = this.getSharedPreferences(LEVELS_SAVE, 0);
-        if(levels.contains(LEVELS_KEY)) {
-            levelsUnlocked = levels.getInt(LEVELS_KEY, 0);
-        }
+//        SharedPreferences levels = this.getSharedPreferences(LEVELS_SAVE, 0);
+//        if(levels.contains(LEVELS_KEY)) {
+        levelsUnlocked = SQLite.select().from(Score.class).where(Score_Table.name.eq("levels")).querySingle().getValue();//levels.getInt(LEVELS_KEY, 0);
+//        }
 
         view = new StartscreenView(this);
 

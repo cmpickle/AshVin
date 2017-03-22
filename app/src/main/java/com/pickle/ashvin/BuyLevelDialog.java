@@ -11,7 +11,6 @@ package com.pickle.ashvin;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -70,14 +69,9 @@ public class BuyLevelDialog extends Dialog {
     private void manageLevels(int level){
         int levelCode = 1;
         levelCode = levelCode << level;
-        SharedPreferences level_save = selectLevelActivity.getSharedPreferences(MainActivity.LEVELS_SAVE, 0);
-
-        SharedPreferences.Editor editor = level_save.edit();
-
-        editor.putInt(MainActivity.LEVELS_KEY, (level_save.getInt(MainActivity.LEVELS_KEY, 0) + levelCode));
-
-        editor.commit();
-        MainActivity.levelsUnlocked = level_save.getInt(MainActivity.LEVELS_KEY, 0);
+        Score levels = SQLite.select().from(Score.class).where(Score_Table.name.eq("levels")).querySingle();
+        SQLite.update(Score.class).set(Score_Table.value.eq(levels.getValue() + levelCode)).execute();
+        MainActivity.levelsUnlocked = levels.getValue();
     }
 
     private void saveCoins(){

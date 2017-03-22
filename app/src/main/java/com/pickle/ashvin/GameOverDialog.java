@@ -89,33 +89,26 @@ public class GameOverDialog extends Dialog {
     
     private void manageMedals(){
         Score medaille_save = SQLite.select().from(Score.class).where(Score_Table.name.eq("medals")).querySingle();
-//        SharedPreferences medaille_save = game.getSharedPreferences(MainActivity.MEDAILLE_SAVE, 0);
-        int medaille = medaille_save.getValue(); //.getInt(MainActivity.MEDAILLE_KEY, 0);
+        int medaille = medaille_save.getValue();
       
-//        SharedPreferences.Editor editor = medaille_save.edit();
-
         if(game.accomplishmentBox.achievement_gold){
             ((ImageView)findViewById(R.id.medaille)).setImageBitmap(Util.getScaledBitmapAlpha8(game, R.drawable.gold));
             if(medaille < 3){
                 SQLite.update(Score.class).set(Score_Table.value.eq(3)).where(Score_Table.name.eq("medals")).execute();
-//                editor.putInt(MainActivity.MEDAILLE_KEY, 3);
             }
         }else if(game.accomplishmentBox.achievement_silver){
             ((ImageView)findViewById(R.id.medaille)).setImageBitmap(Util.getScaledBitmapAlpha8(game, R.drawable.silver));
             if(medaille < 2){
                 SQLite.update(Score.class).set(Score_Table.value.eq(2)).where(Score_Table.name.eq("medals")).execute();
-//                editor.putInt(MainActivity.MEDAILLE_KEY, 2);
             }
         }else if(game.accomplishmentBox.achievement_bronze){
             ((ImageView)findViewById(R.id.medaille)).setImageBitmap(Util.getScaledBitmapAlpha8(game, R.drawable.bronce));
             if(medaille < 1){
                 SQLite.update(Score.class).set(Score_Table.value.eq(1)).where(Score_Table.name.eq("medals")).execute();
-//                editor.putInt(MainActivity.MEDAILLE_KEY, 1);
             }
         }else{
             (findViewById(R.id.medaille)).setVisibility(View.INVISIBLE);
         }
-//        editor.apply();
     }
     
     private void saveCoins(){
