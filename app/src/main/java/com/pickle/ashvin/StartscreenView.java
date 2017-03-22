@@ -18,6 +18,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.pickle.ashvin.db.Score;
+import com.pickle.ashvin.db.Score_Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 public class StartscreenView extends View{
 
     private static Bitmap splash = null;
@@ -171,10 +175,7 @@ public class StartscreenView extends View{
                     && (event.getX() < REGION_COIN[2] * getWidth())
                     && (event.getY() > REGION_COIN[1] * getHeight())
                     && (event.getY() < REGION_COIN[3] * getHeight()) ) {
-                SharedPreferences coin_save = mainActivity.getSharedPreferences(Game.COIN_SAVE, 0);
-                SharedPreferences.Editor editor = coin_save.edit();
-                editor.putInt(Game.COIN_KEY, 50 + coin_save.getInt(Game.COIN_KEY, 0));
-                editor.commit();
+                SQLite.update(Score.class).set(Score_Table.value.eq(SQLite.select().from(Score.class).where(Score_Table.name.eq("coins")).querySingle().getValue()+50)).where(Score_Table.name.eq("coins")).execute();
                 Toast.makeText(mainActivity, "coins added", Toast.LENGTH_SHORT).show();
             }
         }
