@@ -69,9 +69,8 @@ public class BuyLevelDialog extends Dialog {
     private void manageLevels(int level){
         int levelCode = 1;
         levelCode = levelCode << level;
-        Score levels = SQLite.select().from(Score.class).where(Score_Table.name.eq("levels")).querySingle();
-        SQLite.update(Score.class).set(Score_Table.value.eq(levels.getValue() + levelCode)).execute();
-        MainActivity.levelsUnlocked = levels.getValue();
+        SQLite.update(Score.class).set(Score_Table.value.eq(SQLite.select().from(Score.class).where(Score_Table.name.eq("levels")).querySingle().getValue() + levelCode)).execute();
+        MainActivity.levelsUnlocked = SQLite.select().from(Score.class).where(Score_Table.name.eq("levels")).querySingle().getValue();
     }
 
     private void saveCoins(){
