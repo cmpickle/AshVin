@@ -9,7 +9,6 @@
 
 package com.pickle.ashvin;
 
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -185,24 +184,22 @@ public class Game extends FragmentActivity {
     public void increasePoints(){
         accomplishmentBox.points++;
 
-        AccomplishmentBox records = AccomplishmentBox.getLocal();
-        
         this.view.getPlayer().upgradeBitmap(accomplishmentBox.points);
         
         if(accomplishmentBox.points >= AccomplishmentBox.BRONZE_POINTS){
-            if(!records.achievement_bronze){
+            if(!accomplishmentBox.achievement_bronze){
                 accomplishmentBox.achievement_bronze = true;
                 handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_bronze, MyHandler.SHOW_TOAST));
             }
             
             if(accomplishmentBox.points >= AccomplishmentBox.SILVER_POINTS){
-                if(!records.achievement_silver){
+                if(!accomplishmentBox.achievement_silver){
                     accomplishmentBox.achievement_silver = true;
                     handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_silver, MyHandler.SHOW_TOAST));
                 }
                 
                 if(accomplishmentBox.points >= AccomplishmentBox.GOLD_POINTS){
-                    if(!records.achievement_gold){
+                    if(!accomplishmentBox.achievement_gold){
                         accomplishmentBox.achievement_gold = true;
                         handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_gold, MyHandler.SHOW_TOAST));
                     }

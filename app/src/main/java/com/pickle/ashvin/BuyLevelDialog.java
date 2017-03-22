@@ -56,6 +56,7 @@ public class BuyLevelDialog extends Dialog {
                 selectLevelActivity.coins -= PURCHASE_PRICE;
                 manageLevels(level);
                 saveCoins();
+                view.findViewById(R.id.tv_current_coins).invalidate();
             }
         });
         if(selectLevelActivity.coins < PURCHASE_PRICE){

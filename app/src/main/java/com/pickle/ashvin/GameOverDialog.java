@@ -10,7 +10,6 @@
 package com.pickle.ashvin;
 
 import android.app.Dialog;
-import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -85,6 +84,7 @@ public class GameOverDialog extends Dialog {
         game.accomplishmentBox.saveLocal();
         tvCurrentScoreVal.setText("" + game.accomplishmentBox.points);
         tvBestScoreVal.setText("" + game.accomplishmentBox.score.getValue());
+        game.accomplishmentBox.points = 0;
     }
     
     private void manageMedals(){

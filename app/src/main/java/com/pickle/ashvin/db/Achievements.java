@@ -17,57 +17,24 @@ public class Achievements extends BaseModel {
     long id;
 
     @Column
-    boolean bronze = false;
+    String name;
 
     @Column
-    boolean silver = false;
+    boolean value;
 
-    @Column
-    boolean gold = false;
-
-    @Column
-    boolean coins_50 = false;
-
-    @Column
-    boolean superfart = false;
-
-    public boolean getBronze() {
-        return bronze;
+    public String getName() {
+        return name;
     }
 
-    public void setBronze(boolean bronze) {
-        this.bronze = bronze;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public boolean getSilver() {
-        return silver;
+    public boolean getValue() {
+        return value;
     }
 
-    public void setSilver(boolean silver) {
-        this.silver = silver;
-    }
-
-    public boolean getGold() {
-        return gold;
-    }
-
-    public void setGold(boolean gold) {
-        this.gold = gold;
-    }
-
-    public boolean getCoins50() {
-        return coins_50;
-    }
-
-    public void setCoins_50(boolean coins_50) {
-        this.coins_50 = coins_50;
-    }
-
-    public boolean getSuperfart() {
-        return superfart;
-    }
-
-    public void setSuperfart(boolean superfart) {
-        this.superfart = superfart;
+    public void setValue(boolean value) {
+        this.value = value;
     }
 }

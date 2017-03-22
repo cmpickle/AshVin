@@ -24,8 +24,12 @@ public class BaseApplication extends Application {
         FlowManager.init(new FlowConfig.Builder(this).openDatabasesOnInit(true).build());
         if(SQLite.select().from(Achievements.class).where().count() == 0) {
             SQLite.insert(Achievements.class)
-                    .columns(Achievements_Table.bronze, Achievements_Table.silver, Achievements_Table.gold, Achievements_Table.coins_50, Achievements_Table.superfart)
-                    .values(false, false, false, false, false)
+                    .columns(Achievements_Table.name, Achievements_Table.value)
+                    .values("bronze", false)
+                    .values("silver", false)
+                    .values("gold", false)
+                    .values("50coins", false)
+                    .values("superfart", false)
                     .execute();
         }
         if(SQLite.select().from(Score.class).where().count() == 0) {
