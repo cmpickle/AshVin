@@ -53,22 +53,20 @@ public class AccomplishmentBox{
             SQLite.update(Score.class).set(Score_Table.value.eq(points)).where(Score_Table.name.eq("overall")).execute();
         }
         if(achievement_50_coins){
-            SQLite.update(Achievements.class).set(Achievements_Table.coins_50.eq(true)).execute();
+            SQLite.update(Achievements.class).set(Achievements_Table.value.eq(true)).where(Achievements_Table.name.eq("50coins")).execute();
         }
         if(achievement_superfart){
-            SQLite.update(Achievements.class).set(Achievements_Table.superfart.eq(true)).execute();
+            SQLite.update(Achievements.class).set(Achievements_Table.value.eq(true)).where(Achievements_Table.name.eq("superfart")).execute();
         }
         if(achievement_bronze){
-            SQLite.update(Achievements.class).set(Achievements_Table.bronze.eq(true)).execute();
+            SQLite.update(Achievements.class).set(Achievements_Table.value.eq(true)).where(Achievements_Table.name.eq("bronze")).execute();
         }
         if(achievement_silver){
-            SQLite.update(Achievements.class).set(Achievements_Table.silver.eq(true)).execute();
+            SQLite.update(Achievements.class).set(Achievements_Table.value.eq(true)).where(Achievements_Table.name.eq("silver")).execute();
         }
         if(achievement_gold){
-            SQLite.update(Achievements.class).set(Achievements_Table.gold.eq(true)).execute();
+            SQLite.update(Achievements.class).set(Achievements_Table.value.eq(true)).where(Achievements_Table.name.eq("gold")).execute();
         }
-        
-//        editor.commit();
     }
     
     /**
@@ -76,17 +74,14 @@ public class AccomplishmentBox{
      * @return local stored score and achievements
      */
     public static AccomplishmentBox getLocal(){
-        Achievements achievements = SQLite.select().from(Achievements.class).querySingle();
-        Score score = SQLite.select().from(Score.class).where(Score_Table.name.eq("overall")).querySingle();
-
         AccomplishmentBox box = new AccomplishmentBox();
 
-        box.points = score.getValue();
-        box.achievement_50_coins = achievements.getCoins50();
-        box.achievement_superfart = achievements.getSuperfart();
-        box.achievement_bronze = achievements.getBronze();
-        box.achievement_silver = achievements.getSilver();
-        box.achievement_gold = achievements.getGold();
+        box.points = SQLite.select().from(Score.class).where(Score_Table.name.eq("overall")).querySingle().getValue();
+        box.achievement_50_coins = SQLite.select().from(Achievements.class).where(Achievements_Table.name.eq("50coins")).querySingle().getValue();
+        box.achievement_superfart = SQLite.select().from(Achievements.class).where(Achievements_Table.name.eq("50coins")).querySingle().getValue();
+        box.achievement_bronze = SQLite.select().from(Achievements.class).where(Achievements_Table.name.eq("50coins")).querySingle().getValue();
+        box.achievement_silver = SQLite.select().from(Achievements.class).where(Achievements_Table.name.eq("50coins")).querySingle().getValue();
+        box.achievement_gold = SQLite.select().from(Achievements.class).where(Achievements_Table.name.eq("50coins")).querySingle().getValue();
         
         return box;
     }
