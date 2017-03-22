@@ -34,6 +34,7 @@ public class BaseApplication extends Application {
                     .values("overall", 0)
                     .values("coins", 0)
                     .values("medals", 0)
+                    .values("levels", 0)
                     .execute();
         }
     }
