@@ -16,6 +16,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.pickle.ashvin.db.Score;
+import com.pickle.ashvin.db.Score_Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 public class BuyLevelDialog extends Dialog {
     public static final int PURCHASE_PRICE = 50;
 
@@ -77,10 +81,6 @@ public class BuyLevelDialog extends Dialog {
     }
 
     private void saveCoins(){
-        SharedPreferences coin_save = selectLevelActivity.getSharedPreferences(Game.COIN_SAVE, 0);
-        coin_save.getInt(Game.COIN_KEY, 0);
-        SharedPreferences.Editor editor = coin_save.edit();
-        editor.putInt(Game.COIN_KEY, selectLevelActivity.coins);
-        editor.commit();
+        SQLite.update(Score.class).set(Score_Table.value.eq(selectLevelActivity.coins)).where(Score_Table.name.eq("coins")).execute();
     }
 }

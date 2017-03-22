@@ -9,17 +9,17 @@
 
 package com.pickle.ashvin;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
+import com.pickle.ashvin.db.Score;
+import com.pickle.ashvin.db.Score_Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 public class SelectLevelActivity extends FragmentActivity {
 
-    /** Name of the SharedPreference that saves the medals */
-    public static final String COIN_SAVE = "COIN_SAVE";
-    public static final String COIN_KEY = "COIN_KEY";
     int coins;
 
     public final static int LEVELS = 4;
@@ -74,7 +74,6 @@ public class SelectLevelActivity extends FragmentActivity {
     }
 
     private void loadCoins(){
-        SharedPreferences saves = this.getSharedPreferences(COIN_SAVE, 0);
-        this.coins = saves.getInt(COIN_KEY, 0);
+        this.coins = SQLite.select().from(Score.class).where(Score_Table.name.eq("coins")).querySingle().getValue();
     }
 }

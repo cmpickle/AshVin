@@ -13,20 +13,14 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.content.SharedPreferences;
-import android.support.v4.*;
-import android.support.v4.BuildConfig;
 import android.support.v4.app.FragmentActivity;
 import com.facebook.stetho.Stetho;
-import com.raizlabs.android.dbflow.config.FlowConfig;
-import com.raizlabs.android.dbflow.config.FlowManager;
+import com.pickle.ashvin.db.Score;
+import com.pickle.ashvin.db.Score_Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 public class MainActivity extends FragmentActivity {
     
-    /** Name of the SharedPreference that saves the medals */
-    public static final String MEDAILLE_SAVE = "MEDAILLE_SAVE";
-    /** Key that saves the medal */
-    public static final String MEDAILLE_KEY = "MEDAILLE_KEY";
-
     /**Key that saves mute preference*/
     public static final String MUTE_SAVE = "MUTE_SAVE";
     public static final String MUTE_KEY = "MUTE_KEY";
@@ -93,8 +87,8 @@ public class MainActivity extends FragmentActivity {
      * Fills the socket with the medals that have already been collected.
      */
     private void setSocket(){
-        SharedPreferences saves = this.getSharedPreferences(MEDAILLE_SAVE, 0);
-        view.setSocket(saves.getInt(MEDAILLE_KEY, 0));
+        Score medals = SQLite.select().from(Score.class).where(Score_Table.name.eq("medals")).querySingle();
+        view.setSocket(medals.getValue());
         view.invalidate();
     }
 

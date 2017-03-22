@@ -9,6 +9,6 @@ import com.raizlabs.android.dbflow.annotation.Database;
 
 @Database(name = FartingDatabase.NAME, version = FartingDatabase.VERSION)
 public class FartingDatabase {
-    public static final String NAME = "FartingDatabase.db";
+    public static final String NAME = "FartingDatabase";
     public static final int VERSION = 1;
 }
