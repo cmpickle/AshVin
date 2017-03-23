@@ -56,13 +56,6 @@ public class MainActivity extends FragmentActivity {
         setSocket();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        setContentView(null);
-    }
-    
     public void muteToggle() {
         SharedPreferences mute = this.getSharedPreferences(MUTE_SAVE, 0);
         SharedPreferences.Editor editor = mute.edit();
