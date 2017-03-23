@@ -56,7 +56,6 @@ public class BuyLevelDialog extends Dialog {
                 selectLevelActivity.coins -= PURCHASE_PRICE;
                 manageLevels(level);
                 saveCoins();
-                view.findViewById(R.id.tv_current_coins).invalidate();
             }
         });
         if(selectLevelActivity.coins < PURCHASE_PRICE){
@@ -70,7 +69,7 @@ public class BuyLevelDialog extends Dialog {
     private void manageLevels(int level){
         int levelCode = 1;
         levelCode = levelCode << level;
-        SQLite.update(Score.class).set(Score_Table.value.eq(SQLite.select().from(Score.class).where(Score_Table.name.eq("levels")).querySingle().getValue() + levelCode)).execute();
+        SQLite.update(Score.class).set(Score_Table.value.eq(SQLite.select().from(Score.class).where(Score_Table.name.eq("levels")).querySingle().getValue() + levelCode)).where(Score_Table.name.eq("levels")).execute();
         MainActivity.levelsUnlocked = SQLite.select().from(Score.class).where(Score_Table.name.eq("levels")).querySingle().getValue();
     }
 
