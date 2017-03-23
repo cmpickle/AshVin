@@ -32,7 +32,7 @@ public class Game extends FragmentActivity {
 
     public static final String KEY_EXTRA = "com.pickle.ashvin.KEY_LEVEL";
     public static final boolean PAID_VERSION = false;
-    public static final boolean DEV_MODE = true;
+    public static final boolean DEV_MODE = false;
 
     public static SoundPool soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
     public static MediaPlayer musicPlayer = null;
