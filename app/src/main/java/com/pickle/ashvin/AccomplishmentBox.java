@@ -11,8 +11,12 @@
 package com.pickle.ashvin;
 
 
-import android.app.Activity;
-import android.content.SharedPreferences;
+
+import com.pickle.ashvin.db.Achievements;
+import com.pickle.ashvin.db.Achievements_Table;
+import com.pickle.ashvin.db.Score;
+import com.pickle.ashvin.db.Score_Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 public class AccomplishmentBox{
     //TODO: Create a high score/statistics activity
@@ -29,71 +33,55 @@ public class AccomplishmentBox{
     /** Points needed for a bronze medal */
     public static final int BRONZE_POINTS = 10;
     
-    public static final String ACCOMPLISHMENTS_SAVE = "ACCOMPLISHMENTS_SAVE";
-    
-    public static final String KEY_POINTS = "POINTS_KEY";
-    public static final String ACHIEVEMENT_KEY_50_COINS = "ACHIEVEMENT_SURVIVE_5_MINUTES_KEY";
-    public static final String ACHIEVEMENT_KEY_SUPERFART = "ACHIEVEMENT_SUPERFART_KEY";
-    public static final String ACHIEVEMENT_KEY_BRONZE = "ACHIEVEMENT_BRONZE_KEY";
-    public static final String ACHIEVEMENT_KEY_SILVER = "ACHIEVEMENT_SILVER_KEY";
-    public static final String ACHIEVEMENT_KEY_GOLD = "ACHIEVEMENT_GOLD_KEY";
-    
     int points;
     boolean achievement_50_coins;
     boolean achievement_superfart;
     boolean achievement_bronze;
     boolean achievement_silver;
     boolean achievement_gold;
+    Achievements achievements;
+    Score score;
     
     /**
      * Stores the score and achievements locally.
-     * 
-     * The accomplishments will be saved local via SharedPreferences.
-     * This makes it very easy to cheat.
-     * 
-     * @param activity activity that is needed for shared preferences
      */
-    public void saveLocal(Activity activity){
-        SharedPreferences saves = activity.getSharedPreferences(ACCOMPLISHMENTS_SAVE, 0);
-        SharedPreferences.Editor editor = saves.edit();
-        
-        if(points > saves.getInt(KEY_POINTS, 0)){
-            editor.putInt(KEY_POINTS, points);
+    public void saveLocal(){
+        achievements = SQLite.select().from(Achievements.class).querySingle();
+        score = SQLite.select().from(Score.class).where(Score_Table.name.eq("overall")).querySingle();
+
+        if(points > score.getValue()){
+            SQLite.update(Score.class).set(Score_Table.value.eq(points)).where(Score_Table.name.eq("overall")).execute();
         }
         if(achievement_50_coins){
-            editor.putBoolean(ACHIEVEMENT_KEY_50_COINS, true);
+            SQLite.update(Achievements.class).set(Achievements_Table.value.eq(true)).where(Achievements_Table.name.eq("50coins")).execute();
         }
         if(achievement_superfart){
-            editor.putBoolean(ACHIEVEMENT_KEY_SUPERFART, true);
+            SQLite.update(Achievements.class).set(Achievements_Table.value.eq(true)).where(Achievements_Table.name.eq("superfart")).execute();
         }
         if(achievement_bronze){
-            editor.putBoolean(ACHIEVEMENT_KEY_BRONZE, true);
+            SQLite.update(Achievements.class).set(Achievements_Table.value.eq(true)).where(Achievements_Table.name.eq("bronze")).execute();
         }
         if(achievement_silver){
-            editor.putBoolean(ACHIEVEMENT_KEY_SILVER, true);
+            SQLite.update(Achievements.class).set(Achievements_Table.value.eq(true)).where(Achievements_Table.name.eq("silver")).execute();
         }
         if(achievement_gold){
-            editor.putBoolean(ACHIEVEMENT_KEY_GOLD, true);
+            SQLite.update(Achievements.class).set(Achievements_Table.value.eq(true)).where(Achievements_Table.name.eq("gold")).execute();
         }
-        
-        editor.commit();
     }
     
     /**
      * reads the local stored data
-     * @param activity activity that is needed for shared preferences
      * @return local stored score and achievements
      */
-    public static AccomplishmentBox getLocal(Activity activity){
+    public static AccomplishmentBox getLocal(){
         AccomplishmentBox box = new AccomplishmentBox();
-        SharedPreferences saves = activity.getSharedPreferences(ACCOMPLISHMENTS_SAVE, 0);
-        
-        box.points = saves.getInt(KEY_POINTS, 0);
-        box.achievement_50_coins = saves.getBoolean(ACHIEVEMENT_KEY_50_COINS, false);
-        box.achievement_superfart = saves.getBoolean(ACHIEVEMENT_KEY_SUPERFART, false);
-        box.achievement_bronze = saves.getBoolean(ACHIEVEMENT_KEY_BRONZE, false);
-        box.achievement_silver = saves.getBoolean(ACHIEVEMENT_KEY_SILVER, false);
-        box.achievement_gold = saves.getBoolean(ACHIEVEMENT_KEY_GOLD, false);
+
+        box.points = SQLite.select().from(Score.class).where(Score_Table.name.eq("overall")).querySingle().getValue();
+        box.achievement_50_coins = SQLite.select().from(Achievements.class).where(Achievements_Table.name.eq("50coins")).querySingle().getValue();
+        box.achievement_superfart = SQLite.select().from(Achievements.class).where(Achievements_Table.name.eq("50coins")).querySingle().getValue();
+        box.achievement_bronze = SQLite.select().from(Achievements.class).where(Achievements_Table.name.eq("50coins")).querySingle().getValue();
+        box.achievement_silver = SQLite.select().from(Achievements.class).where(Achievements_Table.name.eq("50coins")).querySingle().getValue();
+        box.achievement_gold = SQLite.select().from(Achievements.class).where(Achievements_Table.name.eq("50coins")).querySingle().getValue();
         
         return box;
     }

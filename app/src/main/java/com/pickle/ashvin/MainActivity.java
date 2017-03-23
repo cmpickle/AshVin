@@ -13,18 +13,18 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.content.SharedPreferences;
-import android.support.v4.*;
-import android.support.v4.BuildConfig;
 import android.support.v4.app.FragmentActivity;
+
+import com.crashlytics.android.Crashlytics;
 import com.facebook.stetho.Stetho;
+import com.pickle.ashvin.db.Score;
+import com.pickle.ashvin.db.Score_Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends FragmentActivity {
     
-    /** Name of the SharedPreference that saves the medals */
-    public static final String MEDAILLE_SAVE = "MEDAILLE_SAVE";
-    /** Key that saves the medal */
-    public static final String MEDAILLE_KEY = "MEDAILLE_KEY";
-
     /**Key that saves mute preference*/
     public static final String MUTE_SAVE = "MUTE_SAVE";
     public static final String MUTE_KEY = "MUTE_KEY";
@@ -32,23 +32,19 @@ public class MainActivity extends FragmentActivity {
     /** Volume for sound and music */
     public static float volume = DEFAULT_VOLUME;
 
-    public static final String LEVELS_SAVE = "LEVELS_SAVE";
-    public static final String LEVELS_KEY = "LEVELS_KEY";
     public static int levelsUnlocked = 0;
-    
+
     private StartscreenView view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Fabric.with(this, new Crashlytics());
         if(BuildConfig.DEBUG)
             Stetho.initializeWithDefaults(this);
 
-        SharedPreferences levels = this.getSharedPreferences(LEVELS_SAVE, 0);
-        if(levels.contains(LEVELS_KEY)) {
-            levelsUnlocked = levels.getInt(LEVELS_KEY, 0);
-        }
+        levelsUnlocked = SQLite.select().from(Score.class).where(Score_Table.name.eq("levels")).querySingle().getValue();
 
         view = new StartscreenView(this);
 
@@ -60,13 +56,6 @@ public class MainActivity extends FragmentActivity {
         setSocket();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        setContentView(null);
-    }
-    
     public void muteToggle() {
         SharedPreferences mute = this.getSharedPreferences(MUTE_SAVE, 0);
         SharedPreferences.Editor editor = mute.edit();
@@ -91,8 +80,8 @@ public class MainActivity extends FragmentActivity {
      * Fills the socket with the medals that have already been collected.
      */
     private void setSocket(){
-        SharedPreferences saves = this.getSharedPreferences(MEDAILLE_SAVE, 0);
-        view.setSocket(saves.getInt(MEDAILLE_KEY, 0));
+        Score medals = SQLite.select().from(Score.class).where(Score_Table.name.eq("medals")).querySingle();
+        view.setSocket(medals.getValue());
         view.invalidate();
     }
 

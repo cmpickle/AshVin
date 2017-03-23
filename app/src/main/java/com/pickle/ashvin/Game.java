@@ -9,7 +9,6 @@
 
 package com.pickle.ashvin;
 
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -25,14 +24,15 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.pickle.ashvin.db.Score;
+import com.pickle.ashvin.db.Score_Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 public class Game extends FragmentActivity {
 
     public static final String KEY_EXTRA = "com.pickle.ashvin.KEY_LEVEL";
-    public static final String COIN_SAVE = "COIN_SAVE";
-    public static final String COIN_KEY = "COIN_KEY";
     public static final boolean PAID_VERSION = false;
-    public static final boolean DEV_MODE = false;
+    public static final boolean DEV_MODE = true;
 
     public static SoundPool soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
     public static MediaPlayer musicPlayer = null;
@@ -114,8 +114,7 @@ public class Game extends FragmentActivity {
     }
     
     private void loadCoins(){
-        SharedPreferences saves = this.getSharedPreferences(COIN_SAVE, 0);
-        this.coins = saves.getInt(COIN_KEY, 0);
+        this.coins = SQLite.select().from(Score.class).where(Score_Table.name.eq("coins")).querySingle().getValue();
     }
 
     /**
@@ -185,24 +184,22 @@ public class Game extends FragmentActivity {
     public void increasePoints(){
         accomplishmentBox.points++;
 
-        AccomplishmentBox records = AccomplishmentBox.getLocal(this);
-        
         this.view.getPlayer().upgradeBitmap(accomplishmentBox.points);
         
         if(accomplishmentBox.points >= AccomplishmentBox.BRONZE_POINTS){
-            if(!records.achievement_bronze){
+            if(!accomplishmentBox.achievement_bronze){
                 accomplishmentBox.achievement_bronze = true;
                 handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_bronze, MyHandler.SHOW_TOAST));
             }
             
             if(accomplishmentBox.points >= AccomplishmentBox.SILVER_POINTS){
-                if(!records.achievement_silver){
+                if(!accomplishmentBox.achievement_silver){
                     accomplishmentBox.achievement_silver = true;
                     handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_silver, MyHandler.SHOW_TOAST));
                 }
                 
                 if(accomplishmentBox.points >= AccomplishmentBox.GOLD_POINTS){
-                    if(!records.achievement_gold){
+                    if(!accomplishmentBox.achievement_gold){
                         accomplishmentBox.achievement_gold = true;
                         handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_gold, MyHandler.SHOW_TOAST));
                     }
@@ -210,7 +207,7 @@ public class Game extends FragmentActivity {
             }
         }
     }
-    
+
     /**
      * Shows the GameOverDialog when a message with code 0 is received.
      */

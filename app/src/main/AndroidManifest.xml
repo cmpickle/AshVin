@@ -9,11 +9,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pickle.ashvin">
 
-
+    <!--Needed for ads and for Crashlytics -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     
     <application
+        android:name="com.pickle.ashvin.BaseApplication"
         android:allowBackup="true"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
@@ -69,7 +70,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="de0dc5800df099c2ec295b7d1b74462a3d03f5d4"
+            />
     </application>
 
 </manifest>
