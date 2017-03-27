@@ -79,10 +79,14 @@ public class MainActivity extends FragmentActivity {
     /**
      * Fills the socket with the medals that have already been collected.
      */
-    private void setSocket(){
+    private void setSocket() {
         Score medals = SQLite.select().from(Score.class).where(Score_Table.name.eq("medals")).querySingle();
-        view.setSocket(medals.getValue());
-        view.invalidate();
+        if(view != null) {
+            if (medals != null) {
+                view.setSocket(medals.getValue());
+            }
+            view.invalidate();
+        }
     }
 
     /**
