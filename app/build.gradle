@@ -1,0 +1,80 @@
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+android {
+    signingConfigs {
+        def keystorePropertiesFile = rootProject.file('keystore.properties')
+        def keystoreProperties = new Properties()
+        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+        paidConfig {
+            if(keystorePropertiesFile.exists()) {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+        config {
+            if (keystorePropertiesFile.exists()) {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
+    defaultConfig {
+        applicationId "com.pickle.ashvin"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 31
+        versionName "1.0.3"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        freeWithAds {
+            applicationId "com.pickle.ashvin"
+            signingConfig signingConfigs.config
+        }
+        paid {
+            applicationId "com.pickle.ashvinpaid"
+            minSdkVersion 15
+            signingConfig signingConfigs.paidConfig
+            targetSdkVersion 25
+        }
+    }
+}
+
+repositories {
+    maven {url "https://clojars.org/repo/"}
+    maven { url "https://www.jitpack.io" }
+    maven { url "https://maven.fabric.io/public" }
+}
+
+def dbflow_version = "4.0.0-beta5"
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:recyclerview-v7:25.3.0'
+    compile 'com.google.android.gms:play-services-ads:10.2.1'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    compile 'com.facebook.stetho:stetho:1.4.2'
+    compile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+    compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+    compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+    compile ( "com.crashlytics.sdk.android:crashlytics:2.6.7@aar") {
+        transitive = true;
+    }
+}
