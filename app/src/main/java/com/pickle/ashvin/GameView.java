@@ -447,10 +447,8 @@ public class GameView extends SurfaceView{
         game = null;
         player.clean();
         player = null;
-        Background.globalBitmap.recycle();
         background.clean();
         background = null;
-        Foreground.globalBitmap.recycle();
         foreground.clean();
         foreground = null;
         for(Obstacle o: obstacles) {
