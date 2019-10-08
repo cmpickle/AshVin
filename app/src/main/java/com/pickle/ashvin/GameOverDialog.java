@@ -84,7 +84,6 @@ public class GameOverDialog extends Dialog {
         game.accomplishmentBox.saveLocal();
         tvCurrentScoreVal.setText("" + game.accomplishmentBox.points);
         tvBestScoreVal.setText("" + game.accomplishmentBox.score.getValue());
-        game.accomplishmentBox.points = 0;
     }
     
     private void manageMedals(){
