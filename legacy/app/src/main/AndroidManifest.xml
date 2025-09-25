@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    @author Cameron Pickle
+    @author Nathan Pickle
+    Copyright (c) <2016> <Cameron Pickle - cmpickle>
+    Copyright (c) <2016> <Nathan Pickle - n8pickle>
+-->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pickle.ashvin">
+
+    <!--Needed for ads and for Crashlytics -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    <application
+        android:name="com.pickle.ashvin.BaseApplication"
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+
+        <!-- Remove the following permissions, if you don't want ads -->
+        <!-- Used to request banner and interstitial ads. -->
+        <!-- Used to avoid sending an ad request if there is no connectivity. -->
+        <!-- Remove the lines above, if you don't want ads -->
+
+
+        <!-- For Google Play Services -->
+        <!--<meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_id" />-->
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".SelectLevelActivity"
+            android:label="select_level"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.pickle.ashvin.SelectLevelActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name=".Game"
+            android:label="@string/app_name"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation|screenSize|smallestScreenSize|layoutDirection"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.pickle.ashvin.Game" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name=".About"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.pickle.ashvin.About" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="de0dc5800df099c2ec295b7d1b74462a3d03f5d4"
+            />
+    </application>
+
+</manifest>
