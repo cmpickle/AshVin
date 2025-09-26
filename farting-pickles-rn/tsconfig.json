@@ -5,13 +5,13 @@
     "paths": {
       "@/*": ["./*"],
       "@/src/*": ["./src/*"],
-      "@/components/*": ["./src/components/*"],
+      "@/components/*": ["./components/*"],
       "@/screens/*": ["./src/screens/*"],
       "@/game/*": ["./src/game/*"],
       "@/services/*": ["./src/services/*"],
       "@/types/*": ["./src/types/*"],
-      "@/constants/*": ["./src/constants/*"],
-      "@/assets/*": ["./src/assets/*"]
+      "@/constants/*": ["./constants/*"],
+      "@/assets/*": ["./assets/*"]
     }
   },
   "include": [
