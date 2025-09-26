@@ -1,5 +1,5 @@
-import SimpleGameScreen from '../../src/screens/SimpleGameScreen';
+import MainNavigationScreen from '../../src/screens/MainNavigationScreen';
 
 export default function HomeScreen() {
-  return <SimpleGameScreen />;
+  return <MainNavigationScreen />;
 }
