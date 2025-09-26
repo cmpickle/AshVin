@@ -62,6 +62,8 @@ export default function EnhancedLevelGameScreen({
   const [gameOver, setGameOver] = useState(false);
   const [gameCompleted, setGameCompleted] = useState(false);
   const [showPauseMenu, setShowPauseMenu] = useState(false);
+  const [shouldTriggerGameOver, setShouldTriggerGameOver] = useState(false);
+  const [shouldTriggerLevelComplete, setShouldTriggerLevelComplete] = useState(false);
 
   // Level data
   const currentLevel = GAME_LEVELS[levelId] || GAME_LEVELS[0];
@@ -116,6 +118,22 @@ export default function EnhancedLevelGameScreen({
     };
   }, [gameStarted, gameOver, showPauseMenu]);
 
+  // Handle game over trigger
+  useEffect(() => {
+    if (shouldTriggerGameOver) {
+      setShouldTriggerGameOver(false);
+      handleGameOver();
+    }
+  }, [shouldTriggerGameOver]);
+
+  // Handle level complete trigger
+  useEffect(() => {
+    if (shouldTriggerLevelComplete) {
+      setShouldTriggerLevelComplete(false);
+      handleLevelComplete();
+    }
+  }, [shouldTriggerLevelComplete]);
+
   const startGameLoop = () => {
     const gameLoop = () => {
       const now = Date.now();
@@ -142,7 +160,7 @@ export default function EnhancedLevelGameScreen({
 
         // Death conditions
         if (newPlayer.y <= 0 || newPlayer.y >= SCREEN_HEIGHT) {
-          handleGameOver();
+          setShouldTriggerGameOver(true);
           return newPlayer;
         }
 
@@ -175,7 +193,7 @@ export default function EnhancedLevelGameScreen({
         });
 
         if (collision) {
-          handleGameOver();
+          setShouldTriggerGameOver(true);
         }
 
         return newObstacles;
@@ -224,7 +242,7 @@ export default function EnhancedLevelGameScreen({
 
         // Check for level completion (score-based)
         if (score + 1 >= 100 + (levelId * 50)) { // Level completion thresholds
-          handleLevelComplete();
+          setShouldTriggerLevelComplete(true);
           return;
         }
       }
