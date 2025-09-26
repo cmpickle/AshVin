@@ -62,17 +62,18 @@ export const IMAGES = {
   },
 } as const;
 
+// Audio is now managed by audioService.ts - keeping this for future use
 export const SOUNDS = {
-  BACKGROUND_MUSIC: require('../assets/sounds/songfart.mp3'),
-  FART_SOUNDS: [
-    require('../assets/sounds/fart0.wav'),
-    require('../assets/sounds/fart1.wav'),
-    require('../assets/sounds/fart2.wav'),
-    require('../assets/sounds/fart3.wav'),
-  ],
-  COIN: require('../assets/sounds/coin.ogg'),
-  CRASH: require('../assets/sounds/crash.wav'),
-  BELCH: require('../assets/sounds/belch.mp3'),
+  // BACKGROUND_MUSIC: require('../assets/sounds/songfart.mp3'),
+  // FART_SOUNDS: [
+  //   require('../assets/sounds/fart0.wav'),
+  //   require('../assets/sounds/fart1.wav'),
+  //   require('../assets/sounds/fart2.wav'),
+  //   require('../assets/sounds/fart3.wav'),
+  // ],
+  // COIN: require('../assets/sounds/coin.ogg'),
+  // CRASH: require('../assets/sounds/crash.wav'),
+  // BELCH: require('../assets/sounds/belch.mp3'),
 } as const;
 
 // Helper type for accessing nested asset objects

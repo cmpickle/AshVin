@@ -1,7 +1,7 @@
 // Base Entity class - replaces the abstract Sprite class from legacy Android version
 // Provides common functionality for all game objects
 
-import { GAME_CONFIG } from '@/constants/gameConfig';
+import { GAME_CONFIG } from '../../constants/gameConfig';
 
 export interface EntityOptions {
   x?: number;

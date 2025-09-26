@@ -1,0 +1,226 @@
+// Settings Menu Component - Audio and game controls
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Switch,
+  Modal,
+} from 'react-native';
+import Slider from '@react-native-community/slider';
+import { useSettingsStore } from '../services/gameStore';
+import { useAudioService } from '../services/audioService';
+
+interface SettingsMenuProps {
+  visible: boolean;
+  onClose: () => void;
+}
+
+export default function SettingsMenu({ visible, onClose }: SettingsMenuProps) {
+  const settingsStore = useSettingsStore();
+  const audio = useAudioService();
+
+  const handleVolumeChange = (value: number) => {
+    settingsStore.setVolume(value);
+    if (audio.isReady) {
+      audio.updateVolume(value);
+    }
+  };
+
+  return (
+    <Modal
+      visible={visible}
+      animationType="fade"
+      transparent={true}
+      onRequestClose={onClose}
+    >
+      <View style={styles.overlay}>
+        <View style={styles.menuContainer}>
+          <Text style={styles.title}>🥒 Settings 💨</Text>
+
+          {/* Sound Effects Toggle */}
+          <View style={styles.settingRow}>
+            <Text style={styles.settingLabel}>Sound Effects</Text>
+            <Switch
+              value={settingsStore.soundEnabled}
+              onValueChange={settingsStore.toggleSound}
+              trackColor={{ false: '#767577', true: '#4CAF50' }}
+              thumbColor={settingsStore.soundEnabled ? '#FFD700' : '#f4f3f4'}
+            />
+          </View>
+
+          {/* Background Music Toggle */}
+          <View style={styles.settingRow}>
+            <Text style={styles.settingLabel}>Background Music</Text>
+            <Switch
+              value={settingsStore.musicEnabled}
+              onValueChange={settingsStore.toggleMusic}
+              trackColor={{ false: '#767577', true: '#4CAF50' }}
+              thumbColor={settingsStore.musicEnabled ? '#FFD700' : '#f4f3f4'}
+            />
+          </View>
+
+          {/* Volume Slider */}
+          <View style={styles.settingRow}>
+            <Text style={styles.settingLabel}>Volume</Text>
+            <View style={styles.sliderContainer}>
+              <Slider
+                style={styles.slider}
+                value={settingsStore.volume}
+                onValueChange={handleVolumeChange}
+                minimumValue={0}
+                maximumValue={1}
+                step={0.1}
+                minimumTrackTintColor="#4CAF50"
+                maximumTrackTintColor="#767577"
+                thumbStyle={{ backgroundColor: '#FFD700' }}
+              />
+              <Text style={styles.volumeText}>
+                {Math.round(settingsStore.volume * 100)}%
+              </Text>
+            </View>
+          </View>
+
+          {/* Vibration Toggle */}
+          <View style={styles.settingRow}>
+            <Text style={styles.settingLabel}>Vibration</Text>
+            <Switch
+              value={settingsStore.vibrationEnabled}
+              onValueChange={settingsStore.toggleVibration}
+              trackColor={{ false: '#767577', true: '#4CAF50' }}
+              thumbColor={settingsStore.vibrationEnabled ? '#FFD700' : '#f4f3f4'}
+            />
+          </View>
+
+          {/* Test Audio Button */}
+          <TouchableOpacity
+            style={styles.testButton}
+            onPress={() => {
+              if (audio.isReady) {
+                audio.playRandomFart();
+              }
+            }}
+          >
+            <Text style={styles.testButtonText}>💨 Test Fart Sound</Text>
+          </TouchableOpacity>
+
+          {/* Reset Settings Button */}
+          <TouchableOpacity
+            style={styles.resetButton}
+            onPress={() => {
+              settingsStore.resetSettings();
+              if (audio.isReady) {
+                audio.updateVolume(0.3); // Default volume
+              }
+            }}
+          >
+            <Text style={styles.resetButtonText}>Reset to Defaults</Text>
+          </TouchableOpacity>
+
+          {/* Close Button */}
+          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+            <Text style={styles.closeButtonText}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
+const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  menuContainer: {
+    backgroundColor: '#2C2C2C',
+    borderRadius: 20,
+    padding: 30,
+    width: '85%',
+    maxWidth: 400,
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#FFD700',
+    textAlign: 'center',
+    marginBottom: 30,
+    textShadowColor: '#000',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 4,
+  },
+  settingRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#444',
+  },
+  settingLabel: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    flex: 1,
+  },
+  sliderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    marginLeft: 15,
+  },
+  slider: {
+    flex: 1,
+    height: 40,
+  },
+  volumeText: {
+    fontSize: 16,
+    color: '#FFD700',
+    marginLeft: 10,
+    minWidth: 40,
+    textAlign: 'center',
+  },
+  testButton: {
+    backgroundColor: '#4CAF50',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 25,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  testButtonText: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  resetButton: {
+    backgroundColor: '#FF6B6B',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 20,
+    marginBottom: 15,
+  },
+  resetButtonText: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  closeButton: {
+    backgroundColor: '#FFD700',
+    paddingHorizontal: 30,
+    paddingVertical: 12,
+    borderRadius: 25,
+  },
+  closeButtonText: {
+    fontSize: 16,
+    color: '#000000',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});

@@ -1,4 +1,4 @@
-// Simple Game Demo with Audio - Basic working version with sound effects
+// Hybrid Game Screen - Enhanced SimpleGameScreen with multiple obstacles and collectibles
 import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
@@ -6,25 +6,23 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-  Animated,
   Image,
 } from 'react-native';
-// import { useAudioService } from '../services/audioService';
-import { useSettingsStore } from '../services/gameStore';
-// import SettingsMenu from '../components/SettingsMenu';
+import { useGameStore, usePlayerStore } from '../services/gameStore';
+import { GAME_CONFIG } from '../constants/gameConfig';
 import { IMAGES } from '../constants/assets';
 import { OBSTACLE_CONFIGS, COLLECTIBLE_CONFIGS } from '../constants/gameData';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
-interface SimplePlayer {
+interface Player {
   x: number;
   y: number;
   velocityY: number;
   size: number;
 }
 
-interface SimpleObstacle {
+interface Obstacle {
   id: number;
   x: number;
   y: number;
@@ -33,7 +31,7 @@ interface SimpleObstacle {
   type: keyof typeof OBSTACLE_CONFIGS;
 }
 
-interface SimpleCollectible {
+interface Collectible {
   id: number;
   x: number;
   y: number;
@@ -43,46 +41,42 @@ interface SimpleCollectible {
   value: number;
 }
 
-export default function SimpleGameScreen() {
-  // Audio service - temporarily disabled
-  // const audio = useAudioService();
-  const settingsStore = useSettingsStore();
+export default function HybridGameScreen() {
+  // Store hooks
+  const gameStore = useGameStore();
+  const playerStore = usePlayerStore();
 
+  // Game state
   const [gameStarted, setGameStarted] = useState(false);
   const [score, setScore] = useState(0);
   const [coins, setCoins] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  // const [showSettings, setShowSettings] = useState(false);
 
-  const [player, setPlayer] = useState<SimplePlayer>({
+  const [player, setPlayer] = useState<Player>({
     x: 100,
     y: SCREEN_HEIGHT * 0.5,
     velocityY: 0,
     size: 48,
   });
 
-  const [obstacles, setObstacles] = useState<SimpleObstacle[]>([]);
-  const [collectibles, setCollectibles] = useState<SimpleCollectible[]>([]);
+  const [obstacles, setObstacles] = useState<Obstacle[]>([]);
+  const [collectibles, setCollectibles] = useState<Collectible[]>([]);
   const [nextObstacleId, setNextObstacleId] = useState(0);
   const [nextCollectibleId, setNextCollectibleId] = useState(1000);
-
-  // Use refs for IDs to prevent stale closure issues
-  const obstacleIdRef = useRef(0);
-  const collectibleIdRef = useRef(1000);
 
   const animationRef = useRef<number>();
   const lastSpawnRef = useRef(0);
   const lastCollectibleSpawnRef = useRef(0);
 
-  // Obstacle and collectible type arrays for random selection
-  const OBSTACLE_TYPES = Object.keys(OBSTACLE_CONFIGS) as Array<keyof typeof OBSTACLE_CONFIGS>;
-  const COLLECTIBLE_TYPES = Object.keys(COLLECTIBLE_CONFIGS) as Array<keyof typeof COLLECTIBLE_CONFIGS>;
-
   // Game constants
   const GRAVITY = 0.8;
   const JUMP_POWER = -15;
-  const GROUND_Y = SCREEN_HEIGHT * 0.8;
+  const GROUND_Y = SCREEN_HEIGHT * (1 - GAME_CONFIG.GROUND_HEIGHT_RATIO);
   const OBSTACLE_SPEED = 4;
+
+  // Obstacle types array for random selection
+  const OBSTACLE_TYPES = Object.keys(OBSTACLE_CONFIGS) as Array<keyof typeof OBSTACLE_CONFIGS>;
+  const COLLECTIBLE_TYPES = Object.keys(COLLECTIBLE_CONFIGS) as Array<keyof typeof COLLECTIBLE_CONFIGS>;
 
   useEffect(() => {
     if (gameStarted && !gameOver) {
@@ -118,12 +112,6 @@ export default function SimpleGameScreen() {
         // Death conditions
         if (newPlayer.y <= 0 || newPlayer.y >= SCREEN_HEIGHT) {
           setGameOver(true);
-
-          // Play crash sound and stop music - temporarily disabled
-          // if (audio.isReady) {
-          //   audio.playSound('crash');
-          //   audio.stopMusic('background');
-          // }
           return newPlayer;
         }
 
@@ -156,12 +144,6 @@ export default function SimpleGameScreen() {
 
         if (collision) {
           setGameOver(true);
-
-          // Play crash sound and stop music - temporarily disabled
-          // if (audio.isReady) {
-          //   audio.playSound('crash');
-          //   audio.stopMusic('background');
-          // }
         }
 
         return newObstacles;
@@ -192,10 +174,6 @@ export default function SimpleGameScreen() {
 
           if (collected) {
             setCoins(prev => prev + collectible.value);
-            // Play coin collection sound - temporarily disabled
-            // if (audio.isReady) {
-            //   audio.playSound('coin');
-            // }
             return false; // Remove collected item
           }
           return true;
@@ -228,84 +206,27 @@ export default function SimpleGameScreen() {
     animationRef.current = requestAnimationFrame(gameLoop);
   };
 
-  const jump = () => {
-    if (!gameStarted) {
-      // Start game
-      setGameStarted(true);
-      setGameOver(false);
-      setScore(0);
-      setCoins(0);
-      setObstacles([]);
-      setCollectibles([]);
-
-      // Reset ID counters
-      obstacleIdRef.current = 0;
-      collectibleIdRef.current = 1000;
-
-      setPlayer({
-        x: 100,
-        y: SCREEN_HEIGHT * 0.5,
-        velocityY: 0,
-        size: 48,
-      });
-
-      // Start background music - temporarily disabled
-      // if (audio.isReady) {
-      //   audio.playMusic('background');
-      // }
-      return;
-    }
-
-    if (gameOver) {
-      // Restart game
-      setGameStarted(false);
-      setGameOver(false);
-
-      // Stop music on game over - temporarily disabled
-      // if (audio.isReady) {
-      //   audio.stopMusic('background');
-      // }
-      return;
-    }
-
-    // Jump with fart sound!
-    setPlayer(prev => ({
-      ...prev,
-      velocityY: JUMP_POWER,
-    }));
-
-    // Play random fart sound - temporarily disabled
-    // if (audio.isReady) {
-    //   audio.playRandomFart();
-    // }
-  };
-
   const spawnRandomObstacle = () => {
     const randomType = OBSTACLE_TYPES[Math.floor(Math.random() * OBSTACLE_TYPES.length)];
     const config = OBSTACLE_CONFIGS[randomType];
 
-    const newId = obstacleIdRef.current;
-    obstacleIdRef.current += 1;
-
     setObstacles(prev => [...prev, {
-      id: newId,
+      id: nextObstacleId,
       x: SCREEN_WIDTH,
       y: GROUND_Y - config.height,
       width: config.width,
       height: config.height,
       type: randomType,
     }]);
+    setNextObstacleId(prev => prev + 1);
   };
 
   const spawnRandomCollectible = () => {
     const randomType = COLLECTIBLE_TYPES[Math.floor(Math.random() * COLLECTIBLE_TYPES.length)];
     const config = COLLECTIBLE_CONFIGS[randomType];
 
-    const newId = collectibleIdRef.current;
-    collectibleIdRef.current += 1;
-
     setCollectibles(prev => [...prev, {
-      id: newId,
+      id: nextCollectibleId,
       x: SCREEN_WIDTH,
       y: Math.random() * (GROUND_Y - 150) + 100, // Random height in playable area
       width: config.width,
@@ -313,40 +234,83 @@ export default function SimpleGameScreen() {
       type: randomType,
       value: config.value,
     }]);
+    setNextCollectibleId(prev => prev + 1);
   };
 
-  // Sprite helper functions
+  const jump = () => {
+    if (!gameStarted) {
+      startNewGame();
+      return;
+    }
+
+    if (gameOver) {
+      restartGame();
+      return;
+    }
+
+    setPlayer(prev => ({
+      ...prev,
+      velocityY: JUMP_POWER,
+    }));
+  };
+
+  const startNewGame = () => {
+    setGameStarted(true);
+    setGameOver(false);
+    setScore(0);
+    setCoins(0);
+    setObstacles([]);
+    setCollectibles([]);
+    setPlayer({
+      x: 100,
+      y: SCREEN_HEIGHT * 0.5,
+      velocityY: 0,
+      size: 48,
+    });
+    gameStore.startGame(0);
+  };
+
+  const restartGame = () => {
+    // Update player stats before restart
+    playerStore.updateHighScore(score);
+    playerStore.addTotalCoins(coins);
+    playerStore.incrementGamesPlayed();
+    playerStore.checkAchievements(score, playerStore.totalCoins + coins);
+
+    startNewGame();
+  };
+
   const getObstacleSprite = (type: keyof typeof OBSTACLE_CONFIGS) => {
     switch (type) {
-      case 'chainsaw': return IMAGES.OBSTACLES.CHAINSAW;
-      case 'knife': return IMAGES.OBSTACLES.KNIFE;
-      case 'laser': return IMAGES.OBSTACLES.LASER;
-      case 'picklejars': return IMAGES.OBSTACLES.PICKLE_JARS;
-      case 'sun': return IMAGES.OBSTACLES.SUN;
-      case 'surfboard': return IMAGES.OBSTACLES.SURFBOARD;
-      case 'woodlog': return IMAGES.OBSTACLES.WOOD_LOG;
-      default: return IMAGES.OBSTACLES.KNIFE;
+      case 'chainsaw': return IMAGES.CHAINSAW;
+      case 'knife': return IMAGES.KNIFE;
+      case 'laser': return IMAGES.LASER;
+      case 'picklejars': return IMAGES.PICKLE_JARS;
+      case 'sun': return IMAGES.SUNBEAM;
+      case 'surfboard': return IMAGES.SURFBOARD;
+      case 'woodlog': return IMAGES.LOG_FULL;
+      default: return IMAGES.KNIFE;
     }
   };
 
   const getCollectibleSprite = (type: keyof typeof COLLECTIBLE_CONFIGS) => {
     switch (type) {
-      case 'coin': return IMAGES.COLLECTIBLES.COIN;
-      case 'beans': return IMAGES.COLLECTIBLES.BEANS;
-      case 'fart': return IMAGES.COLLECTIBLES.FART;
-      default: return IMAGES.COLLECTIBLES.COIN;
+      case 'coin': return IMAGES.COIN;
+      case 'beans': return IMAGES.BEANS;
+      case 'fart': return IMAGES.FART;
+      default: return IMAGES.COIN;
     }
   };
 
   return (
     <TouchableOpacity style={styles.container} onPress={jump} activeOpacity={1}>
       {/* Background */}
-      <Image source={IMAGES.BACKGROUNDS.BG00} style={styles.background} resizeMode="cover" />
+      <Image source={IMAGES.BG00} style={styles.background} resizeMode="cover" />
 
       {/* Ground */}
       <View style={[styles.ground, { top: GROUND_Y }]} />
       <Image
-        source={IMAGES.BACKGROUNDS.FG00}
+        source={IMAGES.FG00}
         style={[styles.foreground, { top: GROUND_Y }]}
         resizeMode="cover"
       />
@@ -364,7 +328,7 @@ export default function SimpleGameScreen() {
             },
           ]}
         >
-          <Image source={IMAGES.CHARACTERS.PICKLE} style={styles.playerSprite} resizeMode="contain" />
+          <Image source={IMAGES.PICKLE} style={styles.playerSprite} resizeMode="contain" />
         </View>
       )}
 
@@ -417,7 +381,7 @@ export default function SimpleGameScreen() {
         <View style={styles.startScreen}>
           <Text style={styles.title}>🥒 Farting Pickles 💨</Text>
           <Text style={styles.subtitle}>Tap to Start!</Text>
-          <Text style={styles.debug}>Debug: Obstacles: {obstacles.length}, Collectibles: {collectibles.length}</Text>
+          <Text style={styles.highScore}>High Score: {playerStore.highScore}</Text>
         </View>
       )}
 
@@ -432,26 +396,10 @@ export default function SimpleGameScreen() {
 
       {gameStarted && !gameOver && (
         <View style={styles.hud}>
-          <View style={styles.hudLeft}>
-            <Text style={styles.scoreText}>Score: {score}</Text>
-            <Text style={styles.coinText}>Coins: {coins}</Text>
-            <Text style={styles.debug}>O: {obstacles.length} C: {collectibles.length}</Text>
-          </View>
-          {/* Settings temporarily disabled */}
-          {/* <TouchableOpacity
-            style={styles.settingsButton}
-            onPress={() => setShowSettings(true)}
-          >
-            <Text style={styles.settingsButtonText}>⚙️</Text>
-          </TouchableOpacity> */}
+          <Text style={styles.scoreText}>Score: {score}</Text>
+          <Text style={styles.coinText}>Coins: {coins}</Text>
         </View>
       )}
-
-      {/* Settings Menu - temporarily disabled */}
-      {/* <SettingsMenu
-        visible={showSettings}
-        onClose={() => setShowSettings(false)}
-      /> */}
     </TouchableOpacity>
   );
 }
@@ -483,7 +431,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT * 0.2,
+    height: SCREEN_HEIGHT * GAME_CONFIG.GROUND_HEIGHT_RATIO,
   },
   player: {
     position: 'absolute',
@@ -541,30 +489,43 @@ const styles = StyleSheet.create({
     color: '#FFD700',
     textAlign: 'center',
     marginBottom: 20,
+    textShadowColor: '#000',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 4,
   },
   subtitle: {
     fontSize: 24,
     color: '#FFFFFF',
     textAlign: 'center',
+    marginBottom: 10,
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   score: {
     fontSize: 28,
     color: '#FFFFFF',
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 5,
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+  highScore: {
+    fontSize: 18,
+    color: '#FFD700',
+    textAlign: 'center',
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   hud: {
     position: 'absolute',
-    top: 40,
+    top: 50,
     left: 20,
     right: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  hudLeft: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
   },
   scoreText: {
     fontSize: 24,
@@ -575,29 +536,9 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
   coinText: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#FFD700',
-    textShadowColor: '#000000',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
-  },
-  settingsButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    padding: 10,
-    borderRadius: 20,
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  settingsButtonText: {
-    fontSize: 20,
-    textAlign: 'center',
-  },
-  debug: {
-    fontSize: 12,
-    color: '#FFFF00',
     textShadowColor: '#000000',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,

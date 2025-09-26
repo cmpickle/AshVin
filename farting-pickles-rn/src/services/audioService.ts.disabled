@@ -1,0 +1,301 @@
+// Audio Service - Manages all game sounds using expo-audio
+// Replaces the audio handling from the legacy Android MainActivity
+
+import { Audio } from 'expo-audio';
+import { useSettingsStore } from './gameStore';
+
+export type SoundEffect =
+  | 'fart0'
+  | 'fart1'
+  | 'fart2'
+  | 'fart3'
+  | 'coin'
+  | 'crash'
+  | 'belch';
+
+export type MusicTrack = 'background';
+
+interface LoadedSound {
+  sound: Audio.Sound;
+  uri: string;
+}
+
+class AudioService {
+  private sounds: Map<SoundEffect, LoadedSound> = new Map();
+  private music: Map<MusicTrack, LoadedSound> = new Map();
+  private initialized: boolean = false;
+
+  // Sound file mappings - temporarily using only WAV and MP3 files
+  private soundFiles: Record<SoundEffect, any> = {
+    fart0: require('../assets/sounds/fart0.wav'),
+    fart1: require('../assets/sounds/fart1.wav'),
+    fart2: require('../assets/sounds/fart2.wav'),
+    fart3: require('../assets/sounds/fart3.wav'),
+    coin: require('../assets/sounds/crash.wav'), // Using crash.wav as placeholder
+    crash: require('../assets/sounds/crash.wav'),
+    belch: require('../assets/sounds/belch.mp3'),
+  };
+
+  private musicFiles: Record<MusicTrack, any> = {
+    background: require('../assets/sounds/songfart.mp3'),
+  };
+
+  // Initialize audio system
+  async initialize(): Promise<void> {
+    if (this.initialized) return;
+
+    try {
+      // Configure audio mode for games
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+        staysActiveInBackground: false,
+        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+        playThroughEarpieceAndroid: false,
+      });
+
+      // Load sound effects
+      await this.loadSounds();
+      await this.loadMusic();
+
+      this.initialized = true;
+      console.log('Audio service initialized successfully');
+    } catch (error) {
+      console.error('Failed to initialize audio service:', error);
+    }
+  }
+
+  // Load all sound effects
+  private async loadSounds(): Promise<void> {
+    const loadPromises = Object.entries(this.soundFiles).map(async ([key, file]) => {
+      try {
+        const { sound } = await Audio.Sound.createAsync(file, {
+          shouldPlay: false,
+          volume: 1.0,
+        });
+
+        this.sounds.set(key as SoundEffect, { sound, uri: file });
+      } catch (error) {
+        console.error(`Failed to load sound ${key}:`, error);
+      }
+    });
+
+    await Promise.all(loadPromises);
+  }
+
+  // Load music tracks
+  private async loadMusic(): Promise<void> {
+    const loadPromises = Object.entries(this.musicFiles).map(async ([key, file]) => {
+      try {
+        const { sound } = await Audio.Sound.createAsync(file, {
+          shouldPlay: false,
+          isLooping: true,
+          volume: 0.3, // Background music should be quieter
+        });
+
+        this.music.set(key as MusicTrack, { sound, uri: file });
+      } catch (error) {
+        console.error(`Failed to load music ${key}:`, error);
+      }
+    });
+
+    await Promise.all(loadPromises);
+  }
+
+  // Play a sound effect
+  async playSound(effectName: SoundEffect): Promise<void> {
+    if (!this.initialized) {
+      await this.initialize();
+    }
+
+    const settings = useSettingsStore.getState();
+    if (!settings.soundEnabled) return;
+
+    const soundData = this.sounds.get(effectName);
+    if (!soundData) {
+      console.warn(`Sound ${effectName} not found`);
+      return;
+    }
+
+    try {
+      // Set volume based on settings
+      await soundData.sound.setVolumeAsync(settings.volume);
+
+      // Stop and replay from beginning
+      await soundData.sound.stopAsync();
+      await soundData.sound.setPositionAsync(0);
+      await soundData.sound.playAsync();
+    } catch (error) {
+      console.error(`Failed to play sound ${effectName}:`, error);
+    }
+  }
+
+  // Play random fart sound (for jumping)
+  async playRandomFart(): Promise<void> {
+    const fartSounds: SoundEffect[] = ['fart0', 'fart1', 'fart2', 'fart3'];
+    const randomFart = fartSounds[Math.floor(Math.random() * fartSounds.length)];
+    await this.playSound(randomFart);
+  }
+
+  // Play background music
+  async playMusic(trackName: MusicTrack): Promise<void> {
+    if (!this.initialized) {
+      await this.initialize();
+    }
+
+    const settings = useSettingsStore.getState();
+    if (!settings.musicEnabled) return;
+
+    const musicData = this.music.get(trackName);
+    if (!musicData) {
+      console.warn(`Music ${trackName} not found`);
+      return;
+    }
+
+    try {
+      // Set volume based on settings
+      await musicData.sound.setVolumeAsync(settings.volume * 0.5); // Music is quieter than SFX
+
+      // Play from beginning if not already playing
+      const status = await musicData.sound.getStatusAsync();
+      if (status.isLoaded && !status.isPlaying) {
+        await musicData.sound.setPositionAsync(0);
+        await musicData.sound.playAsync();
+      }
+    } catch (error) {
+      console.error(`Failed to play music ${trackName}:`, error);
+    }
+  }
+
+  // Stop background music
+  async stopMusic(trackName: MusicTrack): Promise<void> {
+    const musicData = this.music.get(trackName);
+    if (!musicData) return;
+
+    try {
+      await musicData.sound.stopAsync();
+    } catch (error) {
+      console.error(`Failed to stop music ${trackName}:`, error);
+    }
+  }
+
+  // Pause all audio
+  async pauseAll(): Promise<void> {
+    try {
+      // Pause all sound effects
+      for (const [, soundData] of this.sounds) {
+        const status = await soundData.sound.getStatusAsync();
+        if (status.isLoaded && status.isPlaying) {
+          await soundData.sound.pauseAsync();
+        }
+      }
+
+      // Pause all music
+      for (const [, musicData] of this.music) {
+        const status = await musicData.sound.getStatusAsync();
+        if (status.isLoaded && status.isPlaying) {
+          await musicData.sound.pauseAsync();
+        }
+      }
+    } catch (error) {
+      console.error('Failed to pause all audio:', error);
+    }
+  }
+
+  // Resume all audio
+  async resumeAll(): Promise<void> {
+    try {
+      // Resume music only (sound effects are one-shot)
+      for (const [, musicData] of this.music) {
+        const status = await musicData.sound.getStatusAsync();
+        if (status.isLoaded && !status.isPlaying) {
+          await musicData.sound.playAsync();
+        }
+      }
+    } catch (error) {
+      console.error('Failed to resume all audio:', error);
+    }
+  }
+
+  // Update volume for all sounds
+  async updateVolume(volume: number): Promise<void> {
+    const clampedVolume = Math.max(0, Math.min(1, volume));
+
+    try {
+      // Update sound effects volume
+      for (const [, soundData] of this.sounds) {
+        await soundData.sound.setVolumeAsync(clampedVolume);
+      }
+
+      // Update music volume (quieter than SFX)
+      for (const [, musicData] of this.music) {
+        await musicData.sound.setVolumeAsync(clampedVolume * 0.5);
+      }
+    } catch (error) {
+      console.error('Failed to update volume:', error);
+    }
+  }
+
+  // Cleanup all audio resources
+  async cleanup(): Promise<void> {
+    try {
+      // Unload all sound effects
+      for (const [, soundData] of this.sounds) {
+        await soundData.sound.unloadAsync();
+      }
+
+      // Unload all music
+      for (const [, musicData] of this.music) {
+        await musicData.sound.unloadAsync();
+      }
+
+      this.sounds.clear();
+      this.music.clear();
+      this.initialized = false;
+    } catch (error) {
+      console.error('Failed to cleanup audio:', error);
+    }
+  }
+
+  // Get initialization status
+  isInitialized(): boolean {
+    return this.initialized;
+  }
+}
+
+// Export singleton instance
+export const audioService = new AudioService();
+
+// Hook for React components
+export function useAudioService() {
+  const [isReady, setIsReady] = React.useState(audioService.isInitialized());
+
+  React.useEffect(() => {
+    if (!audioService.isInitialized()) {
+      audioService.initialize().then(() => {
+        setIsReady(true);
+      });
+    }
+
+    // Cleanup on unmount
+    return () => {
+      // Don't cleanup here as service is singleton
+    };
+  }, []);
+
+  return {
+    isReady,
+    playSound: audioService.playSound.bind(audioService),
+    playRandomFart: audioService.playRandomFart.bind(audioService),
+    playMusic: audioService.playMusic.bind(audioService),
+    stopMusic: audioService.stopMusic.bind(audioService),
+    pauseAll: audioService.pauseAll.bind(audioService),
+    resumeAll: audioService.resumeAll.bind(audioService),
+    updateVolume: audioService.updateVolume.bind(audioService),
+  };
+}
+
+// Add React import for the hook
+import React from 'react';

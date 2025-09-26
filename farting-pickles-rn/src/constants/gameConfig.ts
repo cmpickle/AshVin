@@ -6,6 +6,7 @@ export const GAME_CONFIG = {
   JUMP_POWER: -12,
   PLAYER_SPEED: 3,
   OBSTACLE_SPEED: -4,
+  PLAYER_START_X: 100,
 
   // Achievement thresholds (from AccomplishmentBox.java)
   BRONZE_POINTS: 10,
