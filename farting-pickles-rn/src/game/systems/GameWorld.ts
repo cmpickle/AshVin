@@ -4,9 +4,9 @@
 import { GameEngine, GameEngineCallbacks } from '../engine/GameEngine';
 import { EntityManager } from './EntityManager';
 import { Player } from '../entities/Player';
-import { useGameStore, usePlayerStore, useSettingsStore } from '@/services/gameStore';
-import { GAME_CONFIG } from '@/constants/gameConfig';
-import { GAME_MECHANICS } from '@/constants/gameData';
+import { useGameStore, usePlayerStore, useSettingsStore } from '../../services/gameStore';
+import { GAME_CONFIG } from '../../constants/gameConfig';
+import { GAME_MECHANICS } from '../../constants/gameData';
 
 export interface GameWorldCallbacks {
   onScoreUpdate?: (score: number) => void;

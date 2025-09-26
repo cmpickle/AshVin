@@ -2,8 +2,8 @@
 // Handles player movement, jumping physics, and collision responses
 
 import { BaseEntity, EntityOptions } from './BaseEntity';
-import { GAME_CONFIG } from '@/constants/gameConfig';
-import { PLAYER_CONFIG } from '@/constants/gameData';
+import { GAME_CONFIG } from '../../constants/gameConfig';
+import { PLAYER_CONFIG } from '../../constants/gameData';
 
 export interface PlayerOptions extends EntityOptions {
   accessory?: 'scumbag' | 'sir' | 'sunglasses';

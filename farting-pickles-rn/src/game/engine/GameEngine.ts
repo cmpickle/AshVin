@@ -2,7 +2,7 @@
 // Manages game loop, entity updates, and rendering coordination
 
 import { Dimensions } from 'react-native';
-import { GAME_CONFIG } from '@/constants/gameConfig';
+import { GAME_CONFIG } from '../../constants/gameConfig';
 
 export interface GameEngineCallbacks {
   onUpdate?: (deltaTime: number) => void;

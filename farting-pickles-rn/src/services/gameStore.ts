@@ -4,8 +4,8 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { GameState, GameSettings, PlayerStats, Achievement } from '@/types/game';
-import { ACHIEVEMENTS, DEFAULT_GAME_SETTINGS } from '@/constants/gameData';
+import { GameState, GameSettings, PlayerStats, Achievement } from '../types/game';
+import { ACHIEVEMENTS, DEFAULT_GAME_SETTINGS } from '../constants/gameData';
 
 interface GameStore extends GameState {
   // Game state actions

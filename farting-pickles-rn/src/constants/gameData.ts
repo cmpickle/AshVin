@@ -1,5 +1,5 @@
 // Game data configuration extracted from legacy Android version
-import { Achievement, GameLevel } from '@/types/game';
+import { Achievement, GameLevel } from '../types/game';
 import { IMAGES } from './assets';
 
 // Achievement definitions (from AccomplishmentBox.java)

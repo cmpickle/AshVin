@@ -5,8 +5,8 @@ import { BaseEntity } from '../entities/BaseEntity';
 import { Player } from '../entities/Player';
 import { Obstacle, ObstacleType } from '../entities/Obstacle';
 import { Collectible, CollectibleType } from '../entities/Collectible';
-import { GAME_MECHANICS } from '@/constants/gameData';
-import { GAME_CONFIG } from '@/constants/gameConfig';
+import { GAME_MECHANICS } from '../../constants/gameData';
+import { GAME_CONFIG } from '../../constants/gameConfig';
 
 export interface SpawnConfig {
   obstacleSpawnRate: number; // ms between spawns
